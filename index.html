@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Univercelu | Accesorios y Servicio Técnico de Celulares</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Catálogo interactivo y servicio técnico premium de celulares en Merlo. Accesorios, cargadores originales, audio JBL y AirPods al mejor precio.">
+  <meta name="keywords" content="univercelu, merlo, celulares, accesorios de celular, servicio tecnico merlo, cargador iphone, jbl merlo, airpods">
+  <meta name="author" content="Univercelu">
+  
+  <!-- Favicon (Emoji de Celular) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📱</text></svg>">
+  
+  <!-- Hojas de Estilo -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- FontAwesome Icons para iconografía premium -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Elementos de Fondo Galáctico / Espacial -->
+  <div class="space-bg"></div>
+  <div class="stars-decor"></div>
+
+  <!-- ==========================================================================
+       CABECERA (HEADER)
+       ========================================================================== -->
+  <header id="main-header">
+    <div class="header-container">
+      <a href="#" class="logo" id="logo-header">
+        <i class="fa-solid fa-user-astronaut"></i>
+        <span>Univercelu</span>
+      </a>
+      
+      <nav id="navbar-links">
+        <ul>
+          <li><a href="#" class="active" id="nav-home">Inicio</a></li>
+          <li><a href="#catalogo" id="nav-catalog">Productos</a></li>
+          <li><a href="#info" id="nav-info">Tienda</a></li>
+        </ul>
+      </nav>
+      
+      <div class="header-actions">
+        <button class="cart-icon-btn" id="open-cart-btn" aria-label="Abrir carrito">
+          <i class="fa-solid fa-basket-shopping"></i>
+          <span>Carrito</span>
+          <span class="cart-badge" id="cart-counter">0</span>
+        </button>
+        
+        <button class="mobile-menu-btn" id="menu-toggle-btn" aria-label="Abrir menú">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION
+       ========================================================================== -->
+  <section class="hero" id="inicio">
+    <div class="hero-container">
+      <div class="hero-info">
+        <span class="hero-tag">
+          <i class="fa-solid fa-sparkles"></i> Tecnología & Calidad
+        </span>
+        <h1 class="hero-title" id="main-hero-title">
+          Tu portal a la mejor
+          <span>Tecnología Celular</span>
+        </h1>
+        <p class="hero-desc">
+          Encuentra los accesorios más exclusivos de Apple y JBL con envío local en Merlo, respaldados por nuestro servicio técnico especializado en el día.
+        </p>
+        <div class="hero-buttons">
+          <a href="#catalogo" class="btn-premium btn-primary" id="hero-btn-buy">
+            Ver Catálogo <i class="fa-solid fa-arrow-trend-up"></i>
+          </a>
+          <a href="https://www.instagram.com/univercelu_merlo/" target="_blank" rel="noopener" class="btn-premium btn-outline" id="hero-btn-instagram">
+            Seguinos en Instagram <i class="fa-brands fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="hero-glow-back"></div>
+        <div class="hero-image-wrapper">
+          <img src="assets/hero.png" alt="Univercelu smartphones flotantes galácticos" id="hero-cover-image">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECCIÓN DEL CATÁLOGO DE PRODUCTOS
+       ========================================================================== -->
+  <section class="catalog-section" id="catalogo">
+    <div class="section-header">
+      <span class="section-subtitle">Lo último del espacio</span>
+      <h2 class="section-title" id="catalog-section-title">Catálogo Interactivo</h2>
+    </div>
+    
+    <!-- Filtros de Categoría -->
+    <div class="catalog-filters" id="category-filters-container">
+      <button class="filter-btn active" data-category="todos" id="filter-btn-all">Todos</button>
+      <button class="filter-btn" data-category="apple" id="filter-btn-apple">Apple</button>
+      <button class="filter-btn" data-category="auriculares" id="filter-btn-audio">Auriculares</button>
+      <button class="filter-btn" data-category="cargadores" id="filter-btn-cargadores">Cargadores</button>
+    </div>
+    
+    <!-- Grid de Productos (Renderizado Dinámicamente en JS) -->
+    <div class="products-grid" id="products-catalog-grid">
+      <!-- Los productos se inyectarán de forma dinámica aquí -->
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECCIÓN DE INFORMACIÓN DE TIENDA (Instagram Bio)
+       ========================================================================== -->
+  <section class="info-section" id="info">
+    <div class="info-grid">
+      
+      <div class="info-item glass-card" id="info-card-location">
+        <div class="info-icon">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <h3>📍 Ubicación</h3>
+        <p>Maipú 510, Merlo Centro</p>
+        <p>Provincia de Buenos Aires</p>
+      </div>
+
+      <div class="info-item glass-card" id="info-card-schedule">
+        <div class="info-icon">
+          <i class="fa-solid fa-clock"></i>
+        </div>
+        <h3>⏰ Horarios</h3>
+        <p>Lunes a Sábado</p>
+        <p>9:00 hs a 20:00 hs</p>
+      </div>
+
+      <div class="info-item glass-card" id="info-card-repairs">
+        <div class="info-icon">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <h3>⚡ Servicio Técnico</h3>
+        <p>Reparaciones en el día</p>
+        <p>Presupuestos 100% sin cargo</p>
+      </div>
+
+      <div class="info-item glass-card" id="info-card-community">
+        <div class="info-icon">
+          <i class="fa-brands fa-instagram"></i>
+        </div>
+        <h3>📱 Comunidad</h3>
+        <p>Accesorios & Tecnología</p>
+        <p>Más de 1200+ seguidores</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       MODAL DE CARRITO DE COMPRAS (SLIDE-OVER DESDE LA DERECHA)
+       ========================================================================== -->
+  <div class="cart-overlay" id="shopping-cart-overlay"></div>
+  <aside class="cart-modal" id="shopping-cart-modal">
+    <div class="cart-header">
+      <h2>Mi <span>Carrito</span></h2>
+      <button class="close-cart-btn" id="close-cart-btn" aria-label="Cerrar carrito">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    
+    <!-- Cuerpo del Carrito -->
+    <div class="cart-body" id="cart-items-body">
+      <!-- Los productos del carrito se renderizan aquí -->
+    </div>
+    
+    <!-- Footer del Carrito -->
+    <div class="cart-footer">
+      <div class="cart-summary-row">
+        <span>Artículos seleccionados:</span>
+        <span id="cart-summary-qty">0</span>
+      </div>
+      <div class="cart-summary-row total">
+        <span>Total:</span>
+        <span id="cart-summary-total">$0</span>
+      </div>
+      
+      <!-- Botón de Envío Directo a WhatsApp -->
+      <button class="wsp-checkout-btn" id="checkout-whatsapp-btn">
+        <i class="fa-brands fa-whatsapp"></i> Enviar Pedido a WhatsApp
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       MODAL DE DETALLE DE PRODUCTO (ESTILO MERCADO LIBRE)
+       ========================================================================== -->
+  <div class="product-detail-overlay" id="product-detail-overlay"></div>
+  <div class="product-detail-modal glass-card" id="product-detail-modal">
+    <button class="close-detail-btn" id="close-detail-btn" aria-label="Cerrar detalles">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="product-detail-content" id="product-detail-content">
+      <!-- Se inyecta dinámicamente con JS -->
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       BOTÓN FLOTANTE DE CONTACTO RÁPIDO A WHATSAPP
+       ========================================================================== -->
+  <a href="https://wa.me/5491123456789?text=Hola%20Univercelu!%20Me%20contacto%20desde%20la%20web%20para%20hacerte%20una%20consulta." target="_blank" rel="noopener" class="whatsapp-float" id="floating-whatsapp-btn" aria-label="Contacto directo por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer>
+    <div class="footer-container">
+      <a href="#" class="logo" id="logo-footer">
+        <i class="fa-solid fa-user-astronaut"></i>
+        <span>Univercelu</span>
+      </a>
+      
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/univercelu_merlo/" target="_blank" rel="noopener" class="social-btn ig" id="footer-social-instagram" aria-label="Síguenos en Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/5491123456789" target="_blank" rel="noopener" class="social-btn wsp" id="footer-social-whatsapp" aria-label="Chatea en WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
+      
+      <p class="footer-copy" id="footer-copyright-text">
+        &copy; 2026 Univercelu. Todos los derechos reservados. | Maipú 510, Merlo Centro.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Archivo Script de Lógica -->
+  <script src="app.js"></script>
+</body>
+</html>
