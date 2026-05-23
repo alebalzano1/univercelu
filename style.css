@@ -1031,7 +1031,7 @@ footer {
    ========================================================================== */
 
 /* Tablet (1024px) */
-@screen and (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .hero-container {
     grid-template-columns: 1fr;
     gap: 40px;
