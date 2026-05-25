@@ -736,8 +736,6 @@ function setupEventListeners() {
   const heroImageWrapper = document.querySelector('.hero-image-wrapper');
   if (heroImageWrapper) {
     const hintText = heroImageWrapper.querySelector('.hint-text');
-    const assembledImg = heroImageWrapper.querySelector('.hero-img-assembled');
-    const explodedImg = heroImageWrapper.querySelector('.hero-img-exploded');
     
     // Detectar soporte de pantalla táctil
     const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
@@ -764,31 +762,11 @@ function setupEventListeners() {
         
         // Aplicar transformación 3D al contenedor (inclinación en los ejes X e Y + escala)
         heroImageWrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
-        
-        // Desplazamiento parallax leve para simular profundidad física entre las capas en los ejes X/Y
-        const parallaxX = ((x - centerX) / centerX) * 12;
-        const parallaxY = ((y - centerY) / centerY) * 12;
-        
-        if (assembledImg) {
-          // El ensamblado se mueve sutilmente en 3D
-          assembledImg.style.transform = `translate3d(${parallaxX}px, ${parallaxY}px, 20px) scale(1.02)`;
-        }
-        if (explodedImg) {
-          // El desarmado tiene mayor desplazamiento para enfatizar la explosión e interactividad
-          explodedImg.style.transform = `translate3d(${parallaxX * 1.6}px, ${parallaxY * 1.6}px, 45px) scale(1)`;
-        }
       });
       
-      // Restablecer la inclinación 3D del contenedor e imágenes al retirar el mouse
+      // Restablecer la inclinación 3D del contenedor al retirar el mouse
       heroImageWrapper.addEventListener('mouseleave', () => {
         heroImageWrapper.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        
-        if (assembledImg) {
-          assembledImg.style.transform = `translate3d(0, 0, 20px) scale(1)`;
-        }
-        if (explodedImg) {
-          explodedImg.style.transform = `translate3d(0, 0, 10px) scale(0.95)`;
-        }
       });
     }
 

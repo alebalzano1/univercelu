@@ -111,8 +111,24 @@
       <div class="hero-visual">
         <div class="hero-glow-back"></div>
         <div class="hero-image-wrapper repair-hover-effect">
-          <img src="assets/hero-assembled.png" alt="Univercelu smartphones flotantes" class="hero-img-assembled" id="hero-cover-image">
-          <img src="assets/hero-exploded.jpg" alt="Univercelu servicio técnico de celulares" class="hero-img-exploded">
+          <!-- Capa 1: Chasis / Fondo Desarmado (Atrás) -->
+          <div class="phone-3d-layer layer-back-chasis">
+            <img src="assets/hero-exploded.jpg" alt="Chasis Desarmado - Servicio Técnico">
+            <span class="layer-label">Chasis & Cámaras</span>
+          </div>
+          
+          <!-- Capa 2: Placa / Batería (Medio) -->
+          <div class="phone-3d-layer layer-middle-board">
+            <img src="assets/hero-exploded.jpg" alt="Componentes Internos - Placa Madre">
+            <span class="layer-label">Placa & Batería</span>
+          </div>
+
+          <!-- Capa 3: Pantalla / Teléfono Armado (Frente) -->
+          <div class="phone-3d-layer layer-front-screen">
+            <img src="assets/hero-assembled.png" alt="Celulares Univercelu" id="hero-cover-image">
+            <span class="layer-label">Módulo Pantalla</span>
+          </div>
+
           <div class="hover-hint"><i class="fa-solid fa-screwdriver-wrench"></i> <span class="hint-text">Hover para desarmar</span></div>
         </div>
       </div>
