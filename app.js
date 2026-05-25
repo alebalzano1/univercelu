@@ -731,4 +731,23 @@ function setupEventListeners() {
       header.style.padding = '15px 25px';
     }
   });
+
+  // Efecto táctil premium en el celular (desarmado en mobile/touch)
+  const heroImageWrapper = document.querySelector('.hero-image-wrapper');
+  if (heroImageWrapper) {
+    const hintText = heroImageWrapper.querySelector('.hint-text');
+    
+    // Detectar soporte de pantalla táctil
+    const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    if (isTouch && hintText) {
+      hintText.textContent = "Toca para desarmar";
+    }
+
+    heroImageWrapper.addEventListener('click', () => {
+      const isActive = heroImageWrapper.classList.toggle('active-tap');
+      if (isTouch && hintText) {
+        hintText.textContent = isActive ? "Toca para armar" : "Toca para desarmar";
+      }
+    });
+  }
 }

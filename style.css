@@ -383,21 +383,24 @@ nav a:hover::after, nav a.active::after {
   transform: scale(0.95);
 }
 
-/* Hover: El ensamblado se desvanece y se expande */
-.hero-image-wrapper.repair-hover-effect:hover .hero-img-assembled {
+/* Hover / Active-tap: El ensamblado se desvanece y se expande */
+.hero-image-wrapper.repair-hover-effect:hover .hero-img-assembled,
+.hero-image-wrapper.repair-hover-effect.active-tap .hero-img-assembled {
   opacity: 0;
   transform: scale(1.08) rotate(1deg);
 }
 
-/* Hover: El explotado aparece y se escala a su tamaño normal */
-.hero-image-wrapper.repair-hover-effect:hover .hero-img-exploded {
+/* Hover / Active-tap: El explotado aparece y se escala a su tamaño normal */
+.hero-image-wrapper.repair-hover-effect:hover .hero-img-exploded,
+.hero-image-wrapper.repair-hover-effect.active-tap .hero-img-exploded {
   opacity: 1;
   z-index: 3;
   transform: scale(1);
 }
 
-/* Hover en el contenedor para intensificar el brillo galáctico */
-.hero-image-wrapper.repair-hover-effect:hover {
+/* Hover / Active-tap en el contenedor para intensificar el brillo galáctico */
+.hero-image-wrapper.repair-hover-effect:hover,
+.hero-image-wrapper.repair-hover-effect.active-tap {
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.6), rgba(124, 58, 237, 0.6));
   box-shadow: 0 0 35px rgba(168, 85, 247, 0.5);
   transform: translateY(-8px);
@@ -428,12 +431,13 @@ nav a:hover::after, nav a.active::after {
   transition: var(--transition-smooth);
 }
 
-.hero-image-wrapper.repair-hover-effect:hover .hover-hint {
+.hero-image-wrapper.repair-hover-effect:hover .hover-hint,
+.hero-image-wrapper.repair-hover-effect.active-tap .hover-hint {
   background: linear-gradient(135deg, var(--secondary-glow), var(--primary-glow));
   color: #06040c;
   box-shadow: var(--shadow-neon-cyan);
   transform: translateX(-50%) translateY(5px);
-  opacity: 0; /* Ocultar el badge al hacer hover ya que la transición es autoexplicativa */
+  opacity: 0; /* Ocultar el badge al hacer hover o tap ya que la transición es autoexplicativa */
   pointer-events: none;
 }
 
