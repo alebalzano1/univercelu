@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Productos: lectura pública, escritura solo admin autenticado
+    match /products/{docId} {
+      allow read: if true;
+      allow write, delete: if request.auth != null;
+    }
+
+    // Settings (Ajustes): lectura pública, escritura solo admin autenticado
+    match /settings/{docId} {
+      allow read: if true;
+      allow write, delete: if request.auth != null;
+    }
+
+    // Todo lo demás: denegado
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

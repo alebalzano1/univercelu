@@ -1,71 +1,9 @@
 /* ==========================================================================
-   Base de Datos de Productos (Extraídos del Instagram @univercelu_merlo)
+   Base de Datos de Productos (Sincronizada con Firebase)
    ========================================================================== */
-const PRODUCTOS = [
-  {
-    id: "apple-charger-20w",
-    name: "Cargador Rápido 20W Apple",
-    category: "cargadores",
-    price: 28000,
-    originalPrice: 35000,
-    image: "assets/cargador.png",
-    description: "Adaptador de corriente USB-C de 20W original Apple. Carga súper rápida y segura para tu iPhone.",
-    badge: "10% OFF"
-  },
-  {
-    id: "airpods-pro-anc",
-    name: "AirPods Pro (100% ANC)",
-    category: "apple",
-    price: 95000,
-    originalPrice: 120000,
-    image: "assets/airpods.png",
-    description: "Cancelación activa de ruido premium con modo de transparencia ambiental y un sonido galáctico e inmersivo.",
-    badge: "Destacado"
-  },
-  {
-    id: "jbl-tune-500bt",
-    name: "JBL Tune 500BT Wireless",
-    category: "auriculares",
-    price: 58000,
-    originalPrice: 65000,
-    image: "assets/jbl.png",
-    description: "Sonido JBL Pure Bass emblemático, conectividad inalámbrica bluetooth y hasta 27 horas de autonomía.",
-    badge: "Más Vendido"
-  },
-  {
-    id: "apple-cable-lightning",
-    name: "Cable Apple USB-C a Lightning",
-    category: "cargadores",
-    price: 18000,
-    originalPrice: 22000,
-    image: "assets/cargador.png",
-    description: "Cable de carga y sincronización rápida original de 1 metro. Conector tipo C a Lightning reforzado.",
-    badge: null
-  },
-  {
-    id: "jbl-tune-760nc",
-    name: "JBL Tune 760NC (Cancelación Ruido)",
-    category: "auriculares",
-    price: 85000,
-    originalPrice: 98000,
-    image: "assets/jbl.png",
-    description: "Cancelación activa de ruido avanzada de JBL, graves brutales y 35 horas de batería con carga ultrarrápida.",
-    badge: "Premium"
-  },
-  {
-    id: "earpods-lightning",
-    name: "EarPods Apple Conector Lightning",
-    category: "apple",
-    price: 22000,
-    originalPrice: 26000,
-    image: "assets/airpods.png",
-    description: "Auriculares con cable originales con conector Lightning. Ajuste ergonómico premium y control de audio integrado.",
-    badge: null
-  }
-];
-
-// Configuración general
-const WHATSAPP_NUMBER = "5491123456789"; // Número de WhatsApp de pruebas de Univercelu (editable)
+let PRODUCTOS = [];
+let CONFIG = {};
+let WHATSAPP_NUMBER = "5491136719257"; // Fallback de WhatsApp
 
 /* ==========================================================================
    Variables de Estado y Elementos del DOM
@@ -100,11 +38,99 @@ const navbarLinks = document.getElementById('navbar-links');
 /* ==========================================================================
    Inicialización y Renderizado
    ========================================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-  renderCatalog('todos');
+document.addEventListener('DOMContentLoaded', async () => {
+  // Renderizar Skeletons de forma inmediata en la grilla para feedback visual premium
+  renderSkeletons();
   updateCartUI();
   setupEventListeners();
+
+  try {
+    // Consultar datos asíncronamente desde Firebase (con fallback a local Sandbox)
+    const [fetchedProducts, fetchedConfig] = await Promise.all([
+      FirebaseService.getProducts(),
+      FirebaseService.getConfig()
+    ]);
+
+    // Si la DB tiene productos, los usamos; si no, recurrimos al seed por defecto
+    PRODUCTOS = fetchedProducts && fetchedProducts.length > 0 ? fetchedProducts : window.initialProducts;
+    CONFIG = fetchedConfig || window.initialConfig;
+
+    // Sincronizar variables clave
+    WHATSAPP_NUMBER = CONFIG.whatsapp || "5491123456789";
+
+    // Aplicar configuración a todo el DOM de la web
+    applyStoreConfiguration();
+  } catch (error) {
+    console.error("❌ [Firebase Init Error]:", error);
+    PRODUCTOS = window.initialProducts;
+    CONFIG = window.initialConfig;
+    WHATSAPP_NUMBER = "5491123456789";
+  }
+
+  // Renderizar catálogo real una vez cargados los productos
+  renderCatalog('todos');
 });
+
+// Renderizar Skeletons de carga premium con animación galáctica
+function renderSkeletons() {
+  productsGrid.innerHTML = '';
+  for (let i = 0; i < 6; i++) {
+    const card = document.createElement('div');
+    card.className = 'product-card skeleton-card glass-card';
+    card.innerHTML = `
+      <div class="skeleton-img"></div>
+      <div class="skeleton-details">
+        <div class="skeleton-line category"></div>
+        <div class="skeleton-line name"></div>
+        <div class="skeleton-line desc"></div>
+        <div class="skeleton-line price"></div>
+      </div>
+    `;
+    productsGrid.appendChild(card);
+  }
+}
+
+// Aplicar configuración general dinámica al DOM de la web
+function applyStoreConfiguration() {
+  if (!CONFIG) return;
+
+  // Actualizar título de la web y logos
+  if (CONFIG.storeName) {
+    document.title = `${CONFIG.storeName} | ${CONFIG.tagline || 'Accesorios y Servicio Técnico de Celulares'}`;
+    
+    const logoHeader = document.querySelector('#logo-header span');
+    if (logoHeader) logoHeader.textContent = CONFIG.storeName;
+    
+    const logoFooter = document.querySelector('#logo-footer span');
+    if (logoFooter) logoFooter.textContent = CONFIG.storeName;
+  }
+
+  // Actualizar tarjeta de ubicación
+  const locCard = document.getElementById('info-card-location');
+  if (locCard && CONFIG.deliveryZone) {
+    const pTags = locCard.querySelectorAll('p');
+    if (pTags.length >= 2) {
+      pTags[0].textContent = CONFIG.deliveryZone;
+    }
+  }
+
+  // Actualizar enlaces dinámicos de WhatsApp
+  const floatingWsp = document.getElementById('floating-whatsapp-btn');
+  if (floatingWsp && CONFIG.whatsapp) {
+    floatingWsp.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(CONFIG.welcomeMessage || 'Hola! Me contacto desde la web.')}`;
+  }
+
+  const footerWsp = document.getElementById('footer-social-whatsapp');
+  if (footerWsp && CONFIG.whatsapp) {
+    footerWsp.href = `https://wa.me/${CONFIG.whatsapp}`;
+  }
+
+  // Actualizar pie de página (copyright)
+  const copyEl = document.getElementById('footer-copyright-text');
+  if (copyEl && CONFIG.storeName) {
+    copyEl.innerHTML = `&copy; 2026 ${CONFIG.storeName}. Todos los derechos reservados. | ${CONFIG.deliveryZone || 'Maipú 510, Merlo Centro'}.`;
+  }
+}
 
 // Renderizar catálogo filtrado
 function renderCatalog(categoryFilter) {
@@ -142,7 +168,7 @@ function renderCatalog(categoryFilter) {
         <div class="product-footer">
           <div class="product-price">
             ${originalPriceHTML}
-            $${prod.price.toLocaleString('es-AR')}
+            ${(!prod.price || prod.price === 0) ? 'Consultar' : `$${prod.price.toLocaleString('es-AR')}`}
           </div>
           <button class="add-to-cart-btn" data-id="${prod.id}" title="Añadir al carrito">
             <i class="fa-solid fa-plus"></i>
@@ -177,7 +203,7 @@ function renderCatalog(categoryFilter) {
   });
 }
 
-// Estilos de animación keyframe temporales añadidos programáticamente
+// Estilos de animación keyframe temporales y Skeletons de carga añadidos programáticamente
 const styleSheet = document.createElement("style");
 styleSheet.innerText = `
   @keyframes fadeSlideIn {
@@ -189,6 +215,39 @@ styleSheet.innerText = `
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  /* Skeletons de Carga Premium - Estilo Galáctico */
+  .skeleton-card {
+    pointer-events: none !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-color: rgba(255, 255, 255, 0.04) !important;
+    box-shadow: none !important;
+  }
+  .skeleton-img {
+    height: 160px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.02) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.6s infinite;
+    border-radius: 12px;
+    margin: 15px;
+  }
+  .skeleton-line {
+    height: 12px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.02) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.6s infinite;
+    margin-bottom: 12px;
+    border-radius: 4px;
+  }
+  .skeleton-line.category { width: 40%; height: 8px; }
+  .skeleton-line.name { width: 80%; height: 16px; margin-bottom: 15px; }
+  .skeleton-line.desc { width: 95%; height: 8px; }
+  .skeleton-line.price { width: 35%; height: 14px; margin-top: 20px; }
+
+  @keyframes skeleton-pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 `;
 document.head.appendChild(styleSheet);
@@ -277,7 +336,7 @@ function updateCartUI() {
         </div>
         <div class="cart-item-details">
           <h4 class="cart-item-name">${item.name}</h4>
-          <span class="cart-item-price">$${(item.price * item.cantidad).toLocaleString('es-AR')}</span>
+          <span class="cart-item-price">${(!item.price || item.price === 0) ? 'Consultar' : `$${(item.price * item.cantidad).toLocaleString('es-AR')}`}</span>
           <div class="cart-item-qty">
             <button class="qty-btn dec-btn" data-id="${item.id}">-</button>
             <span class="qty-val">${item.cantidad}</span>
@@ -309,7 +368,7 @@ function updateCartUI() {
   // Actualizar totales y contadores
   cartCounter.textContent = totalArticulos;
   cartSummaryQty.textContent = totalArticulos;
-  cartSummaryTotal.textContent = `$${totalPrecio.toLocaleString('es-AR')}`;
+  cartSummaryTotal.textContent = totalPrecio === 0 ? 'Consultar' : `$${totalPrecio.toLocaleString('es-AR')}`;
 }
 
 /* ==========================================================================
@@ -375,23 +434,35 @@ function openProductDetail(productId) {
 
   // Características claves basadas en la categoría del producto
   let specsHTML = '';
-  if (prod.category === 'apple') {
+  if (prod.category === 'fundas') {
     specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Compatibilidad y rendimiento garantizados por Apple</li>
-      <li><i class="fa-solid fa-circle-check"></i> Conector y materiales de calidad certificada</li>
-      <li><i class="fa-solid fa-circle-check"></i> Chip inteligente de control de tensión y temperatura</li>
+      <li><i class="fa-solid fa-circle-check"></i> Protección extrema contra caídas e impactos</li>
+      <li><i class="fa-solid fa-circle-check"></i> Material de alta calidad con microfibra suave interna</li>
+      <li><i class="fa-solid fa-circle-check"></i> Ajuste perfecto y acceso a todos los puertos</li>
     `;
-  } else if (prod.category === 'auriculares') {
+  } else if (prod.category === 'cables') {
     specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Sonido envolvente inmersivo de alta definición</li>
-      <li><i class="fa-solid fa-circle-check"></i> Cancelación de ruido pasiva y almohadillas ergonómicas</li>
-      <li><i class="fa-solid fa-circle-check"></i> Conectividad ultra-rápida y gran autonomía de batería</li>
+      <li><i class="fa-solid fa-circle-check"></i> Carga rápida estable y transferencia de datos a alta velocidad</li>
+      <li><i class="fa-solid fa-circle-check"></i> Conectores reforzados anti-quiebres de gran durabilidad</li>
+      <li><i class="fa-solid fa-circle-check"></i> Compatibilidad garantizada con cargadores de alta potencia</li>
     `;
   } else if (prod.category === 'cargadores') {
     specsHTML = `
       <li><i class="fa-solid fa-circle-check"></i> Carga rápida inteligente adaptada a tu dispositivo</li>
       <li><i class="fa-solid fa-circle-check"></i> Protección integrada contra cortocircuitos y sobrecargas</li>
       <li><i class="fa-solid fa-circle-check"></i> Diseño compacto y materiales ignífugos de alta durabilidad</li>
+    `;
+  } else if (prod.category === 'audio') {
+    specsHTML = `
+      <li><i class="fa-solid fa-circle-check"></i> Sonido envolvente inmersivo de alta definición</li>
+      <li><i class="fa-solid fa-circle-check"></i> Conectividad ultra-rápida y gran autonomía de batería</li>
+      <li><i class="fa-solid fa-circle-check"></i> Materiales premium resistentes al uso diario y salpicaduras</li>
+    `;
+  } else if (prod.category === 'vidrios') {
+    specsHTML = `
+      <li><i class="fa-solid fa-circle-check"></i> Máxima dureza 9H para una protección de pantalla extrema</li>
+      <li><i class="fa-solid fa-circle-check"></i> Bordes curvos 9D para cobertura total de la pantalla</li>
+      <li><i class="fa-solid fa-circle-check"></i> Transparencia HD cristalina con sensibilidad táctil al 100%</li>
     `;
   } else {
     specsHTML = `
@@ -443,7 +514,7 @@ function openProductDetail(productId) {
         <div class="detail-price-section">
           ${originalPriceHTML}
           <div class="detail-price-row">
-            <span class="detail-current-price">$${prod.price.toLocaleString('es-AR')}</span>
+            <span class="detail-current-price">${(!prod.price || prod.price === 0) ? 'Consultar' : `$${prod.price.toLocaleString('es-AR')}`}</span>
             ${discountPercentHTML}
           </div>
         </div>
@@ -616,21 +687,31 @@ function setupEventListeners() {
     if (carrito.length === 0) return;
 
     let totalPrecio = 0;
-    let mensaje = `🌌 *¡Hola Univercelu!* Vengo desde su sitio web y quiero realizar el siguiente pedido:\n\n`;
-    mensaje += `🛒 *DETALLE DE MI COMPRA:*\n`;
-    mensaje += `----------------------------------------\n`;
+    let tienePrecios = false;
+    let listaProductos = '';
 
     carrito.forEach(item => {
-      const subtotal = item.price * item.cantidad;
-      totalPrecio += subtotal;
-      mensaje += `• *${item.cantidad}x* ${item.name}\n  (_$${item.price.toLocaleString('es-AR')} c/u_) → *Subtotal:* $${subtotal.toLocaleString('es-AR')}\n\n`;
+      const isConsultar = (!item.price || item.price === 0);
+      let subtotalStr = '';
+      if (isConsultar) {
+        subtotalStr = 'Consultar';
+      } else {
+        const subtotal = item.price * item.cantidad;
+        totalPrecio += subtotal;
+        tienePrecios = true;
+        subtotalStr = `$${subtotal.toLocaleString('es-AR')}`;
+      }
+      
+      const priceEachStr = isConsultar ? 'Consultar' : `$${item.price.toLocaleString('es-AR')}`;
+      listaProductos += `- ${item.cantidad}x ${item.name} (${priceEachStr})\n`;
     });
 
-    mensaje += `----------------------------------------\n`;
-    mensaje += `📦 *Cantidad de artículos:* ${carrito.reduce((acc, cur) => acc + cur.cantidad, 0)}\n`;
-    mensaje += `💰 *TOTAL A PAGAR:* $${totalPrecio.toLocaleString('es-AR')}\n\n`;
-    mensaje += `📍 _Retiro por sucursal Merlo Centro (Maipú 510)._\n`;
-    mensaje += `💬 _¡Muchas gracias! Quedo a la espera de sus datos de pago._`;
+    const totalStr = tienePrecios ? `$${totalPrecio.toLocaleString('es-AR')}` : 'Consultar';
+
+    let mensaje = `Hola Univercelu! Te hago el siguiente pedido desde la web:\n`;
+    mensaje += `${listaProductos}`;
+    mensaje += `Total: ${totalStr}\n`;
+    mensaje += `Quedo a la espera, gracias!`;
 
     const encodedMessage = encodeURIComponent(mensaje);
     const wspURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
