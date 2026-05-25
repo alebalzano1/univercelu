@@ -341,6 +341,7 @@ nav a:hover::after, nav a.active::after {
   display: flex;
   justify-content: center;
   align-items: center;
+  perspective: 1200px; /* Espacio 3D */
 }
 
 .hero-image-wrapper.repair-hover-effect {
@@ -352,9 +353,10 @@ nav a:hover::after, nav a.active::after {
   padding: 8px;
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(124, 58, 237, 0.3));
   box-shadow: var(--shadow-glass);
-  transition: var(--transition-smooth);
+  transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
   overflow: hidden;
   cursor: pointer;
+  transform-style: preserve-3d; /* Permitir profundidad 3D en hijos */
 }
 
 .hero-image-wrapper.repair-hover-effect img {
@@ -365,29 +367,37 @@ nav a:hover::after, nav a.active::after {
   height: calc(100% - 16px);
   border-radius: 22px;
   object-fit: cover;
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
+  pointer-events: none; /* Evitar interferencias con el movimiento del mouse */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Retorno suave */
+}
+
+/* Transición rápida durante el seguimiento del mouse (se activa por JS añadiendo clase de transición o directamente en hover) */
+.hero-image-wrapper.repair-hover-effect:hover img,
+.hero-image-wrapper.repair-hover-effect.active-tap img {
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.08s ease-out; /* Respuesta inmediata al cursor */
 }
 
 /* Imagen Ensamblada (Por defecto visible) */
 .hero-image-wrapper.repair-hover-effect .hero-img-assembled {
   opacity: 1;
   z-index: 2;
-  transform: scale(1);
+  transform: translate3d(0, 0, 20px) scale(1);
 }
 
 /* Imagen Explotada/Desarmada (Oculta por defecto) */
 .hero-image-wrapper.repair-hover-effect .hero-img-exploded {
   opacity: 0;
   z-index: 1;
-  transform: scale(0.95);
+  transform: translate3d(0, 0, 10px) scale(0.95);
 }
 
 /* Hover / Active-tap: El ensamblado se desvanece y se expande */
 .hero-image-wrapper.repair-hover-effect:hover .hero-img-assembled,
 .hero-image-wrapper.repair-hover-effect.active-tap .hero-img-assembled {
   opacity: 0;
-  transform: scale(1.08) rotate(1deg);
 }
 
 /* Hover / Active-tap: El explotado aparece y se escala a su tamaño normal */
@@ -395,7 +405,6 @@ nav a:hover::after, nav a.active::after {
 .hero-image-wrapper.repair-hover-effect.active-tap .hero-img-exploded {
   opacity: 1;
   z-index: 3;
-  transform: scale(1);
 }
 
 /* Hover / Active-tap en el contenedor para intensificar el brillo galáctico */
@@ -403,7 +412,6 @@ nav a:hover::after, nav a.active::after {
 .hero-image-wrapper.repair-hover-effect.active-tap {
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.6), rgba(124, 58, 237, 0.6));
   box-shadow: 0 0 35px rgba(168, 85, 247, 0.5);
-  transform: translateY(-8px);
 }
 
 /* Indicador flotante premium */
@@ -411,7 +419,7 @@ nav a:hover::after, nav a.active::after {
   position: absolute;
   bottom: 20px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translate3d(0, 0, 50px); /* Flota por delante */
   background: rgba(10, 6, 22, 0.8);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -429,6 +437,7 @@ nav a:hover::after, nav a.active::after {
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
   pointer-events: none;
   transition: var(--transition-smooth);
+  transform-style: preserve-3d;
 }
 
 .hero-image-wrapper.repair-hover-effect:hover .hover-hint,
@@ -436,7 +445,7 @@ nav a:hover::after, nav a.active::after {
   background: linear-gradient(135deg, var(--secondary-glow), var(--primary-glow));
   color: #06040c;
   box-shadow: var(--shadow-neon-cyan);
-  transform: translateX(-50%) translateY(5px);
+  transform: translateX(-50%) translate3d(0, 5px, 60px);
   opacity: 0; /* Ocultar el badge al hacer hover o tap ya que la transición es autoexplicativa */
   pointer-events: none;
 }

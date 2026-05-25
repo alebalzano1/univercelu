@@ -732,10 +732,12 @@ function setupEventListeners() {
     }
   });
 
-  // Efecto táctil premium en el celular (desarmado en mobile/touch)
+  // Efecto 3D Parallax Tilt e Interactivo en el Hero (Servicio Técnico de Celulares)
   const heroImageWrapper = document.querySelector('.hero-image-wrapper');
   if (heroImageWrapper) {
     const hintText = heroImageWrapper.querySelector('.hint-text');
+    const assembledImg = heroImageWrapper.querySelector('.hero-img-assembled');
+    const explodedImg = heroImageWrapper.querySelector('.hero-img-exploded');
     
     // Detectar soporte de pantalla táctil
     const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
@@ -743,6 +745,54 @@ function setupEventListeners() {
       hintText.textContent = "Toca para desarmar";
     }
 
+    // 1. Efecto 3D Tilt al mover el mouse (solo para computadoras de escritorio)
+    if (!isTouch) {
+      heroImageWrapper.addEventListener('mousemove', (e) => {
+        const rect = heroImageWrapper.getBoundingClientRect();
+        
+        // Coordenadas locales del mouse dentro de la tarjeta
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Puntos medios de la tarjeta
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // Calcular la inclinación en grados (máximo 15 grados)
+        const rotateX = ((centerY - y) / centerY) * 15;
+        const rotateY = ((x - centerX) / centerX) * 15;
+        
+        // Aplicar transformación 3D al contenedor (inclinación en los ejes X e Y + escala)
+        heroImageWrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
+        
+        // Desplazamiento parallax leve para simular profundidad física entre las capas en los ejes X/Y
+        const parallaxX = ((x - centerX) / centerX) * 12;
+        const parallaxY = ((y - centerY) / centerY) * 12;
+        
+        if (assembledImg) {
+          // El ensamblado se mueve sutilmente en 3D
+          assembledImg.style.transform = `translate3d(${parallaxX}px, ${parallaxY}px, 20px) scale(1.02)`;
+        }
+        if (explodedImg) {
+          // El desarmado tiene mayor desplazamiento para enfatizar la explosión e interactividad
+          explodedImg.style.transform = `translate3d(${parallaxX * 1.6}px, ${parallaxY * 1.6}px, 45px) scale(1)`;
+        }
+      });
+      
+      // Restablecer la inclinación 3D del contenedor e imágenes al retirar el mouse
+      heroImageWrapper.addEventListener('mouseleave', () => {
+        heroImageWrapper.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        
+        if (assembledImg) {
+          assembledImg.style.transform = `translate3d(0, 0, 20px) scale(1)`;
+        }
+        if (explodedImg) {
+          explodedImg.style.transform = `translate3d(0, 0, 10px) scale(0.95)`;
+        }
+      });
+    }
+
+    // 2. Control de Taps / Clics (Soporte móvil táctil e interactivo)
     heroImageWrapper.addEventListener('click', () => {
       const isActive = heroImageWrapper.classList.toggle('active-tap');
       if (isTouch && hintText) {
