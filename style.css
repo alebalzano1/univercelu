@@ -385,28 +385,96 @@ nav a:hover::after, nav a.active::after {
   z-index: 1;
 }
 
-/* Hover / Active-tap: Transición limpia de desvanecimiento alineado (los fondos coinciden) */
-.hero-image-wrapper.repair-hover-effect:hover .hero-img-assembled,
+/* ==========================================================================
+   1. SOPORTE DE HOVER (Solo para dispositivos con mouse / escritorio)
+   ========================================================================== */
+@media (hover: hover) {
+  .hero-image-wrapper.repair-hover-effect:hover .hero-img-assembled {
+    opacity: 0;
+  }
+
+  .hero-image-wrapper.repair-hover-effect:hover .hero-img-exploded {
+    opacity: 1;
+    z-index: 3;
+  }
+
+  .hero-image-wrapper.repair-hover-effect:hover {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.6), rgba(124, 58, 237, 0.6));
+    box-shadow: 0 15px 45px rgba(168, 85, 247, 0.45);
+  }
+
+  .hero-image-wrapper.repair-hover-effect:hover .label-screen {
+    opacity: 1;
+    transform: translate3d(140px, -15px, 80px);
+  }
+
+  .hero-image-wrapper.repair-hover-effect:hover .label-board {
+    opacity: 1;
+    transform: translate3d(-140px, 0, 60px);
+  }
+
+  .hero-image-wrapper.repair-hover-effect:hover .label-back {
+    opacity: 1;
+    transform: translate3d(140px, 15px, 40px);
+  }
+
+  .hero-image-wrapper.repair-hover-effect:hover .hover-hint {
+    background: linear-gradient(135deg, var(--secondary-glow), var(--primary-glow));
+    color: #06040c;
+    box-shadow: var(--shadow-neon-cyan);
+    transform: translateX(-50%) translate3d(0, 5px, 60px);
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+/* ==========================================================================
+   2. SOPORTE TÁCTIL (Para cuando se activa la clase .active-tap mediante clic/toque)
+   ========================================================================== */
 .hero-image-wrapper.repair-hover-effect.active-tap .hero-img-assembled {
   opacity: 0;
 }
 
-.hero-image-wrapper.repair-hover-effect:hover .hero-img-exploded,
 .hero-image-wrapper.repair-hover-effect.active-tap .hero-img-exploded {
   opacity: 1;
   z-index: 3;
 }
 
-/* Brillo galáctico al hacer hover */
-.hero-image-wrapper.repair-hover-effect:hover,
 .hero-image-wrapper.repair-hover-effect.active-tap {
   background: linear-gradient(135deg, rgba(168, 85, 247, 0.6), rgba(124, 58, 237, 0.6));
   box-shadow: 0 15px 45px rgba(168, 85, 247, 0.45);
 }
 
+.hero-image-wrapper.repair-hover-effect.active-tap .label-screen {
+  opacity: 1;
+  transform: translate3d(140px, -15px, 80px);
+}
+
+.hero-image-wrapper.repair-hover-effect.active-tap .label-board {
+  opacity: 1;
+  transform: translate3d(-140px, 0, 60px);
+}
+
+.hero-image-wrapper.repair-hover-effect.active-tap .label-back {
+  opacity: 1;
+  transform: translate3d(140px, 15px, 40px);
+}
+
+.hero-image-wrapper.repair-hover-effect.active-tap .hover-hint {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* ==========================================================================
-   ETIQUETAS FLOTANTES DE COMPONENTES (LABELS)
+   3. RESPONSIVE / MÓVIL (Ocultar etiquetas flotantes y ajustar márgenes laterales)
    ========================================================================== */
+@media (max-width: 768px) {
+  .hero-image-wrapper.repair-hover-effect .layer-label {
+    display: none !important;
+  }
+}
+
+/* ETIQUETAS FLOTANTES DE COMPONENTES (LABELS) - Configuración base */
 .hero-image-wrapper.repair-hover-effect .layer-label {
   position: absolute;
   font-family: var(--font-title);
@@ -443,25 +511,6 @@ nav a:hover::after, nav a.active::after {
 .hero-image-wrapper.repair-hover-effect .label-back {
   bottom: 15%;
   right: 20px;
-}
-
-/* Despliegue de etiquetas en Hover flotando en el aire en Z-space */
-.hero-image-wrapper.repair-hover-effect:hover .label-screen,
-.hero-image-wrapper.repair-hover-effect.active-tap .label-screen {
-  opacity: 1;
-  transform: translate3d(140px, -15px, 80px); /* Flota a la derecha e interactúa con el tilt */
-}
-
-.hero-image-wrapper.repair-hover-effect:hover .label-board,
-.hero-image-wrapper.repair-hover-effect.active-tap .label-board {
-  opacity: 1;
-  transform: translate3d(-140px, 0, 60px); /* Flota a la izquierda e interactúa con el tilt */
-}
-
-.hero-image-wrapper.repair-hover-effect:hover .label-back,
-.hero-image-wrapper.repair-hover-effect.active-tap .label-back {
-  opacity: 1;
-  transform: translate3d(140px, 15px, 40px); /* Flota a la derecha e interactúa con el tilt */
 }
 
 /* Indicador flotante premium */
