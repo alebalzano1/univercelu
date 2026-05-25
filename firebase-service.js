@@ -1,4 +1,4 @@
-hola// Firebase & Cloudinary Service for UNIVERCE CELU
+// Firebase & Cloudinary Service for UNIVERCE CELU
 // Sincronización robusta en tiempo real con soporte de persistencia local (Sandbox)
 
 let db = null;
