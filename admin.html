@@ -1162,8 +1162,8 @@
             
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label for="loginEmail">Correo Electrónico</label>
-                    <input type="email" id="loginEmail" class="form-input" required placeholder="admin@univercelu.com">
+                    <label for="loginEmail">Usuario</label>
+                    <input type="text" id="loginEmail" class="form-input" required placeholder="univercelu1">
                 </div>
                 
                 <div class="form-group">
@@ -1357,6 +1357,31 @@
                     </form>
                 </div>
 
+                <div class="settings-card" style="margin-top: 30px; border-color: rgba(6, 182, 212, 0.35);">
+                    <h2 class="modal-header-title" style="font-family:'Bebas Neue',sans-serif; font-size: 26px; color: var(--white); margin-bottom: 15px;">🔒 Seguridad y Acceso del Panel</h2>
+                    <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6;">
+                        Modifica el usuario personalizado y la contraseña secreta para acceder al panel de administración de Univercelu.
+                    </p>
+                    
+                    <form id="credentialsForm">
+                        <div class="settings-grid">
+                            <div class="form-group">
+                                <label for="cfgAdminUsername">Usuario de Acceso</label>
+                                <input type="text" id="cfgAdminUsername" class="form-input" required placeholder="univercelu1">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cfgAdminPassword">Nueva Contraseña</label>
+                                <input type="password" id="cfgAdminPassword" class="form-input" required placeholder="••••••••">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-save-config" style="background: linear-gradient(135deg, var(--neon-cyan) 0%, #0891b2 100%); margin-top: 15px; border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);">
+                            🔑 Actualizar Credenciales de Acceso
+                        </button>
+                    </form>
+                </div>
+
                 <div class="settings-card" style="margin-top: 30px; border-color: rgba(168, 85, 247, 0.35);">
                     <h2 class="modal-header-title" style="font-family:'Bebas Neue',sans-serif; font-size: 26px; color: var(--white); margin-bottom: 15px;">⚠️ Restablecer Catálogo Oficial</h2>
                     <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6;">
@@ -1542,6 +1567,7 @@
         // --- SECTION B: DATA STORAGE & SYNCS ---
         const defaultProducts = window.initialProducts || [];
         const defaultConfig = window.initialConfig || {};
+        let adminCreds = { username: "univercelu1", password: "admin123" };
 
         let currentCategoryFilter = 'all';
 
@@ -1550,6 +1576,7 @@
             try {
                 products = await FirebaseService.getProducts() || defaultProducts;
                 config = await FirebaseService.getConfig() || defaultConfig;
+                adminCreds = await FirebaseService.getCustomCredentials();
 
                 // Actualizar texto de estado de conexión
                 const statusText = document.querySelector('.auth-text-gray');
@@ -1559,15 +1586,18 @@
 
                 renderProductsList();
                 renderConfigForm();
+                renderCredentialsForm();
             } catch (error) {
                 console.error("❌ [Firebase Load Error]:", error);
                 showToast('Fallo al sincronizar con la nube. Cargando datos locales.', 'error');
                 
                 products = JSON.parse(localStorage.getItem('univercelu_products_v3')) || defaultProducts;
                 config = JSON.parse(localStorage.getItem('univercelu_config')) || defaultConfig;
+                adminCreds = await FirebaseService.getCustomCredentials();
                 
                 renderProductsList();
                 renderConfigForm();
+                renderCredentialsForm();
             }
         }
 
@@ -1939,6 +1969,38 @@
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '💾 Guardar Ajustes Generales';
+            }
+        };
+
+        function renderCredentialsForm() {
+            document.getElementById('cfgAdminUsername').value = adminCreds.username || 'univercelu1';
+            document.getElementById('cfgAdminPassword').value = adminCreds.password || 'admin123';
+        }
+
+        document.getElementById('credentialsForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Actualizando credenciales... <i class="fa-solid fa-spinner fa-spin"></i>';
+
+            const newUsername = document.getElementById('cfgAdminUsername').value.trim();
+            const newPassword = document.getElementById('cfgAdminPassword').value;
+
+            try {
+                await FirebaseService.saveCustomCredentials(newUsername, newPassword);
+                adminCreds.username = newUsername;
+                adminCreds.password = newPassword;
+                
+                // Actualizar el usuario mostrado en el sidebar
+                document.getElementById('sidebarUserEmail').textContent = newUsername;
+                
+                showToast('Credenciales actualizadas correctamente. ¡No las olvides!', 'success');
+            } catch (error) {
+                console.error("Error al guardar credenciales:", error);
+                showToast('Error al actualizar credenciales en la nube', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '🔑 Actualizar Credenciales de Acceso';
             }
         };
 
