@@ -1168,7 +1168,12 @@
                 
                 <div class="form-group">
                     <label for="loginPassword">Contraseña</label>
-                    <input type="password" id="loginPassword" class="form-input" required placeholder="••••••••">
+                    <div class="password-input-wrapper" style="position: relative; display: block; width: 100%;">
+                        <input type="password" id="loginPassword" class="form-input" required placeholder="••••••••" style="padding-right: 45px; width: 100%;">
+                        <span class="password-toggle-icon" onclick="togglePasswordVisibility('loginPassword', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--muted); opacity: 0.7; transition: var(--transition);">
+                            <i class="fa-solid fa-eye"></i>
+                        </span>
+                    </div>
                 </div>
                 
                 <button type="submit" class="login-btn" id="btnLoginSubmit">
@@ -1372,12 +1377,22 @@
                             
                             <div class="form-group">
                                 <label for="cfgAdminPassword">Nueva Contraseña</label>
-                                <input type="password" id="cfgAdminPassword" class="form-input" required placeholder="••••••••">
+                                <div class="password-input-wrapper" style="position: relative; display: block; width: 100%;">
+                                    <input type="password" id="cfgAdminPassword" class="form-input" required placeholder="••••••••" style="padding-right: 45px; width: 100%;">
+                                    <span class="password-toggle-icon" onclick="togglePasswordVisibility('cfgAdminPassword', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--muted); opacity: 0.7; transition: var(--transition);">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </span>
+                                </div>
                             </div>
                             
                             <div class="form-group">
                                 <label for="cfgAdminPasswordConfirm">Confirmar Nueva Contraseña</label>
-                                <input type="password" id="cfgAdminPasswordConfirm" class="form-input" required placeholder="••••••••">
+                                <div class="password-input-wrapper" style="position: relative; display: block; width: 100%;">
+                                    <input type="password" id="cfgAdminPasswordConfirm" class="form-input" required placeholder="••••••••" style="padding-right: 45px; width: 100%;">
+                                    <span class="password-toggle-icon" onclick="togglePasswordVisibility('cfgAdminPasswordConfirm', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--muted); opacity: 0.7; transition: var(--transition);">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         
@@ -1506,6 +1521,18 @@
     <script>
         let products = [];
         let config = {};
+
+        function togglePasswordVisibility(inputId, toggleIconEl) {
+            const input = document.getElementById(inputId);
+            const icon = toggleIconEl.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fa-solid fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fa-solid fa-eye';
+            }
+        }
 
         // --- SECTION A: SECURITY AUTH & NAVIGATION ---
         async function handleLogin(e) {
