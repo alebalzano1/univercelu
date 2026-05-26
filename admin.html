@@ -1365,7 +1365,7 @@
                     
                     <form id="credentialsForm">
                         <div class="settings-grid">
-                            <div class="form-group">
+                            <div class="form-group" style="grid-column: 1 / -1;">
                                 <label for="cfgAdminUsername">Usuario de Acceso</label>
                                 <input type="text" id="cfgAdminUsername" class="form-input" required placeholder="univercelu1">
                             </div>
@@ -1373,6 +1373,11 @@
                             <div class="form-group">
                                 <label for="cfgAdminPassword">Nueva Contraseña</label>
                                 <input type="password" id="cfgAdminPassword" class="form-input" required placeholder="••••••••">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cfgAdminPasswordConfirm">Confirmar Nueva Contraseña</label>
+                                <input type="password" id="cfgAdminPasswordConfirm" class="form-input" required placeholder="••••••••">
                             </div>
                         </div>
                         
@@ -1975,6 +1980,7 @@
         function renderCredentialsForm() {
             document.getElementById('cfgAdminUsername').value = adminCreds.username || 'univercelu1';
             document.getElementById('cfgAdminPassword').value = adminCreds.password || 'admin123';
+            document.getElementById('cfgAdminPasswordConfirm').value = adminCreds.password || 'admin123';
         }
 
         document.getElementById('credentialsForm').onsubmit = async (e) => {
@@ -1985,6 +1991,14 @@
 
             const newUsername = document.getElementById('cfgAdminUsername').value.trim();
             const newPassword = document.getElementById('cfgAdminPassword').value;
+            const newPasswordConfirm = document.getElementById('cfgAdminPasswordConfirm').value;
+
+            if (newPassword !== newPasswordConfirm) {
+                showToast('Las contraseñas ingresadas no coinciden. Reintenta.', 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '🔑 Actualizar Credenciales de Acceso';
+                return;
+            }
 
             try {
                 await FirebaseService.saveCustomCredentials(newUsername, newPassword);
