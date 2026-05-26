@@ -464,6 +464,12 @@ function openProductDetail(productId) {
       <li><i class="fa-solid fa-circle-check"></i> Bordes curvos 9D para cobertura total de la pantalla</li>
       <li><i class="fa-solid fa-circle-check"></i> Transparencia HD cristalina con sensibilidad táctil al 100%</li>
     `;
+  } else if (prod.category === 'otros') {
+    specsHTML = `
+      <li><i class="fa-solid fa-circle-check"></i> Gadget de alta tecnología y gran utilidad para tu día a día</li>
+      <li><i class="fa-solid fa-circle-check"></i> Construcción robusta y materiales duraderos certificados</li>
+      <li><i class="fa-solid fa-circle-check"></i> Probado y garantizado al 100% por nuestro equipo técnico</li>
+    `;
   } else {
     specsHTML = `
       <li><i class="fa-solid fa-circle-check"></i> Calidad premium garantizada directamente por Univercelu</li>

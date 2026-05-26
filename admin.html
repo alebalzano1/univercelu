@@ -1298,6 +1298,7 @@
                     <button class="chip" data-filter="cargadores" onclick="setCategoryFilter('cargadores')">Cargadores</button>
                     <button class="chip" data-filter="audio" onclick="setCategoryFilter('audio')">Audio</button>
                     <button class="chip" data-filter="vidrios" onclick="setCategoryFilter('vidrios')">Vidrios</button>
+                    <button class="chip" data-filter="otros" onclick="setCategoryFilter('otros')">Otros</button>
                 </div>
 
                 <div class="products-admin-grid" id="tblProductsBody">
@@ -1362,7 +1363,7 @@
                         ¿Los productos de la base de datos están desordenados, duplicados o tienen categorías incorrectas? Esta acción eliminará por completo todos los productos actuales de la base de datos y los volverá a cargar limpios con las categorías y fotos correctas de la semilla (seed) del sistema.
                     </p>
                     <button type="button" class="btn-logout" id="btnResetDatabase" style="background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3); color: var(--neon-violet); width: auto; padding: 12px 24px; font-size: 13px; font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:1px; cursor:pointer; text-transform:uppercase; transition:var(--transition);">
-                        🔄 Restablecer y Sincronizar Catálogo Oficial de 26 Productos
+                        🔄 Restablecer y Sincronizar Catálogo Oficial de 62 Productos
                     </button>
                 </div>
             </section>
@@ -1397,6 +1398,7 @@
                                 <option value="cargadores">Cargadores</option>
                                 <option value="audio">Audio</option>
                                 <option value="vidrios">Vidrios</option>
+                                <option value="otros">Otros</option>
                             </select>
                         </div>
                     </div>
@@ -1943,7 +1945,7 @@
 
         // Click listener para restablecer base de datos
         document.getElementById('btnResetDatabase').onclick = async () => {
-            if (confirm('🚨 ATENCIÓN: Esto eliminará TODOS los productos actuales de la base de datos y los restablecerá con la semilla oficial de 26 productos (con categorías y fotos correctas). ¿Deseas continuar?')) {
+            if (confirm('🚨 ATENCIÓN: Esto eliminará TODOS los productos actuales de la base de datos y los restablecerá con la semilla oficial de 62 productos (con categorías y fotos correctas). ¿Deseas continuar?')) {
                 const btn = document.getElementById('btnResetDatabase');
                 btn.disabled = true;
                 btn.innerHTML = 'Restableciendo catálogo... <i class="fa-solid fa-spinner fa-spin"></i>';
@@ -1957,7 +1959,7 @@
                     showToast('Error al restablecer la base de datos', 'error');
                 } finally {
                     btn.disabled = false;
-                    btn.innerHTML = '🔄 Restablecer y Sincronizar Catálogo Oficial de 26 Productos';
+                    btn.innerHTML = '🔄 Restablecer y Sincronizar Catálogo Oficial de 62 Productos';
                 }
             }
         };
