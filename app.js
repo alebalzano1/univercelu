@@ -6,6 +6,17 @@ let CONFIG = {};
 let WHATSAPP_NUMBER = "5491136719257"; // Fallback de WhatsApp
 
 /* ==========================================================================
+   Función de Optimización de Imágenes de Cloudinary
+   ========================================================================== */
+function optimizeCloudinaryUrl(url, width = 300) {
+  if (!url) return '';
+  if (url.includes('res.cloudinary.com') && url.includes('/upload/')) {
+    return url.replace('/upload/', `/upload/w_${width},c_scale,q_auto,f_auto/`);
+  }
+  return url;
+}
+
+/* ==========================================================================
    Variables de Estado y Elementos del DOM
    ========================================================================== */
 let carrito = JSON.parse(localStorage.getItem('univercelu_cart')) || [];
@@ -176,7 +187,7 @@ function renderCatalog(categoryFilter) {
     card.innerHTML = `
       ${badgeHTML}
       <div class="product-image-container">
-        <img src="${prod.image}" alt="${prod.name}" loading="lazy">
+        <img src="${optimizeCloudinaryUrl(prod.image, 300)}" alt="${prod.name}" loading="lazy">
       </div>
       <div class="product-details">
         <h3 class="product-name">${prod.name}</h3>
@@ -511,7 +522,7 @@ function openProductDetail(productId) {
     <div class="detail-grid">
       <!-- Columna Izquierda: Galería Visual -->
       <div class="detail-gallery">
-        <img src="${prod.image}" alt="${prod.name}" class="detail-main-img" id="detail-main-image">
+        <img src="${optimizeCloudinaryUrl(prod.image, 500)}" alt="${prod.name}" class="detail-main-img" id="detail-main-image">
         <div class="detail-guarantee-note">
           <i class="fa-solid fa-shield-halved"></i>
           <span>Compra Protegida con Univercelu. Recibe el accesorio que esperas o te devolvemos el dinero en el acto.</span>

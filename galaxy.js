@@ -18,9 +18,10 @@
   });
 
   // --- Configuration ---
-  const STAR_COUNT = 280;
-  const NEBULA_COUNT = 8;
-  const PARTICLE_COUNT = 25;
+  const isMobile = window.innerWidth < 768;
+  const STAR_COUNT = isMobile ? 80 : 220;
+  const NEBULA_COUNT = isMobile ? 3 : 6;
+  const PARTICLE_COUNT = isMobile ? 12 : 22;
 
   const stars = [];
   const particles = [];
@@ -119,12 +120,9 @@
         const opacity = (0.4 + 0.6 * Math.abs(Math.sin(time * this.pulseSpeed + this.phase))) * (1 - this.z / 1000);
         
         ctx.fillStyle = this.color + opacity + ')';
-        ctx.shadowColor = this.color + '0.7)';
-        ctx.shadowBlur = size * 1.5;
         ctx.beginPath();
         ctx.arc(px, py, size, 0, Math.PI * 2);
         ctx.fill();
-        ctx.shadowBlur = 0;
       }
     }
   }
