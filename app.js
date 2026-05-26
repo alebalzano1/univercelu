@@ -152,9 +152,26 @@ function renderCatalog(categoryFilter) {
       ? `<div class="product-badge">${prod.badge}</div>` 
       : '';
 
-    const originalPriceHTML = prod.originalPrice 
-      ? `<span>$${prod.originalPrice.toLocaleString('es-AR')}</span>` 
-      : '';
+    // Calcular descuento en porcentaje comparando originalPrice y price
+    let discountHTML = '';
+    if (prod.originalPrice && prod.price && prod.originalPrice > prod.price) {
+      const pct = Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100);
+      discountHTML = `<div class="product-discount-tag">-${pct}% OFF</div>`;
+    }
+
+    const isConsultar = !prod.price || prod.price === 0;
+
+    // Leyenda de transferencia (10% de descuento)
+    let transferPriceHTML = '';
+    if (!isConsultar) {
+      const transferPrice = Math.round(prod.price * 0.9);
+      transferPriceHTML = `<div class="product-transfer-price">$${transferPrice.toLocaleString('es-AR')} con 10% OFF en efectivo o transferencia</div>`;
+    }
+
+    // Precios formateados
+    const priceHTML = isConsultar
+      ? `<span class="current-price">Consultar</span>`
+      : `<span class="current-price">$${prod.price.toLocaleString('es-AR')}</span>${prod.originalPrice ? ` <span class="old-price">$${prod.originalPrice.toLocaleString('es-AR')}</span>` : ''}`;
 
     card.innerHTML = `
       ${badgeHTML}
@@ -162,18 +179,15 @@ function renderCatalog(categoryFilter) {
         <img src="${prod.image}" alt="${prod.name}" loading="lazy">
       </div>
       <div class="product-details">
-        <span class="product-category">${prod.category}</span>
         <h3 class="product-name">${prod.name}</h3>
-        <p class="product-desc">${prod.description}</p>
-        <div class="product-footer">
-          <div class="product-price">
-            ${originalPriceHTML}
-            ${(!prod.price || prod.price === 0) ? 'Consultar' : `$${prod.price.toLocaleString('es-AR')}`}
-          </div>
-          <button class="add-to-cart-btn" data-id="${prod.id}" title="Añadir al carrito">
-            <i class="fa-solid fa-plus"></i>
-          </button>
+        ${discountHTML}
+        <div class="product-price-row">
+          ${priceHTML}
         </div>
+        ${transferPriceHTML}
+        <button class="add-to-cart-btn" data-id="${prod.id}">
+          COMPRAR
+        </button>
       </div>
     `;
 
