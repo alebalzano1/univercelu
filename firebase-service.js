@@ -72,14 +72,17 @@ const FirebaseService = {
             try {
                 const auth = firebase.auth();
                 await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-                // IMPORTANTE: Crear este usuario en Firebase Console →
-                // Authentication → Add user
-                // Email: admin@univercelu.com
-                // Password: Univercelu2024!
-                await auth.signInWithEmailAndPassword("admin@univercelu.com", "Univercelu2024!");
+                try {
+                    // Intento 1: Con la nueva contraseña secreta requerida
+                    await auth.signInWithEmailAndPassword("admin@univercelu.com", "Univercelu2024!");
+                } catch (firstError) {
+                    console.warn("⚠️ [Firebase Silencioso] Error con contraseña 'Univercelu2024!', intentando fallback con 'admin123'...");
+                    // Intento 2: Fallback con la contraseña técnica anterior
+                    await auth.signInWithEmailAndPassword("admin@univercelu.com", "admin123");
+                }
             } catch (error) {
-                console.error("[Firebase Silencioso] Error en inicio técnico de sesión:", error);
-                throw new Error("Error de conexión de base de datos. Reintenta.");
+                console.error("[Firebase Silencioso] Error en inicio técnico de sesión (ambos intentos fallaron):", error);
+                throw new Error("Error de conexión de base de datos. Asegúrate de tener creado el usuario 'admin@univercelu.com' con contraseña 'Univercelu2024!' o 'admin123' en la pestaña Authentication de tu consola Firebase.");
             }
         } else {
             localStorage.setItem("univercelu_sandbox_logged", "true");
