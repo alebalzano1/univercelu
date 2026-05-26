@@ -25,99 +25,30 @@ const FirebaseService = {
         return isFirebaseActive;
     },
 
-    // --- GESTIÓN DE CREDENCIALES PERSONALIZADAS ---
-    async getCustomCredentials() {
-        if (!isFirebaseActive) {
-            const local = localStorage.getItem("univercelu_custom_credentials");
-            return local ? JSON.parse(local) : { username: "univercelu1", password: "admin123" };
-        }
-        try {
-            const doc = await db.collection("settings").doc("credentials").get();
-            if (doc.exists) {
-                return doc.data();
-            } else {
-                return { username: "univercelu1", password: "admin123" };
-            }
-        } catch (error) {
-            console.warn("⚠️ [Firebase] Fallo al leer credenciales de Firestore, usando defaults:", error);
-            return { username: "univercelu1", password: "admin123" };
-        }
-    },
-
-    async saveCustomCredentials(username, password) {
-        const creds = { username, password };
-        if (!isFirebaseActive) {
-            localStorage.setItem("univercelu_custom_credentials", JSON.stringify(creds));
-            return;
-        }
-        try {
-            await db.collection("settings").doc("credentials").set(creds);
-            console.log("🔑 [Firebase] Credenciales personalizadas guardadas con éxito en Firestore.");
-        } catch (error) {
-            console.error("❌ [Firebase] Error al guardar credenciales personalizadas:", error);
-            throw error;
-        }
-    },
-
     // --- AUTENTICACIÓN ---
-    async login(username, password) {
-        const creds = await this.getCustomCredentials();
-        const success = (username === creds.username && password === creds.password);
+    async login(email, password) {
+        const auth = firebase.auth();
+        return await auth.signInWithEmailAndPassword(email, password);
+    },
 
-        if (!success) {
-            return false;
-        }
-
-        if (isFirebaseActive) {
-            try {
-                const auth = firebase.auth();
-                await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-                try {
-                    // Intento 1: Con la nueva contraseña secreta requerida
-                    await auth.signInWithEmailAndPassword("admin@univercelu.com", "Univercelu2024!");
-                } catch (firstError) {
-                    console.warn("⚠️ [Firebase Silencioso] Error con contraseña 'Univercelu2024!', intentando fallback con 'admin123'...");
-                    // Intento 2: Fallback con la contraseña técnica anterior
-                    await auth.signInWithEmailAndPassword("admin@univercelu.com", "admin123");
-                }
-            } catch (error) {
-                console.error("[Firebase Silencioso] Error en inicio técnico de sesión (ambos intentos fallaron):", error);
-                throw new Error("Error de conexión de base de datos. Asegúrate de tener creado el usuario 'admin@univercelu.com' con contraseña 'Univercelu2024!' o 'admin123' en la pestaña Authentication de tu consola Firebase.");
-            }
+    async changePassword(newPassword) {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            return await user.updatePassword(newPassword);
         } else {
-            localStorage.setItem("univercelu_sandbox_logged", "true");
+            throw new Error("No hay un usuario autenticado activo.");
         }
-
-        localStorage.setItem("univercelu_logged_username", username);
-        return true;
     },
 
     async logout() {
-        localStorage.removeItem("univercelu_sandbox_logged");
-        localStorage.removeItem("univercelu_logged_username");
-        if (!isFirebaseActive) return;
-        try {
-            console.log("[Firebase] Cerrando sesión técnica...");
-            await firebase.auth().signOut();
-        } catch (error) {
-            console.error("[Firebase] Error en cierre de sesión:", error);
-        }
+        const auth = firebase.auth();
+        return await auth.signOut();
     },
 
     onAuth(callback) {
-        if (!isFirebaseActive) {
-            const isLocalLogged = localStorage.getItem("univercelu_sandbox_logged") === "true";
-            const customUsername = localStorage.getItem("univercelu_logged_username") || "univercelu1";
-            callback(isLocalLogged ? { email: customUsername, uid: "sandbox" } : null);
-            return;
-        }
-        firebase.auth().onAuthStateChanged((user) => {
-            const customUsername = localStorage.getItem("univercelu_logged_username");
-            if (user && customUsername) {
-                callback({ email: customUsername, uid: user.uid });
-            } else {
-                callback(null);
-            }
+        const auth = firebase.auth();
+        auth.onAuthStateChanged((user) => {
+            callback(user);
         });
     },
 
@@ -141,15 +72,8 @@ const FirebaseService = {
                 console.log("🌱 [Firebase] Autosiembra completada con éxito.");
             }
 
-            // Sembrar credenciales por defecto si no existen en Firestore
-            const credsDoc = await db.collection("settings").doc("credentials").get();
-            if (!credsDoc.exists) {
-                console.log("🌱 [Firebase] Sembrando credenciales de administrador por defecto (univercelu1 / admin123)...");
-                await db.collection("settings").doc("credentials").set({
-                    username: "univercelu1",
-                    password: "admin123"
-                });
-            }
+            // No se siembran credenciales en la base de datos por ser inseguro.
+            // Los usuarios de administración se manejan directamente desde Firebase Auth Console.
         } catch (error) {
             console.error("❌ [Firebase] Error durante el proceso de autosiembra:", error);
         }

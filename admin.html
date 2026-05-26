@@ -277,6 +277,32 @@
             color: var(--neon-cyan);
         }
 
+        .sidebar-home-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            color: var(--muted);
+            text-decoration: none;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px dashed rgba(168, 85, 247, 0.25);
+            margin-top: 25px;
+        }
+
+        .sidebar-home-link:hover {
+            background: var(--surface-hover);
+            color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
+        }
+
         .sidebar-footer {
             border-top: 1px solid var(--border);
             padding-top: 20px;
@@ -1162,8 +1188,8 @@
             
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label for="loginEmail">Usuario</label>
-                    <input type="text" id="loginEmail" class="form-input" required placeholder="univercelu1">
+                    <label for="loginEmail">Email de Administrador</label>
+                    <input type="email" id="loginEmail" class="form-input" required placeholder="admin@univercelu.com">
                 </div>
                 
                 <div class="form-group">
@@ -1222,6 +1248,9 @@
                 </a>
                 <a class="sidebar-item" data-section="settings">
                     <i class="fa-solid fa-sliders"></i> Ajustes
+                </a>
+                <a href="index.html" class="sidebar-home-link">
+                    <i class="fa-solid fa-house" style="color: var(--neon-violet);"></i> Volver al Inicio
                 </a>
             </nav>
             
@@ -1303,7 +1332,6 @@
                     <button class="chip" data-filter="cargadores" onclick="setCategoryFilter('cargadores')">Cargadores</button>
                     <button class="chip" data-filter="audio" onclick="setCategoryFilter('audio')">Audio</button>
                     <button class="chip" data-filter="vidrios" onclick="setCategoryFilter('vidrios')">Vidrios</button>
-                    <button class="chip" data-filter="otros" onclick="setCategoryFilter('otros')">Otros</button>
                 </div>
 
                 <div class="products-admin-grid" id="tblProductsBody">
@@ -1363,18 +1391,13 @@
                 </div>
 
                 <div class="settings-card" style="margin-top: 30px; border-color: rgba(6, 182, 212, 0.35);">
-                    <h2 class="modal-header-title" style="font-family:'Bebas Neue',sans-serif; font-size: 26px; color: var(--white); margin-bottom: 15px;">🔒 Seguridad y Acceso del Panel</h2>
+                    <h2 class="modal-header-title" style="font-family:'Bebas Neue',sans-serif; font-size: 26px; color: var(--white); margin-bottom: 15px;">🔒 Seguridad del Administrador</h2>
                     <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6;">
-                        Modifica el usuario personalizado y la contraseña secreta para acceder al panel de administración de Univercelu.
+                        Modifica la contraseña del administrador actual de manera segura mediante Firebase Authentication.
                     </p>
                     
                     <form id="credentialsForm">
                         <div class="settings-grid">
-                            <div class="form-group" style="grid-column: 1 / -1;">
-                                <label for="cfgAdminUsername">Usuario de Acceso</label>
-                                <input type="text" id="cfgAdminUsername" class="form-input" required placeholder="univercelu1">
-                            </div>
-                            
                             <div class="form-group">
                                 <label for="cfgAdminPassword">Nueva Contraseña</label>
                                 <div class="password-input-wrapper" style="position: relative; display: block; width: 100%;">
@@ -1397,7 +1420,7 @@
                         </div>
                         
                         <button type="submit" class="btn-save-config" style="background: linear-gradient(135deg, var(--neon-cyan) 0%, #0891b2 100%); margin-top: 15px; border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);">
-                            🔑 Actualizar Credenciales de Acceso
+                            🔑 Cambiar Contraseña de Administrador
                         </button>
                     </form>
                 </div>
@@ -1433,7 +1456,6 @@
                                 <option value="cargadores">Cargadores</option>
                                 <option value="audio">Audio</option>
                                 <option value="vidrios">Vidrios</option>
-                                <option value="otros">Otros</option>
                             </select>
                         </div>
                     </div>
@@ -1593,13 +1615,12 @@
 
         document.getElementById('btnLogoutAction').onclick = async () => {
             if (confirm('¿Seguro que deseas desconectarte y volver al espacio exterior?')) {
-                if (!FirebaseService.isCloudActive()) {
-                    localStorage.removeItem('univercelu_sandbox_logged');
-                    checkAuth();
-                } else {
+                try {
                     await FirebaseService.logout();
+                    showToast('Sesión cerrada con éxito', 'info');
+                } catch (error) {
+                    showToast('Error al cerrar sesión', 'error');
                 }
-                showToast('Sesión cerrada con éxito', 'info');
             }
         };
 
@@ -1610,7 +1631,6 @@
         // --- SECTION B: DATA STORAGE & SYNCS ---
         const defaultProducts = window.initialProducts || [];
         const defaultConfig = window.initialConfig || {};
-        let adminCreds = { username: "univercelu1", password: "admin123" };
 
         let currentCategoryFilter = 'all';
 
@@ -1619,28 +1639,24 @@
             try {
                 products = await FirebaseService.getProducts() || defaultProducts;
                 config = await FirebaseService.getConfig() || defaultConfig;
-                adminCreds = await FirebaseService.getCustomCredentials();
 
                 // Actualizar texto de estado de conexión
                 const statusText = document.querySelector('.auth-text-gray');
                 if (statusText) {
-                    statusText.textContent = FirebaseService.isCloudActive() ? '· (Nube Firestore)' : '· (Sandbox Local)';
+                    statusText.textContent = FirebaseService.isCloudActive() ? '· (Nube Firebase)' : '· (Desconectado)';
                 }
 
                 renderProductsList();
                 renderConfigForm();
-                renderCredentialsForm();
             } catch (error) {
                 console.error("❌ [Firebase Load Error]:", error);
                 showToast('Fallo al sincronizar con la nube. Cargando datos locales.', 'error');
                 
                 products = JSON.parse(localStorage.getItem('univercelu_products_v3')) || defaultProducts;
                 config = JSON.parse(localStorage.getItem('univercelu_config')) || defaultConfig;
-                adminCreds = await FirebaseService.getCustomCredentials();
                 
                 renderProductsList();
                 renderConfigForm();
-                renderCredentialsForm();
             }
         }
 
@@ -1855,6 +1871,7 @@
                     document.getElementById('prodPrice').value = p.price;
                     document.getElementById('prodOriginalPrice').value = p.originalPrice || '';
                     document.getElementById('prodBadge').value = p.badge || '';
+                    document.getElementById('prodDesc').value = p.description || '';
                     document.getElementById('prodImg').value = p.image || '';
                     document.getElementById('prodAvailable').checked = (p.available !== false);
                     document.getElementById('prodFeatured').checked = !!p.featured;
@@ -1955,7 +1972,7 @@
             const image = document.getElementById('prodImg').value.trim();
             const available = document.getElementById('prodAvailable').checked;
             const featured = document.getElementById('prodFeatured').checked;
-            const description = idVal ? (products.find(pr => pr.id === idVal)?.description || 'Sin descripción.') : 'Sin descripción.';
+            const description = document.getElementById('prodDesc').value.trim() || 'Sin descripción.';
 
             try {
                 let p;
@@ -1969,6 +1986,7 @@
                         p.originalPrice = originalPrice;
                         p.badge = badge;
                         p.image = image;
+                        p.description = description;
                         p.available = available;
                         p.featured = featured;
                     }
@@ -2041,44 +2059,39 @@
             }
         };
 
-        function renderCredentialsForm() {
-            document.getElementById('cfgAdminUsername').value = adminCreds.username || 'univercelu1';
-            document.getElementById('cfgAdminPassword').value = adminCreds.password || 'admin123';
-            document.getElementById('cfgAdminPasswordConfirm').value = adminCreds.password || 'admin123';
-        }
-
         document.getElementById('credentialsForm').onsubmit = async (e) => {
             e.preventDefault();
             const submitBtn = e.target.querySelector('button[type="submit"]');
             submitBtn.disabled = true;
-            submitBtn.innerHTML = 'Actualizando credenciales... <i class="fa-solid fa-spinner fa-spin"></i>';
+            submitBtn.innerHTML = 'Cambiando contraseña... <i class="fa-solid fa-spinner fa-spin"></i>';
 
-            const newUsername = document.getElementById('cfgAdminUsername').value.trim();
             const newPassword = document.getElementById('cfgAdminPassword').value;
             const newPasswordConfirm = document.getElementById('cfgAdminPasswordConfirm').value;
 
             if (newPassword !== newPasswordConfirm) {
                 showToast('Las contraseñas ingresadas no coinciden. Reintenta.', 'error');
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '🔑 Actualizar Credenciales de Acceso';
+                submitBtn.innerHTML = '🔑 Cambiar Contraseña de Administrador';
                 return;
             }
 
             try {
-                await FirebaseService.saveCustomCredentials(newUsername, newPassword);
-                adminCreds.username = newUsername;
-                adminCreds.password = newPassword;
-                
-                // Actualizar el usuario mostrado en el sidebar
-                document.getElementById('sidebarUserEmail').textContent = newUsername;
-                
-                showToast('Credenciales actualizadas correctamente. ¡No las olvides!', 'success');
+                await FirebaseService.changePassword(newPassword);
+                showToast('Contraseña actualizada correctamente.', 'success');
+                document.getElementById('cfgAdminPassword').value = '';
+                document.getElementById('cfgAdminPasswordConfirm').value = '';
             } catch (error) {
-                console.error("Error al guardar credenciales:", error);
-                showToast('Error al actualizar credenciales en la nube', 'error');
+                console.error("Error al actualizar contraseña:", error);
+                let message = 'Fallo al actualizar la contraseña.';
+                if (error.code === 'auth/requires-recent-login') {
+                    message = 'Por razones de seguridad, debes cerrar sesión e iniciar sesión nuevamente antes de cambiar tu contraseña.';
+                } else if (error.code === 'auth/weak-password') {
+                    message = 'La contraseña es muy débil. Debe tener al menos 6 caracteres.';
+                }
+                showToast(message, 'error');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '🔑 Actualizar Credenciales de Acceso';
+                submitBtn.innerHTML = '🔑 Cambiar Contraseña de Administrador';
             }
         };
 

@@ -15,7 +15,7 @@
   <meta property="og:url" content="https://alebalzano1.github.io/univercelu/">
   <meta property="og:title" content="Univercelu | Accesorios y Servicio Técnico de Celulares en Merlo">
   <meta property="og:description" content="Más de 10 años en el rubro. Fundas, cables, cargadores, vidrios, auriculares y servicio técnico para todas las marcas. Merlo Centro, Buenos Aires.">
-  <meta property="og:image" content="https://alebalzano1.github.io/univercelu/assets/hero.png">
+  <meta property="og:image" content="https://alebalzano1.github.io/univercelu/assets/hero-assembled.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="es_AR">
@@ -24,7 +24,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Univercelu | Accesorios y Servicio Técnico en Merlo">
   <meta name="twitter:description" content="Más de 10 años en el rubro. Los mejores accesorios para tu celular al mejor precio.">
-  <meta name="twitter:image" content="https://alebalzano1.github.io/univercelu/assets/hero.png">
+  <meta name="twitter:image" content="https://alebalzano1.github.io/univercelu/assets/hero-assembled.png">
   
   <!-- Favicon (Emoji de Celular) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📱</text></svg>">
@@ -34,6 +34,75 @@
   
   <!-- FontAwesome Icons para iconografía premium -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- JSON-LD Datos Estructurados / SEO Local Premium -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MobilePhoneStore",
+        "@id": "https://alebalzano1.github.io/univercelu/#store",
+        "name": "Univercelu",
+        "image": [
+          "https://alebalzano1.github.io/univercelu/assets/logo.jpg",
+          "https://alebalzano1.github.io/univercelu/assets/hero-assembled.png"
+        ],
+        "logo": "https://alebalzano1.github.io/univercelu/assets/logo.jpg",
+        "url": "https://alebalzano1.github.io/univercelu/",
+        "telephone": "+5491136719257",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Maipú 510",
+          "addressLocality": "Merlo Centro",
+          "addressRegion": "Buenos Aires",
+          "postalCode": "B1722",
+          "addressCountry": "AR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -34.665716,
+          "longitude": -58.728287
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+            ],
+            "opens": "09:30",
+            "closes": "20:00"
+          }
+        ],
+        "sameAs": [
+          "https://www.instagram.com/univercelu_merlo/",
+          "https://wa.me/5491136719257"
+        ],
+        "hasMap": "https://maps.google.com/?q=Maip%C3%BA+510,+Merlo+Centro,+Buenos+Aires",
+        "description": "Más de 10 años de trayectoria. Venta de accesorios, fundas, cables, cargadores, vidrios templados y servicio técnico especializado para todas las marcas en Merlo Centro."
+      },
+      {
+        "@type": "Service",
+        "@id": "https://alebalzano1.github.io/univercelu/#service-repair",
+        "name": "Servicio Técnico Especializado de Celulares",
+        "provider": {
+          "@id": "https://alebalzano1.github.io/univercelu/#store"
+        },
+        "description": "Servicio de reparación rápida para celulares de todas las marcas (Samsung, iPhone, Motorola, Xiaomi). Cambio de módulos, pantallas, pin de carga y batería en el acto.",
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Merlo, Buenos Aires"
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -145,7 +214,6 @@
       <button class="filter-btn" data-category="cargadores" id="filter-btn-cargadores">Cargadores</button>
       <button class="filter-btn" data-category="audio" id="filter-btn-audio">Audio</button>
       <button class="filter-btn" data-category="vidrios" id="filter-btn-vidrios">Vidrios</button>
-      <button class="filter-btn" data-category="otros" id="filter-btn-otros">Otros</button>
       <button class="filter-btn" data-category="servicio" id="filter-btn-servicio">Servicio Técnico</button>
     </div>
     
@@ -295,9 +363,6 @@
         </a>
         <a href="https://wa.me/5491136719257" target="_blank" rel="noopener" class="social-btn wsp" id="footer-social-whatsapp" aria-label="Chatea en WhatsApp">
           <i class="fa-brands fa-whatsapp"></i>
-        </a>
-        <a href="admin.html" class="social-btn admin-portal-btn" aria-label="Acceso Administrador" title="Acceder al Panel de Administración" style="background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3); color: var(--primary-glow); box-shadow: 0 0 8px rgba(168, 85, 247, 0.2); transition: var(--transition-fast);">
-          <i class="fa-solid fa-user-gear"></i>
         </a>
       </div>
       

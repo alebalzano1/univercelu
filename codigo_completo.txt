@@ -20,7 +20,7 @@
   <meta property="og:url" content="https://alebalzano1.github.io/univercelu/">
   <meta property="og:title" content="Univercelu | Accesorios y Servicio Técnico de Celulares en Merlo">
   <meta property="og:description" content="Más de 10 años en el rubro. Fundas, cables, cargadores, vidrios, auriculares y servicio técnico para todas las marcas. Merlo Centro, Buenos Aires.">
-  <meta property="og:image" content="https://alebalzano1.github.io/univercelu/assets/hero.png">
+  <meta property="og:image" content="https://alebalzano1.github.io/univercelu/assets/hero-assembled.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="es_AR">
@@ -29,7 +29,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Univercelu | Accesorios y Servicio Técnico en Merlo">
   <meta name="twitter:description" content="Más de 10 años en el rubro. Los mejores accesorios para tu celular al mejor precio.">
-  <meta name="twitter:image" content="https://alebalzano1.github.io/univercelu/assets/hero.png">
+  <meta name="twitter:image" content="https://alebalzano1.github.io/univercelu/assets/hero-assembled.png">
   
   <!-- Favicon (Emoji de Celular) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📱</text></svg>">
@@ -39,6 +39,75 @@
   
   <!-- FontAwesome Icons para iconografía premium -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- JSON-LD Datos Estructurados / SEO Local Premium -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MobilePhoneStore",
+        "@id": "https://alebalzano1.github.io/univercelu/#store",
+        "name": "Univercelu",
+        "image": [
+          "https://alebalzano1.github.io/univercelu/assets/logo.jpg",
+          "https://alebalzano1.github.io/univercelu/assets/hero-assembled.png"
+        ],
+        "logo": "https://alebalzano1.github.io/univercelu/assets/logo.jpg",
+        "url": "https://alebalzano1.github.io/univercelu/",
+        "telephone": "+5491136719257",
+        "priceRange": "$$",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Maipú 510",
+          "addressLocality": "Merlo Centro",
+          "addressRegion": "Buenos Aires",
+          "postalCode": "B1722",
+          "addressCountry": "AR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -34.665716,
+          "longitude": -58.728287
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+            ],
+            "opens": "09:30",
+            "closes": "20:00"
+          }
+        ],
+        "sameAs": [
+          "https://www.instagram.com/univercelu_merlo/",
+          "https://wa.me/5491136719257"
+        ],
+        "hasMap": "https://maps.google.com/?q=Maip%C3%BA+510,+Merlo+Centro,+Buenos+Aires",
+        "description": "Más de 10 años de trayectoria. Venta de accesorios, fundas, cables, cargadores, vidrios templados y servicio técnico especializado para todas las marcas en Merlo Centro."
+      },
+      {
+        "@type": "Service",
+        "@id": "https://alebalzano1.github.io/univercelu/#service-repair",
+        "name": "Servicio Técnico Especializado de Celulares",
+        "provider": {
+          "@id": "https://alebalzano1.github.io/univercelu/#store"
+        },
+        "description": "Servicio de reparación rápida para celulares de todas las marcas (Samsung, iPhone, Motorola, Xiaomi). Cambio de módulos, pantallas, pin de carga y batería en el acto.",
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Merlo, Buenos Aires"
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -150,7 +219,6 @@
       <button class="filter-btn" data-category="cargadores" id="filter-btn-cargadores">Cargadores</button>
       <button class="filter-btn" data-category="audio" id="filter-btn-audio">Audio</button>
       <button class="filter-btn" data-category="vidrios" id="filter-btn-vidrios">Vidrios</button>
-      <button class="filter-btn" data-category="otros" id="filter-btn-otros">Otros</button>
       <button class="filter-btn" data-category="servicio" id="filter-btn-servicio">Servicio Técnico</button>
     </div>
     
@@ -300,9 +368,6 @@
         </a>
         <a href="https://wa.me/5491136719257" target="_blank" rel="noopener" class="social-btn wsp" id="footer-social-whatsapp" aria-label="Chatea en WhatsApp">
           <i class="fa-brands fa-whatsapp"></i>
-        </a>
-        <a href="admin.html" class="social-btn admin-portal-btn" aria-label="Acceso Administrador" title="Acceder al Panel de Administración" style="background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3); color: var(--primary-glow); box-shadow: 0 0 8px rgba(168, 85, 247, 0.2); transition: var(--transition-fast);">
-          <i class="fa-solid fa-user-gear"></i>
         </a>
       </div>
       
@@ -617,6 +682,32 @@
 
         .sidebar-item.active i {
             color: var(--neon-cyan);
+        }
+
+        .sidebar-home-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            border-radius: 10px;
+            color: var(--muted);
+            text-decoration: none;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px dashed rgba(168, 85, 247, 0.25);
+            margin-top: 25px;
+        }
+
+        .sidebar-home-link:hover {
+            background: var(--surface-hover);
+            color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
         }
 
         .sidebar-footer {
@@ -1504,8 +1595,8 @@
             
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
-                    <label for="loginEmail">Usuario</label>
-                    <input type="text" id="loginEmail" class="form-input" required placeholder="univercelu1">
+                    <label for="loginEmail">Email de Administrador</label>
+                    <input type="email" id="loginEmail" class="form-input" required placeholder="admin@univercelu.com">
                 </div>
                 
                 <div class="form-group">
@@ -1564,6 +1655,9 @@
                 </a>
                 <a class="sidebar-item" data-section="settings">
                     <i class="fa-solid fa-sliders"></i> Ajustes
+                </a>
+                <a href="index.html" class="sidebar-home-link">
+                    <i class="fa-solid fa-house" style="color: var(--neon-violet);"></i> Volver al Inicio
                 </a>
             </nav>
             
@@ -1645,7 +1739,6 @@
                     <button class="chip" data-filter="cargadores" onclick="setCategoryFilter('cargadores')">Cargadores</button>
                     <button class="chip" data-filter="audio" onclick="setCategoryFilter('audio')">Audio</button>
                     <button class="chip" data-filter="vidrios" onclick="setCategoryFilter('vidrios')">Vidrios</button>
-                    <button class="chip" data-filter="otros" onclick="setCategoryFilter('otros')">Otros</button>
                 </div>
 
                 <div class="products-admin-grid" id="tblProductsBody">
@@ -1705,18 +1798,13 @@
                 </div>
 
                 <div class="settings-card" style="margin-top: 30px; border-color: rgba(6, 182, 212, 0.35);">
-                    <h2 class="modal-header-title" style="font-family:'Bebas Neue',sans-serif; font-size: 26px; color: var(--white); margin-bottom: 15px;">🔒 Seguridad y Acceso del Panel</h2>
+                    <h2 class="modal-header-title" style="font-family:'Bebas Neue',sans-serif; font-size: 26px; color: var(--white); margin-bottom: 15px;">🔒 Seguridad del Administrador</h2>
                     <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6;">
-                        Modifica el usuario personalizado y la contraseña secreta para acceder al panel de administración de Univercelu.
+                        Modifica la contraseña del administrador actual de manera segura mediante Firebase Authentication.
                     </p>
                     
                     <form id="credentialsForm">
                         <div class="settings-grid">
-                            <div class="form-group" style="grid-column: 1 / -1;">
-                                <label for="cfgAdminUsername">Usuario de Acceso</label>
-                                <input type="text" id="cfgAdminUsername" class="form-input" required placeholder="univercelu1">
-                            </div>
-                            
                             <div class="form-group">
                                 <label for="cfgAdminPassword">Nueva Contraseña</label>
                                 <div class="password-input-wrapper" style="position: relative; display: block; width: 100%;">
@@ -1739,7 +1827,7 @@
                         </div>
                         
                         <button type="submit" class="btn-save-config" style="background: linear-gradient(135deg, var(--neon-cyan) 0%, #0891b2 100%); margin-top: 15px; border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);">
-                            🔑 Actualizar Credenciales de Acceso
+                            🔑 Cambiar Contraseña de Administrador
                         </button>
                     </form>
                 </div>
@@ -1775,7 +1863,6 @@
                                 <option value="cargadores">Cargadores</option>
                                 <option value="audio">Audio</option>
                                 <option value="vidrios">Vidrios</option>
-                                <option value="otros">Otros</option>
                             </select>
                         </div>
                     </div>
@@ -1935,13 +2022,12 @@
 
         document.getElementById('btnLogoutAction').onclick = async () => {
             if (confirm('¿Seguro que deseas desconectarte y volver al espacio exterior?')) {
-                if (!FirebaseService.isCloudActive()) {
-                    localStorage.removeItem('univercelu_sandbox_logged');
-                    checkAuth();
-                } else {
+                try {
                     await FirebaseService.logout();
+                    showToast('Sesión cerrada con éxito', 'info');
+                } catch (error) {
+                    showToast('Error al cerrar sesión', 'error');
                 }
-                showToast('Sesión cerrada con éxito', 'info');
             }
         };
 
@@ -1952,7 +2038,6 @@
         // --- SECTION B: DATA STORAGE & SYNCS ---
         const defaultProducts = window.initialProducts || [];
         const defaultConfig = window.initialConfig || {};
-        let adminCreds = { username: "univercelu1", password: "admin123" };
 
         let currentCategoryFilter = 'all';
 
@@ -1961,28 +2046,24 @@
             try {
                 products = await FirebaseService.getProducts() || defaultProducts;
                 config = await FirebaseService.getConfig() || defaultConfig;
-                adminCreds = await FirebaseService.getCustomCredentials();
 
                 // Actualizar texto de estado de conexión
                 const statusText = document.querySelector('.auth-text-gray');
                 if (statusText) {
-                    statusText.textContent = FirebaseService.isCloudActive() ? '· (Nube Firestore)' : '· (Sandbox Local)';
+                    statusText.textContent = FirebaseService.isCloudActive() ? '· (Nube Firebase)' : '· (Desconectado)';
                 }
 
                 renderProductsList();
                 renderConfigForm();
-                renderCredentialsForm();
             } catch (error) {
                 console.error("❌ [Firebase Load Error]:", error);
                 showToast('Fallo al sincronizar con la nube. Cargando datos locales.', 'error');
                 
                 products = JSON.parse(localStorage.getItem('univercelu_products_v3')) || defaultProducts;
                 config = JSON.parse(localStorage.getItem('univercelu_config')) || defaultConfig;
-                adminCreds = await FirebaseService.getCustomCredentials();
                 
                 renderProductsList();
                 renderConfigForm();
-                renderCredentialsForm();
             }
         }
 
@@ -2197,6 +2278,7 @@
                     document.getElementById('prodPrice').value = p.price;
                     document.getElementById('prodOriginalPrice').value = p.originalPrice || '';
                     document.getElementById('prodBadge').value = p.badge || '';
+                    document.getElementById('prodDesc').value = p.description || '';
                     document.getElementById('prodImg').value = p.image || '';
                     document.getElementById('prodAvailable').checked = (p.available !== false);
                     document.getElementById('prodFeatured').checked = !!p.featured;
@@ -2297,7 +2379,7 @@
             const image = document.getElementById('prodImg').value.trim();
             const available = document.getElementById('prodAvailable').checked;
             const featured = document.getElementById('prodFeatured').checked;
-            const description = idVal ? (products.find(pr => pr.id === idVal)?.description || 'Sin descripción.') : 'Sin descripción.';
+            const description = document.getElementById('prodDesc').value.trim() || 'Sin descripción.';
 
             try {
                 let p;
@@ -2311,6 +2393,7 @@
                         p.originalPrice = originalPrice;
                         p.badge = badge;
                         p.image = image;
+                        p.description = description;
                         p.available = available;
                         p.featured = featured;
                     }
@@ -2383,44 +2466,39 @@
             }
         };
 
-        function renderCredentialsForm() {
-            document.getElementById('cfgAdminUsername').value = adminCreds.username || 'univercelu1';
-            document.getElementById('cfgAdminPassword').value = adminCreds.password || 'admin123';
-            document.getElementById('cfgAdminPasswordConfirm').value = adminCreds.password || 'admin123';
-        }
-
         document.getElementById('credentialsForm').onsubmit = async (e) => {
             e.preventDefault();
             const submitBtn = e.target.querySelector('button[type="submit"]');
             submitBtn.disabled = true;
-            submitBtn.innerHTML = 'Actualizando credenciales... <i class="fa-solid fa-spinner fa-spin"></i>';
+            submitBtn.innerHTML = 'Cambiando contraseña... <i class="fa-solid fa-spinner fa-spin"></i>';
 
-            const newUsername = document.getElementById('cfgAdminUsername').value.trim();
             const newPassword = document.getElementById('cfgAdminPassword').value;
             const newPasswordConfirm = document.getElementById('cfgAdminPasswordConfirm').value;
 
             if (newPassword !== newPasswordConfirm) {
                 showToast('Las contraseñas ingresadas no coinciden. Reintenta.', 'error');
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '🔑 Actualizar Credenciales de Acceso';
+                submitBtn.innerHTML = '🔑 Cambiar Contraseña de Administrador';
                 return;
             }
 
             try {
-                await FirebaseService.saveCustomCredentials(newUsername, newPassword);
-                adminCreds.username = newUsername;
-                adminCreds.password = newPassword;
-                
-                // Actualizar el usuario mostrado en el sidebar
-                document.getElementById('sidebarUserEmail').textContent = newUsername;
-                
-                showToast('Credenciales actualizadas correctamente. ¡No las olvides!', 'success');
+                await FirebaseService.changePassword(newPassword);
+                showToast('Contraseña actualizada correctamente.', 'success');
+                document.getElementById('cfgAdminPassword').value = '';
+                document.getElementById('cfgAdminPasswordConfirm').value = '';
             } catch (error) {
-                console.error("Error al guardar credenciales:", error);
-                showToast('Error al actualizar credenciales en la nube', 'error');
+                console.error("Error al actualizar contraseña:", error);
+                let message = 'Fallo al actualizar la contraseña.';
+                if (error.code === 'auth/requires-recent-login') {
+                    message = 'Por razones de seguridad, debes cerrar sesión e iniciar sesión nuevamente antes de cambiar tu contraseña.';
+                } else if (error.code === 'auth/weak-password') {
+                    message = 'La contraseña es muy débil. Debe tener al menos 6 caracteres.';
+                }
+                showToast(message, 'error');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '🔑 Actualizar Credenciales de Acceso';
+                submitBtn.innerHTML = '🔑 Cambiar Contraseña de Administrador';
             }
         };
 
@@ -3761,23 +3839,26 @@ footer {
   display: block;
 }
 
-/* Contenedor del Modal */
+/* Contenedor del Modal con Glassmorphism Premium */
 .product-detail-modal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
   width: 90%;
-  max-width: 1000px;
-  max-height: 90vh;
+  max-width: 950px;
+  max-height: 85vh;
   z-index: 1002;
   display: none;
   overflow-y: auto;
-  padding: 40px;
-  background: rgba(12, 8, 28, 0.96);
-  border: 1px solid rgba(138, 43, 226, 0.25);
+  padding: 35px;
+  background: rgba(10, 6, 21, 0.95);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: 24px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), var(--shadow-neon-violet);
-  animation: scaleIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 .product-detail-modal.open {
@@ -3792,14 +3873,14 @@ footer {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-muted);
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   z-index: 10;
   transition: var(--transition-fast);
 }
@@ -3807,17 +3888,17 @@ footer {
 .close-detail-btn:hover {
   color: var(--accent-pink);
   border-color: var(--accent-pink);
-  background: rgba(247, 37, 133, 0.1);
+  background: rgba(247, 37, 133, 0.15);
   transform: rotate(90deg);
-  box-shadow: 0 0 10px rgba(247, 37, 133, 0.3);
+  box-shadow: 0 0 12px rgba(247, 37, 133, 0.4);
 }
 
 /* Grid de Detalle */
 .detail-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 40px;
-  margin-bottom: 30px;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 35px;
+  align-items: start;
 }
 
 /* Columna Izquierda: Galería visual */
@@ -3826,8 +3907,8 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: 20px;
   padding: 30px;
   position: relative;
@@ -3837,10 +3918,10 @@ footer {
 .detail-gallery::before {
   content: '';
   position: absolute;
-  width: 150px;
-  height: 150px;
-  background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, transparent 70%);
-  filter: blur(20px);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+  filter: blur(30px);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -3849,20 +3930,20 @@ footer {
 
 .detail-main-img {
   width: 100%;
-  max-width: 320px;
+  max-width: 280px;
   height: auto;
   object-fit: contain;
-  border-radius: 15px;
-  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.5));
-  transition: transform 0.4s ease;
+  border-radius: 12px;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .detail-main-img:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 .detail-guarantee-note {
-  margin-top: 20px;
+  margin-top: 25px;
   font-size: 0.8rem;
   color: var(--text-muted);
   display: flex;
@@ -3882,225 +3963,183 @@ footer {
 .detail-info-panel {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px;
 }
 
-.detail-sold-tag {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.detail-sold-tag span {
-  color: #c77dff;
-  font-weight: 600;
+.detail-badge-tag {
+  align-self: flex-start;
+  padding: 4px 10px;
+  background: linear-gradient(90deg, var(--primary-glow), var(--accent-pink));
+  color: white;
+  font-family: var(--font-title);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
 }
 
 .detail-title {
   font-family: var(--font-title);
-  font-size: 1.85rem;
+  font-size: 1.7rem;
   font-weight: 800;
-  line-height: 1.25;
+  line-height: 1.2;
   color: var(--text-main);
-}
-
-/* Rating / Estrellas */
-.detail-rating {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.88rem;
-}
-
-.rating-stars {
-  color: #ffbe0b;
-  display: flex;
-  gap: 2px;
-}
-
-.rating-count {
-  color: var(--secondary-glow);
-  text-decoration: none;
-  font-weight: 500;
-  transition: var(--transition-fast);
-}
-
-.rating-count:hover {
-  text-decoration: underline;
-  text-shadow: 0 0 5px rgba(0, 242, 254, 0.4);
+  letter-spacing: -0.5px;
 }
 
 /* Precios */
 .detail-price-section {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin: 10px 0;
+  gap: 4px;
 }
 
 .detail-original-price {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
   text-decoration: line-through;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .detail-price-row {
   display: flex;
-  align-items: baseline;
-  gap: 15px;
+  align-items: center;
+  gap: 12px;
 }
 
 .detail-current-price {
   font-family: var(--font-title);
-  font-size: 2.2rem;
+  font-size: 2.1rem;
   font-weight: 800;
   color: var(--text-main);
 }
 
 .detail-discount-percent {
   color: var(--accent-pink);
-  font-weight: bold;
-  font-size: 1.15rem;
+  font-weight: 700;
+  font-size: 1rem;
   background: rgba(247, 37, 133, 0.1);
-  padding: 2px 8px;
-  border-radius: 5px;
+  padding: 3px 8px;
+  border-radius: 6px;
   border: 1px solid rgba(247, 37, 133, 0.2);
 }
 
-/* Medios de Pago */
-.detail-payment-info {
+/* Tarjeta de Beneficios */
+.detail-benefits-box {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 15px;
+  border-radius: 14px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
-.payment-row {
+.benefit-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
 }
 
-.payment-row i {
+.benefit-item i {
   color: var(--secondary-glow);
   font-size: 1.1rem;
   width: 20px;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(0, 242, 254, 0.4);
 }
 
-.payment-row strong {
+.benefit-item strong {
   color: #25D366;
 }
 
-/* Envío / Entrega */
-.detail-shipping-info {
+/* Quantity and Stock */
+.detail-quantity-and-stock {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-}
-
-.shipping-row {
-  display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: flex-start;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 10px 16px;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
-.shipping-row i {
-  color: #25D366;
-  font-size: 1.1rem;
-  margin-top: 3px;
-}
-
-.shipping-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.shipping-text strong {
-  color: #25D366;
-}
-
-.shipping-text span {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* Selector de Cantidad */
-.detail-quantity-box {
+.detail-quantity-control-wrapper {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin: 10px 0;
+  gap: 12px;
 }
 
-.detail-quantity-title {
-  font-size: 0.95rem;
+.detail-qty-label {
+  font-size: 0.88rem;
   color: var(--text-muted);
+  font-weight: 500;
 }
 
 .detail-quantity-control {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 50px;
-  padding: 4px;
+  padding: 2px;
 }
 
 .qty-control-btn {
   background: none;
   border: none;
   color: var(--text-main);
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
   transition: var(--transition-fast);
 }
 
 .qty-control-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--secondary-glow);
 }
 
 .qty-control-value {
-  font-size: 1rem;
-  font-weight: bold;
-  width: 35px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  width: 30px;
   text-align: center;
 }
 
 .qty-stock-label {
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: var(--accent-pink);
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-/* Botones Principales */
+/* Action Buttons */
 .detail-actions-buttons {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 10px;
 }
 
 .btn-detail {
   width: 100%;
-  padding: 16px;
+  padding: 14px;
   border-radius: 50px;
   font-family: var(--font-title);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -4119,84 +4158,48 @@ footer {
 .btn-detail.buy-now:hover {
   background: linear-gradient(135deg, var(--primary-glow) 0%, var(--accent-pink) 100%);
   color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 12px 25px rgba(0, 242, 254, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 242, 254, 0.4);
 }
 
 .btn-detail.add-to-cart {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(138, 43, 226, 0.35);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(138, 43, 226, 0.3);
   color: var(--text-main);
 }
 
 .btn-detail.add-to-cart:hover {
-  background: var(--bg-card);
+  background: rgba(138, 43, 226, 0.08);
   border-color: var(--secondary-glow);
   box-shadow: var(--shadow-neon-violet);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
-/* Ficha Técnica / Características Rápidas */
-.detail-specs-box {
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding-top: 20px;
-  margin-top: 10px;
+/* Integrated Description Box */
+.detail-description-box {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 15px;
+  margin-top: 5px;
 }
 
-.detail-specs-title {
+.detail-description-box h3 {
   font-family: var(--font-title);
   font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   color: var(--text-main);
+  letter-spacing: 0.5px;
 }
 
-.specs-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  list-style: none;
-}
-
-.specs-list li {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  display: flex;
-  gap: 10px;
-}
-
-.specs-list li i {
-  color: var(--primary-glow);
+.detail-description-box p {
   font-size: 0.9rem;
-  margin-top: 2px;
-}
-
-/* Sección de Descripción Expandida */
-.detail-description-section {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 30px;
-  margin-top: 10px;
-}
-
-.detail-desc-title {
-  font-family: var(--font-title);
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 15px;
-  color: var(--text-main);
-  background: linear-gradient(90deg, var(--text-main), var(--secondary-glow));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.detail-desc-text {
-  font-size: 0.95rem;
-  line-height: 1.7;
+  line-height: 1.6;
   color: var(--text-muted);
-  text-align: justify;
 }
 
-/* Animación de apertura */
+
+
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -4205,7 +4208,7 @@ footer {
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.85);
+    transform: translate(-50%, -50%) scale(0.9);
   }
   to {
     opacity: 1;
@@ -4364,7 +4367,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     CONFIG = fetchedConfig || window.initialConfig;
 
     // Sincronizar variables clave
-    WHATSAPP_NUMBER = CONFIG.whatsapp || "5491123456789";
+    WHATSAPP_NUMBER = CONFIG.whatsapp || "5491136719257";
 
     // Aplicar configuración a todo el DOM de la web
     applyStoreConfiguration();
@@ -4372,7 +4375,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error("❌ [Firebase Init Error]:", error);
     PRODUCTOS = window.initialProducts;
     CONFIG = window.initialConfig;
-    WHATSAPP_NUMBER = "5491123456789";
+    WHATSAPP_NUMBER = "5491136719257";
   }
 
   // Renderizar catálogo real una vez cargados los productos
@@ -4571,6 +4574,63 @@ styleSheet.innerText = `
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
   }
+
+  /* Estilos del modal simplificado */
+  .detail-highlights-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .highlight-item i {
+    font-size: 16px;
+    color: var(--primary-glow);
+    width: 20px;
+    text-align: center;
+  }
+  .detail-description-box {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .detail-description-box h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: var(--text-main);
+  }
+  .detail-description-box p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .detail-badge-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--primary-glow);
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+  }
 `;
 document.head.appendChild(styleSheet);
 
@@ -4715,22 +4775,13 @@ function getProductMockData(productId) {
     hash += productId.charCodeAt(i);
   }
   
-  // Rating determinista entre 4.6 y 4.9
-  const rating = (4.6 + (hash % 4) * 0.1).toFixed(1);
-  
-  // Número de opiniones determinista entre 18 y 85
-  const reviews = 18 + (hash % 68);
-  
-  // Ventas estimadas determinista entre 40 y 380
-  const sold = 40 + (hash % 340);
-  
   // Stock disponible simulado determinista entre 3 y 7
   const stock = 3 + (hash % 5);
   
-  return { rating, reviews, sold, stock };
+  return { stock };
 }
 
-/* Lógica del Modal Detalle de Producto estilo Mercado Libre */
+/* Lógica del Modal Detalle de Producto Simplificado y de Alto Impacto */
 function openProductDetail(productId) {
   const prod = PRODUCTOS.find(p => p.id === productId);
   if (!prod) return;
@@ -4751,99 +4802,22 @@ function openProductDetail(productId) {
     ? `<span class="detail-discount-percent">${discountPercent}% OFF</span>` 
     : '';
 
-  // Calcular cuotas fijas (6 cuotas)
-  const installmentPrice = Math.round(prod.price / 6);
-
-  // Características claves basadas en la categoría del producto
-  let specsHTML = '';
-  if (prod.category === 'fundas') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Protección extrema contra caídas e impactos</li>
-      <li><i class="fa-solid fa-circle-check"></i> Material de alta calidad con microfibra suave interna</li>
-      <li><i class="fa-solid fa-circle-check"></i> Ajuste perfecto y acceso a todos los puertos</li>
-    `;
-  } else if (prod.category === 'cables') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Carga rápida estable y transferencia de datos a alta velocidad</li>
-      <li><i class="fa-solid fa-circle-check"></i> Conectores reforzados anti-quiebres de gran durabilidad</li>
-      <li><i class="fa-solid fa-circle-check"></i> Compatibilidad garantizada con cargadores de alta potencia</li>
-    `;
-  } else if (prod.category === 'cargadores') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Carga rápida inteligente adaptada a tu dispositivo</li>
-      <li><i class="fa-solid fa-circle-check"></i> Protección integrada contra cortocircuitos y sobrecargas</li>
-      <li><i class="fa-solid fa-circle-check"></i> Diseño compacto y materiales ignífugos de alta durabilidad</li>
-    `;
-  } else if (prod.category === 'audio') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Sonido envolvente inmersivo de alta definición</li>
-      <li><i class="fa-solid fa-circle-check"></i> Conectividad ultra-rápida y gran autonomía de batería</li>
-      <li><i class="fa-solid fa-circle-check"></i> Materiales premium resistentes al uso diario y salpicaduras</li>
-    `;
-  } else if (prod.category === 'vidrios') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Máxima dureza 9H para una protección de pantalla extrema</li>
-      <li><i class="fa-solid fa-circle-check"></i> Bordes curvos 9D para cobertura total de la pantalla</li>
-      <li><i class="fa-solid fa-circle-check"></i> Transparencia HD cristalina con sensibilidad táctil al 100%</li>
-    `;
-  } else if (prod.category === 'otros') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Gadget de alta tecnología y gran utilidad para tu día a día</li>
-      <li><i class="fa-solid fa-circle-check"></i> Construcción robusta y materiales duraderos certificados</li>
-      <li><i class="fa-solid fa-circle-check"></i> Probado y garantizado al 100% por nuestro equipo técnico</li>
-    `;
-  } else if (prod.category === 'servicio') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Todas las marcas: Samsung, iPhone, Motorola, Xiaomi y más</li>
-      <li><i class="fa-solid fa-circle-check"></i> Presupuesto sin cargo en el momento</li>
-      <li><i class="fa-solid fa-circle-check"></i> Reparaciones en el día siempre que sea posible</li>
-    `;
-  } else {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Calidad premium garantizada directamente por Univercelu</li>
-      <li><i class="fa-solid fa-circle-check"></i> Diseño funcional y estéticos acabados espaciales</li>
-      <li><i class="fa-solid fa-circle-check"></i> Garantía oficial de 3 meses y servicio de soporte técnico</li>
-    `;
-  }
-
-  // Estrellas HTML
-  let starsHTML = '';
-  const fullStars = Math.floor(mockData.rating);
-  const hasHalfStar = mockData.rating % 1 !== 0;
-  for (let i = 1; i <= 5; i++) {
-    if (i <= fullStars) {
-      starsHTML += '<i class="fa-solid fa-star"></i>';
-    } else if (i === fullStars + 1 && hasHalfStar) {
-      starsHTML += '<i class="fa-solid fa-star-half-stroke"></i>';
-    } else {
-      starsHTML += '<i class="fa-regular fa-star"></i>';
-    }
-  }
-
-  // Renderizar contenido dinámico
+  // Renderizar contenido dinámico conciso y elegante
   productDetailContent.innerHTML = `
     <div class="detail-grid">
-      <!-- Columna Izquierda: Galería Visual -->
+      <!-- Columna Izquierda: Galería Visual Premium -->
       <div class="detail-gallery">
         <img src="${optimizeCloudinaryUrl(prod.image, 500)}" alt="${prod.name}" class="detail-main-img" id="detail-main-image">
         <div class="detail-guarantee-note">
           <i class="fa-solid fa-shield-halved"></i>
-          <span>Compra Protegida con Univercelu. Recibe el accesorio que esperas o te devolvemos el dinero en el acto.</span>
+          <span>Garantía oficial y soporte directo en local</span>
         </div>
       </div>
       
-      <!-- Columna Derecha: Panel de Compra -->
+      <!-- Columna Derecha: Panel de Detalles Conciso y Estilizado -->
       <div class="detail-info-panel">
-        <span class="detail-sold-tag">Nuevo  |  <span>+${mockData.sold} vendidos</span></span>
+        ${prod.badge ? `<span class="detail-badge-tag">${prod.badge}</span>` : ''}
         <h2 class="detail-title">${prod.name}</h2>
-        
-        <div class="detail-rating">
-          <div class="rating-stars">
-            ${starsHTML}
-          </div>
-          <span style="font-weight: bold; color: var(--text-main);">${mockData.rating}</span>
-          <a href="#" class="rating-count" onclick="return false;">(${mockData.reviews} opiniones)</a>
-        </div>
         
         <div class="detail-price-section">
           ${originalPriceHTML}
@@ -4853,46 +4827,31 @@ function openProductDetail(productId) {
           </div>
         </div>
 
-        <div class="detail-payment-info">
-          <div class="payment-row">
+        <!-- Tarjeta de Beneficios Minimalistas -->
+        <div class="detail-benefits-box">
+          <div class="benefit-item">
             <i class="fa-solid fa-credit-card"></i>
-            <span>Mismos precios en <strong>3 o 6 cuotas fijas</strong> de $${installmentPrice.toLocaleString('es-AR')}</span>
+            <span>💳 3 y 6 cuotas fijas · <strong>10% OFF</strong> en Efectivo/Transferencia</span>
           </div>
-          <div class="payment-row">
-            <i class="fa-solid fa-wallet"></i>
-            <span><strong>10% de descuento extra</strong> por Transferencia o Efectivo en local</span>
-          </div>
-        </div>
-
-        <div class="detail-shipping-info">
-          <div class="shipping-row">
+          <div class="benefit-item">
             <i class="fa-solid fa-truck-fast"></i>
-            <div class="shipping-text">
-              <span>Envío rápido a domicilio en <strong>Merlo y alrededores</strong></span>
-              <strong>Llega hoy gratis</strong><span> comprando antes de las 18:00 hs</span>
-            </div>
+            <span>📍 Retiro gratis en tienda (Maipú 510) · Envío rápido</span>
           </div>
-          <div class="shipping-row">
-            <i class="fa-solid fa-house-chimney"></i>
-            <div class="shipping-text">
-              <span>Retiro en nuestra tienda en <strong>Merlo Centro</strong></span>
-              <strong>Gratis hoy mismo</strong><span> (Maipú 510, Lunes a Sábado de 9 a 20 hs)</span>
+        </div>
+
+        <!-- Selector de Cantidad Minimalista -->
+        <div class="detail-quantity-and-stock">
+          <div class="detail-quantity-control-wrapper">
+            <span class="detail-qty-label">Cantidad:</span>
+            <div class="detail-quantity-control">
+              <button class="qty-control-btn qty-minus" aria-label="Disminuir cantidad">-</button>
+              <span class="qty-control-value" id="detail-qty-value">1</span>
+              <button class="qty-control-btn qty-plus" aria-label="Aumentar cantidad">+</button>
             </div>
           </div>
         </div>
 
-        <!-- Selector de Cantidad -->
-        <div class="detail-quantity-box">
-          <span class="detail-quantity-title">Cantidad:</span>
-          <div class="detail-quantity-control">
-            <button class="qty-control-btn qty-minus" aria-label="Disminuir cantidad">-</button>
-            <span class="qty-control-value" id="detail-qty-value">1</span>
-            <button class="qty-control-btn qty-plus" aria-label="Aumentar cantidad">+</button>
-          </div>
-          <span class="qty-stock-label">(Stock: ¡Últimos ${mockData.stock} disponibles!)</span>
-        </div>
-
-        <!-- Botones de Acción -->
+        <!-- Botones de Acción Rápidos -->
         <div class="detail-actions-buttons">
           <button class="btn-detail buy-now" id="detail-buy-now-btn">
             <i class="fa-solid fa-bolt"></i> Comprar ahora
@@ -4902,20 +4861,12 @@ function openProductDetail(productId) {
           </button>
         </div>
 
-        <!-- Ficha Técnica -->
-        <div class="detail-specs-box">
-          <h3 class="detail-specs-title">Características principales</h3>
-          <ul class="specs-list">
-            ${specsHTML}
-          </ul>
+        <!-- Descripción Simplificada e Integrada -->
+        <div class="detail-description-box">
+          <h3>Descripción</h3>
+          <p>${prod.description}</p>
         </div>
       </div>
-    </div>
-
-    <!-- Descripción Detallada -->
-    <div class="detail-description-section">
-      <h3 class="detail-desc-title">Descripción del Producto</h3>
-      <p class="detail-desc-text">${prod.description} Disfruta del máximo rendimiento, diseño ergonómico de vanguardia y durabilidad excepcional en cada uno de tus dispositivos. Todos los accesorios son 100% probados por nuestro equipo técnico en local de Merlo antes de la entrega para garantizar tu completa seguridad y satisfacción total. Incluye garantía de soporte directo.</p>
     </div>
   `;
 
@@ -5395,99 +5346,30 @@ const FirebaseService = {
         return isFirebaseActive;
     },
 
-    // --- GESTIÓN DE CREDENCIALES PERSONALIZADAS ---
-    async getCustomCredentials() {
-        if (!isFirebaseActive) {
-            const local = localStorage.getItem("univercelu_custom_credentials");
-            return local ? JSON.parse(local) : { username: "univercelu1", password: "admin123" };
-        }
-        try {
-            const doc = await db.collection("settings").doc("credentials").get();
-            if (doc.exists) {
-                return doc.data();
-            } else {
-                return { username: "univercelu1", password: "admin123" };
-            }
-        } catch (error) {
-            console.warn("⚠️ [Firebase] Fallo al leer credenciales de Firestore, usando defaults:", error);
-            return { username: "univercelu1", password: "admin123" };
-        }
-    },
-
-    async saveCustomCredentials(username, password) {
-        const creds = { username, password };
-        if (!isFirebaseActive) {
-            localStorage.setItem("univercelu_custom_credentials", JSON.stringify(creds));
-            return;
-        }
-        try {
-            await db.collection("settings").doc("credentials").set(creds);
-            console.log("🔑 [Firebase] Credenciales personalizadas guardadas con éxito en Firestore.");
-        } catch (error) {
-            console.error("❌ [Firebase] Error al guardar credenciales personalizadas:", error);
-            throw error;
-        }
-    },
-
     // --- AUTENTICACIÓN ---
-    async login(username, password) {
-        const creds = await this.getCustomCredentials();
-        const success = (username === creds.username && password === creds.password);
+    async login(email, password) {
+        const auth = firebase.auth();
+        return await auth.signInWithEmailAndPassword(email, password);
+    },
 
-        if (!success) {
-            return false;
-        }
-
-        if (isFirebaseActive) {
-            try {
-                const auth = firebase.auth();
-                await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-                try {
-                    // Intento 1: Con la nueva contraseña secreta requerida
-                    await auth.signInWithEmailAndPassword("admin@univercelu.com", "Univercelu2024!");
-                } catch (firstError) {
-                    console.warn("⚠️ [Firebase Silencioso] Error con contraseña 'Univercelu2024!', intentando fallback con 'admin123'...");
-                    // Intento 2: Fallback con la contraseña técnica anterior
-                    await auth.signInWithEmailAndPassword("admin@univercelu.com", "admin123");
-                }
-            } catch (error) {
-                console.error("[Firebase Silencioso] Error en inicio técnico de sesión (ambos intentos fallaron):", error);
-                throw new Error("Error de conexión de base de datos. Asegúrate de tener creado el usuario 'admin@univercelu.com' con contraseña 'Univercelu2024!' o 'admin123' en la pestaña Authentication de tu consola Firebase.");
-            }
+    async changePassword(newPassword) {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            return await user.updatePassword(newPassword);
         } else {
-            localStorage.setItem("univercelu_sandbox_logged", "true");
+            throw new Error("No hay un usuario autenticado activo.");
         }
-
-        localStorage.setItem("univercelu_logged_username", username);
-        return true;
     },
 
     async logout() {
-        localStorage.removeItem("univercelu_sandbox_logged");
-        localStorage.removeItem("univercelu_logged_username");
-        if (!isFirebaseActive) return;
-        try {
-            console.log("[Firebase] Cerrando sesión técnica...");
-            await firebase.auth().signOut();
-        } catch (error) {
-            console.error("[Firebase] Error en cierre de sesión:", error);
-        }
+        const auth = firebase.auth();
+        return await auth.signOut();
     },
 
     onAuth(callback) {
-        if (!isFirebaseActive) {
-            const isLocalLogged = localStorage.getItem("univercelu_sandbox_logged") === "true";
-            const customUsername = localStorage.getItem("univercelu_logged_username") || "univercelu1";
-            callback(isLocalLogged ? { email: customUsername, uid: "sandbox" } : null);
-            return;
-        }
-        firebase.auth().onAuthStateChanged((user) => {
-            const customUsername = localStorage.getItem("univercelu_logged_username");
-            if (user && customUsername) {
-                callback({ email: customUsername, uid: user.uid });
-            } else {
-                callback(null);
-            }
+        const auth = firebase.auth();
+        auth.onAuthStateChanged((user) => {
+            callback(user);
         });
     },
 
@@ -5511,15 +5393,8 @@ const FirebaseService = {
                 console.log("🌱 [Firebase] Autosiembra completada con éxito.");
             }
 
-            // Sembrar credenciales por defecto si no existen en Firestore
-            const credsDoc = await db.collection("settings").doc("credentials").get();
-            if (!credsDoc.exists) {
-                console.log("🌱 [Firebase] Sembrando credenciales de administrador por defecto (univercelu1 / admin123)...");
-                await db.collection("settings").doc("credentials").set({
-                    username: "univercelu1",
-                    password: "admin123"
-                });
-            }
+            // No se siembran credenciales en la base de datos por ser inseguro.
+            // Los usuarios de administración se manejan directamente desde Firebase Auth Console.
         } catch (error) {
             console.error("❌ [Firebase] Error durante el proceso de autosiembra:", error);
         }

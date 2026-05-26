@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     CONFIG = fetchedConfig || window.initialConfig;
 
     // Sincronizar variables clave
-    WHATSAPP_NUMBER = CONFIG.whatsapp || "5491123456789";
+    WHATSAPP_NUMBER = CONFIG.whatsapp || "5491136719257";
 
     // Aplicar configuración a todo el DOM de la web
     applyStoreConfiguration();
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error("❌ [Firebase Init Error]:", error);
     PRODUCTOS = window.initialProducts;
     CONFIG = window.initialConfig;
-    WHATSAPP_NUMBER = "5491123456789";
+    WHATSAPP_NUMBER = "5491136719257";
   }
 
   // Renderizar catálogo real una vez cargados los productos
@@ -274,6 +274,63 @@ styleSheet.innerText = `
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
   }
+
+  /* Estilos del modal simplificado */
+  .detail-highlights-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .highlight-item i {
+    font-size: 16px;
+    color: var(--primary-glow);
+    width: 20px;
+    text-align: center;
+  }
+  .detail-description-box {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .detail-description-box h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: var(--text-main);
+  }
+  .detail-description-box p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .detail-badge-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--primary-glow);
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+  }
 `;
 document.head.appendChild(styleSheet);
 
@@ -418,22 +475,13 @@ function getProductMockData(productId) {
     hash += productId.charCodeAt(i);
   }
   
-  // Rating determinista entre 4.6 y 4.9
-  const rating = (4.6 + (hash % 4) * 0.1).toFixed(1);
-  
-  // Número de opiniones determinista entre 18 y 85
-  const reviews = 18 + (hash % 68);
-  
-  // Ventas estimadas determinista entre 40 y 380
-  const sold = 40 + (hash % 340);
-  
   // Stock disponible simulado determinista entre 3 y 7
   const stock = 3 + (hash % 5);
   
-  return { rating, reviews, sold, stock };
+  return { stock };
 }
 
-/* Lógica del Modal Detalle de Producto estilo Mercado Libre */
+/* Lógica del Modal Detalle de Producto Simplificado y de Alto Impacto */
 function openProductDetail(productId) {
   const prod = PRODUCTOS.find(p => p.id === productId);
   if (!prod) return;
@@ -454,99 +502,22 @@ function openProductDetail(productId) {
     ? `<span class="detail-discount-percent">${discountPercent}% OFF</span>` 
     : '';
 
-  // Calcular cuotas fijas (6 cuotas)
-  const installmentPrice = Math.round(prod.price / 6);
-
-  // Características claves basadas en la categoría del producto
-  let specsHTML = '';
-  if (prod.category === 'fundas') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Protección extrema contra caídas e impactos</li>
-      <li><i class="fa-solid fa-circle-check"></i> Material de alta calidad con microfibra suave interna</li>
-      <li><i class="fa-solid fa-circle-check"></i> Ajuste perfecto y acceso a todos los puertos</li>
-    `;
-  } else if (prod.category === 'cables') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Carga rápida estable y transferencia de datos a alta velocidad</li>
-      <li><i class="fa-solid fa-circle-check"></i> Conectores reforzados anti-quiebres de gran durabilidad</li>
-      <li><i class="fa-solid fa-circle-check"></i> Compatibilidad garantizada con cargadores de alta potencia</li>
-    `;
-  } else if (prod.category === 'cargadores') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Carga rápida inteligente adaptada a tu dispositivo</li>
-      <li><i class="fa-solid fa-circle-check"></i> Protección integrada contra cortocircuitos y sobrecargas</li>
-      <li><i class="fa-solid fa-circle-check"></i> Diseño compacto y materiales ignífugos de alta durabilidad</li>
-    `;
-  } else if (prod.category === 'audio') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Sonido envolvente inmersivo de alta definición</li>
-      <li><i class="fa-solid fa-circle-check"></i> Conectividad ultra-rápida y gran autonomía de batería</li>
-      <li><i class="fa-solid fa-circle-check"></i> Materiales premium resistentes al uso diario y salpicaduras</li>
-    `;
-  } else if (prod.category === 'vidrios') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Máxima dureza 9H para una protección de pantalla extrema</li>
-      <li><i class="fa-solid fa-circle-check"></i> Bordes curvos 9D para cobertura total de la pantalla</li>
-      <li><i class="fa-solid fa-circle-check"></i> Transparencia HD cristalina con sensibilidad táctil al 100%</li>
-    `;
-  } else if (prod.category === 'otros') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Gadget de alta tecnología y gran utilidad para tu día a día</li>
-      <li><i class="fa-solid fa-circle-check"></i> Construcción robusta y materiales duraderos certificados</li>
-      <li><i class="fa-solid fa-circle-check"></i> Probado y garantizado al 100% por nuestro equipo técnico</li>
-    `;
-  } else if (prod.category === 'servicio') {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Todas las marcas: Samsung, iPhone, Motorola, Xiaomi y más</li>
-      <li><i class="fa-solid fa-circle-check"></i> Presupuesto sin cargo en el momento</li>
-      <li><i class="fa-solid fa-circle-check"></i> Reparaciones en el día siempre que sea posible</li>
-    `;
-  } else {
-    specsHTML = `
-      <li><i class="fa-solid fa-circle-check"></i> Calidad premium garantizada directamente por Univercelu</li>
-      <li><i class="fa-solid fa-circle-check"></i> Diseño funcional y estéticos acabados espaciales</li>
-      <li><i class="fa-solid fa-circle-check"></i> Garantía oficial de 3 meses y servicio de soporte técnico</li>
-    `;
-  }
-
-  // Estrellas HTML
-  let starsHTML = '';
-  const fullStars = Math.floor(mockData.rating);
-  const hasHalfStar = mockData.rating % 1 !== 0;
-  for (let i = 1; i <= 5; i++) {
-    if (i <= fullStars) {
-      starsHTML += '<i class="fa-solid fa-star"></i>';
-    } else if (i === fullStars + 1 && hasHalfStar) {
-      starsHTML += '<i class="fa-solid fa-star-half-stroke"></i>';
-    } else {
-      starsHTML += '<i class="fa-regular fa-star"></i>';
-    }
-  }
-
-  // Renderizar contenido dinámico
+  // Renderizar contenido dinámico conciso y elegante
   productDetailContent.innerHTML = `
     <div class="detail-grid">
-      <!-- Columna Izquierda: Galería Visual -->
+      <!-- Columna Izquierda: Galería Visual Premium -->
       <div class="detail-gallery">
         <img src="${optimizeCloudinaryUrl(prod.image, 500)}" alt="${prod.name}" class="detail-main-img" id="detail-main-image">
         <div class="detail-guarantee-note">
           <i class="fa-solid fa-shield-halved"></i>
-          <span>Compra Protegida con Univercelu. Recibe el accesorio que esperas o te devolvemos el dinero en el acto.</span>
+          <span>Garantía oficial y soporte directo en local</span>
         </div>
       </div>
       
-      <!-- Columna Derecha: Panel de Compra -->
+      <!-- Columna Derecha: Panel de Detalles Conciso y Estilizado -->
       <div class="detail-info-panel">
-        <span class="detail-sold-tag">Nuevo  |  <span>+${mockData.sold} vendidos</span></span>
+        ${prod.badge ? `<span class="detail-badge-tag">${prod.badge}</span>` : ''}
         <h2 class="detail-title">${prod.name}</h2>
-        
-        <div class="detail-rating">
-          <div class="rating-stars">
-            ${starsHTML}
-          </div>
-          <span style="font-weight: bold; color: var(--text-main);">${mockData.rating}</span>
-          <a href="#" class="rating-count" onclick="return false;">(${mockData.reviews} opiniones)</a>
-        </div>
         
         <div class="detail-price-section">
           ${originalPriceHTML}
@@ -556,46 +527,31 @@ function openProductDetail(productId) {
           </div>
         </div>
 
-        <div class="detail-payment-info">
-          <div class="payment-row">
+        <!-- Tarjeta de Beneficios Minimalistas -->
+        <div class="detail-benefits-box">
+          <div class="benefit-item">
             <i class="fa-solid fa-credit-card"></i>
-            <span>Mismos precios en <strong>3 o 6 cuotas fijas</strong> de $${installmentPrice.toLocaleString('es-AR')}</span>
+            <span>💳 3 y 6 cuotas fijas · <strong>10% OFF</strong> en Efectivo/Transferencia</span>
           </div>
-          <div class="payment-row">
-            <i class="fa-solid fa-wallet"></i>
-            <span><strong>10% de descuento extra</strong> por Transferencia o Efectivo en local</span>
-          </div>
-        </div>
-
-        <div class="detail-shipping-info">
-          <div class="shipping-row">
+          <div class="benefit-item">
             <i class="fa-solid fa-truck-fast"></i>
-            <div class="shipping-text">
-              <span>Envío rápido a domicilio en <strong>Merlo y alrededores</strong></span>
-              <strong>Llega hoy gratis</strong><span> comprando antes de las 18:00 hs</span>
-            </div>
+            <span>📍 Retiro gratis en tienda (Maipú 510) · Envío rápido</span>
           </div>
-          <div class="shipping-row">
-            <i class="fa-solid fa-house-chimney"></i>
-            <div class="shipping-text">
-              <span>Retiro en nuestra tienda en <strong>Merlo Centro</strong></span>
-              <strong>Gratis hoy mismo</strong><span> (Maipú 510, Lunes a Sábado de 9 a 20 hs)</span>
+        </div>
+
+        <!-- Selector de Cantidad Minimalista -->
+        <div class="detail-quantity-and-stock">
+          <div class="detail-quantity-control-wrapper">
+            <span class="detail-qty-label">Cantidad:</span>
+            <div class="detail-quantity-control">
+              <button class="qty-control-btn qty-minus" aria-label="Disminuir cantidad">-</button>
+              <span class="qty-control-value" id="detail-qty-value">1</span>
+              <button class="qty-control-btn qty-plus" aria-label="Aumentar cantidad">+</button>
             </div>
           </div>
         </div>
 
-        <!-- Selector de Cantidad -->
-        <div class="detail-quantity-box">
-          <span class="detail-quantity-title">Cantidad:</span>
-          <div class="detail-quantity-control">
-            <button class="qty-control-btn qty-minus" aria-label="Disminuir cantidad">-</button>
-            <span class="qty-control-value" id="detail-qty-value">1</span>
-            <button class="qty-control-btn qty-plus" aria-label="Aumentar cantidad">+</button>
-          </div>
-          <span class="qty-stock-label">(Stock: ¡Últimos ${mockData.stock} disponibles!)</span>
-        </div>
-
-        <!-- Botones de Acción -->
+        <!-- Botones de Acción Rápidos -->
         <div class="detail-actions-buttons">
           <button class="btn-detail buy-now" id="detail-buy-now-btn">
             <i class="fa-solid fa-bolt"></i> Comprar ahora
@@ -605,20 +561,12 @@ function openProductDetail(productId) {
           </button>
         </div>
 
-        <!-- Ficha Técnica -->
-        <div class="detail-specs-box">
-          <h3 class="detail-specs-title">Características principales</h3>
-          <ul class="specs-list">
-            ${specsHTML}
-          </ul>
+        <!-- Descripción Simplificada e Integrada -->
+        <div class="detail-description-box">
+          <h3>Descripción</h3>
+          <p>${prod.description}</p>
         </div>
       </div>
-    </div>
-
-    <!-- Descripción Detallada -->
-    <div class="detail-description-section">
-      <h3 class="detail-desc-title">Descripción del Producto</h3>
-      <p class="detail-desc-text">${prod.description} Disfruta del máximo rendimiento, diseño ergonómico de vanguardia y durabilidad excepcional en cada uno de tus dispositivos. Todos los accesorios son 100% probados por nuestro equipo técnico en local de Merlo antes de la entrega para garantizar tu completa seguridad y satisfacción total. Incluye garantía de soporte directo.</p>
     </div>
   `;
 
