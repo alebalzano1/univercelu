@@ -1844,6 +1844,27 @@
         </div>
     </div>
 
+    <!-- MODAL DE CONFIRMACIÓN PREMIUM (ELIMINAR PRODUCTO) -->
+    <div class="modal-overlay" id="confirmDeleteModalOverlay">
+        <div class="modal-card" style="max-width: 400px; text-align: center;">
+            <div class="modal-header" style="border-bottom: none; padding-bottom: 0; justify-content: center; position: relative;">
+                <div style="font-size: 50px; color: var(--red); text-shadow: 0 0 15px rgba(255, 56, 56, 0.4); margin-top: 10px;">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+            </div>
+            <div class="modal-body" style="padding: 20px 30px;">
+                <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1.5px; color: var(--white); margin-bottom: 12px;">¿Eliminar del catálogo?</h3>
+                <p style="color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 5px;">Estás a punto de eliminar definitivamente:</p>
+                <p id="confirmDeleteProdName" style="color: var(--neon-gold); font-size: 16px; font-weight: 700; margin-bottom: 20px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; text-transform: uppercase; text-shadow: 0 0 5px rgba(245, 197, 24, 0.2);"></p>
+                <p style="color: rgba(255, 255, 255, 0.4); font-size: 12px; font-style: italic;">Esta acción no se puede deshacer y borrará el producto de la base de datos.</p>
+            </div>
+            <div class="modal-footer" style="border-top: none; padding-top: 0; justify-content: center; gap: 15px; padding-bottom: 30px;">
+                <button type="button" class="btn-modal-cancel" id="btnCancelDelete" style="min-width: 120px;">Cancelar</button>
+                <button type="button" class="btn-modal-save" id="btnConfirmDelete" style="background: var(--red); box-shadow: 0 0 15px rgba(255, 56, 56, 0.4); min-width: 120px; color: var(--white);">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Contenedor de notificaciones de Toast -->
     <div class="toast-container" id="toastContainer"></div>
 
@@ -2197,16 +2218,42 @@
             openProductModal('Editar Accesorio', id);
         }
 
+        function showConfirmDeleteModal(productName) {
+            return new Promise((resolve) => {
+                const modal = document.getElementById('confirmDeleteModalOverlay');
+                const label = document.getElementById('confirmDeleteProdName');
+                const btnConfirm = document.getElementById('btnConfirmDelete');
+                const btnCancel = document.getElementById('btnCancelDelete');
+
+                label.textContent = `"${productName}"`;
+                modal.classList.add('open');
+
+                const cleanup = (result) => {
+                    modal.classList.remove('open');
+                    // Limpiar eventos para evitar fugas de memoria
+                    btnConfirm.onclick = null;
+                    btnCancel.onclick = null;
+                    resolve(result);
+                };
+
+                btnConfirm.onclick = () => cleanup(true);
+                btnCancel.onclick = () => cleanup(false);
+            });
+        }
+
         async function deleteProductItem(id) {
             const p = products.find(prod => prod.id === id);
-            if (p && confirm(`¿Seguro que deseas eliminar definitivamente "${p.name}" del catálogo?`)) {
-                try {
-                    await FirebaseService.deleteProduct(id);
-                    products = products.filter(prod => prod.id !== id);
-                    renderProductsList();
-                    showToast('Accesorio eliminado con éxito', 'success');
-                } catch (error) {
-                    showToast('Error al eliminar accesorio', 'error');
+            if (p) {
+                const confirmed = await showConfirmDeleteModal(p.name);
+                if (confirmed) {
+                    try {
+                        await FirebaseService.deleteProduct(id);
+                        products = products.filter(prod => prod.id !== id);
+                        renderProductsList();
+                        showToast('Accesorio eliminado con éxito', 'success');
+                    } catch (error) {
+                        showToast('Error al eliminar accesorio', 'error');
+                    }
                 }
             }
         }
