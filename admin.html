@@ -25,22 +25,22 @@
 
     <style>
         :root {
-            --black: #06040c;
-            --space-dark: #0b0816;
-            --surface: rgba(45, 27, 105, 0.65); /* Violeta profundo base */
-            --surface-card: rgba(255, 255, 255, 0.07);
-            --surface-hover: rgba(168, 85, 247, 0.15);
-            --neon-violet: #A855F7; /* Lila vibrante */
-            --neon-cyan: #7C3AED;   /* Violeta medio */
-            --neon-gold: #f5c518;
-            --white: #ffffff;
-            --muted: #E2D9F3;
-            --red: #ff3838;
-            --green: #00ffd0;
-            --border: rgba(255, 255, 255, 0.08);
+            --black: #ffffff;          /* Cambiamos fondo oscuro a blanco */
+            --space-dark: #ffffff;      /* Sidebar blanco */
+            --surface: #f8fafc;        /* Superficies gris muy claro */
+            --surface-card: #ffffff;    /* Tarjetas blancas */
+            --surface-hover: rgba(124, 58, 237, 0.08); /* Hover lila muy suave */
+            --neon-violet: #8b5cf6;     /* Violeta premium */
+            --neon-cyan: #7c3aed;       /* Violeta medio */
+            --neon-gold: #eab308;       /* Amarillo dorado */
+            --white: #0f172a;           /* Texto principal: Carbón/Negro */
+            --muted: #475569;           /* Texto secundario: Gris oscuro */
+            --red: #ef4444;             /* Rojo error */
+            --green: #10b981;           /* Verde éxito */
+            --border: rgba(15, 23, 42, 0.08); /* Bordes sutiles oscuros */
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            --glow-violet: 0 0 15px rgba(168, 85, 247, 0.4);
-            --glow-cyan: 0 0 15px rgba(124, 58, 237, 0.4);
+            --glow-violet: 0 4px 12px rgba(139, 92, 246, 0.08);
+            --glow-cyan: 0 4px 12px rgba(6, 182, 212, 0.08);
         }
 
         * {
@@ -50,14 +50,53 @@
         }
 
         body {
-            background-color: #2D1B69; /* Violeta profundo */
+            background-color: #ffffff;
             color: var(--white);
             font-family: 'Barlow', sans-serif;
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 40%);
-            background-attachment: fixed;
+            background-image: none;
+        }
+
+        /* --- SOBRESCRITURAS DE TEMA CLARO --- */
+        .stars {
+            display: none !important;
+        }
+        .sidebar {
+            background: #ffffff !important;
+            border-right: 1px solid var(--border) !important;
+        }
+        .mobile-header {
+            background: #ffffff !important;
+            border-bottom: 1px solid var(--border) !important;
+        }
+        .mobile-toggle {
+            color: var(--white) !important;
+        }
+        .product-admin-card-img-wrap {
+            background: #f8fafc !important;
+        }
+        .image-upload-preview {
+            background: #f8fafc !important;
+        }
+        .login-overlay {
+            background: #ffffff !important;
+        }
+        .login-card {
+            background: #ffffff !important;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+        }
+        /* Garantizar legibilidad de texto blanco en botones con fondos oscuros/llamativos */
+        .login-btn, .btn-save-config, .btn-modal-save, .btn-logout:hover {
+            color: #ffffff !important;
+        }
+        .btn-logout {
+            color: var(--red) !important;
+            border-color: rgba(239, 68, 68, 0.2) !important;
+            background: rgba(239, 68, 68, 0.05) !important;
+        }
+        .btn-logout:hover {
+            background: var(--red) !important;
+            border-color: var(--red) !important;
         }
 
         /* --- DECORACIÓN ESPACIAL --- */
