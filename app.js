@@ -495,6 +495,12 @@ function openProductDetail(productId) {
       <li><i class="fa-solid fa-circle-check"></i> Construcción robusta y materiales duraderos certificados</li>
       <li><i class="fa-solid fa-circle-check"></i> Probado y garantizado al 100% por nuestro equipo técnico</li>
     `;
+  } else if (prod.category === 'servicio') {
+    specsHTML = `
+      <li><i class="fa-solid fa-circle-check"></i> Todas las marcas: Samsung, iPhone, Motorola, Xiaomi y más</li>
+      <li><i class="fa-solid fa-circle-check"></i> Presupuesto sin cargo en el momento</li>
+      <li><i class="fa-solid fa-circle-check"></i> Reparaciones en el día siempre que sea posible</li>
+    `;
   } else {
     specsHTML = `
       <li><i class="fa-solid fa-circle-check"></i> Calidad premium garantizada directamente por Univercelu</li>

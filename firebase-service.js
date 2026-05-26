@@ -70,10 +70,13 @@ const FirebaseService = {
 
         if (isFirebaseActive) {
             try {
-                console.log("[Firebase Silencioso] Iniciando sesión técnica...");
                 const auth = firebase.auth();
                 await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-                await auth.signInWithEmailAndPassword("admin@univercelu.com", "admin123");
+                // IMPORTANTE: Crear este usuario en Firebase Console →
+                // Authentication → Add user
+                // Email: admin@univercelu.com
+                // Password: Univercelu2024!
+                await auth.signInWithEmailAndPassword("admin@univercelu.com", "Univercelu2024!");
             } catch (error) {
                 console.error("[Firebase Silencioso] Error en inicio técnico de sesión:", error);
                 throw new Error("Error de conexión de base de datos. Reintenta.");
