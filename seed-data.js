@@ -342,7 +342,7 @@ const initialConfig = {
   tagline: "Más de 10 años en el rubro.",
   whatsapp: "5491136719257",
   instagram: "univercelu_merlo",
-  deliveryZone: "Maipú 510, Merlo Centro (entre Libertador y Saranfi)",
+  deliveryZone: "Maipú 510, Merlo Centro (entre Libertador y Sarandí)",
   minOrder: 0,
   welcomeMessage: "¡Hola! Quisiera hacer un pedido de accesorios 📱"
 };
