@@ -20,10 +20,13 @@ function optimizeCloudinaryUrl(url, width = 300) {
    Variables de Estado y Elementos del DOM
    ========================================================================== */
 let carrito = JSON.parse(localStorage.getItem('univercelu_cart')) || [];
+let currentSearchQuery = "";
 
 // Elementos DOM del Catálogo
 const productsGrid = document.getElementById('products-catalog-grid');
 const filterButtons = document.querySelectorAll('.filter-btn');
+const catalogSearchInput = document.getElementById('catalog-search-input');
+const clearSearchBtn = document.getElementById('clear-search-btn');
 
 // Elementos DOM del Carrito
 const cartOverlay = document.getElementById('shopping-cart-overlay');
@@ -147,9 +150,47 @@ function applyStoreConfiguration() {
 function renderCatalog(categoryFilter) {
   productsGrid.innerHTML = '';
   
-  const productosFiltrados = categoryFilter === 'todos' 
+  const categoryFiltered = categoryFilter === 'todos' 
     ? PRODUCTOS 
     : PRODUCTOS.filter(p => p.category === categoryFilter);
+
+  const query = currentSearchQuery.toLowerCase().trim();
+  const productosFiltrados = query === ''
+    ? categoryFiltered
+    : categoryFiltered.filter(p => 
+        p.name.toLowerCase().includes(query) || 
+        (p.description && p.description.toLowerCase().includes(query)) ||
+        p.category.toLowerCase().includes(query)
+      );
+
+  // Manejo de cero resultados (búsqueda vacía) con estética galáctica
+  if (productosFiltrados.length === 0) {
+    productsGrid.innerHTML = `
+      <div class="no-results-message">
+        <i class="fa-solid fa-satellite-dish"></i>
+        <h3>Búsqueda sin señal...</h3>
+        <p>No encontramos ningún producto que coincida con "${currentSearchQuery}".</p>
+        <button class="btn-premium btn-outline" id="reset-search-btn">
+          Ver todos los productos <i class="fa-solid fa-sparkles"></i>
+        </button>
+      </div>
+    `;
+
+    document.getElementById('reset-search-btn').addEventListener('click', () => {
+      catalogSearchInput.value = '';
+      currentSearchQuery = '';
+      clearSearchBtn.style.display = 'none';
+      
+      // Restablecer filtro de categoría activo a "todos" para mejor experiencia
+      filterButtons.forEach(b => b.classList.remove('active'));
+      const allBtn = document.getElementById('filter-btn-all');
+      if (allBtn) allBtn.classList.add('active');
+      
+      renderCatalog('todos');
+      catalogSearchInput.focus();
+    });
+    return;
+  }
 
   productosFiltrados.forEach((prod, index) => {
     const card = document.createElement('div');
@@ -666,6 +707,43 @@ function setupEventListeners() {
       renderCatalog(category);
     });
   });
+
+  // Buscador de Catálogo (Búsqueda en tiempo real)
+  if (catalogSearchInput) {
+    catalogSearchInput.addEventListener('input', (e) => {
+      currentSearchQuery = e.target.value;
+      
+      // Mostrar/Ocultar botón de borrado rápido
+      if (currentSearchQuery.length > 0) {
+        clearSearchBtn.style.display = 'block';
+      } else {
+        clearSearchBtn.style.display = 'none';
+      }
+      
+      // Obtener la categoría activa
+      const activeFilterBtn = document.querySelector('.filter-btn.active');
+      const activeCategory = activeFilterBtn ? activeFilterBtn.getAttribute('data-category') : 'todos';
+      
+      renderCatalog(activeCategory);
+    });
+  }
+
+  // Limpiar buscador
+  if (clearSearchBtn) {
+    clearSearchBtn.addEventListener('click', () => {
+      catalogSearchInput.value = '';
+      currentSearchQuery = '';
+      clearSearchBtn.style.display = 'none';
+      
+      // Re-renderizar catálogo con categoría activa
+      const activeFilterBtn = document.querySelector('.filter-btn.active');
+      const activeCategory = activeFilterBtn ? activeFilterBtn.getAttribute('data-category') : 'todos';
+      
+      renderCatalog(activeCategory);
+      catalogSearchInput.focus();
+    });
+  }
+
 
   // Botón de Checkout de WhatsApp (Construcción de Pedido Premium)
   checkoutWspBtn.addEventListener('click', () => {
