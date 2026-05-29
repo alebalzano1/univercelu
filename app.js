@@ -543,17 +543,57 @@ function openProductDetail(productId) {
     ? `<span class="detail-discount-percent">${discountPercent}% OFF</span>` 
     : '';
 
-  // Renderizar contenido dinámico conciso y elegante
-  productDetailContent.innerHTML = `
-    <div class="detail-grid">
-      <!-- Columna Izquierda: Galería Visual Premium -->
+  // Obtener arreglo de fotos válidas
+  const imagesList = [prod.image, prod.image2, prod.image3].filter(img => img && img.trim() !== "");
+
+  // Generar HTML de la galería según tenga 1 o más imágenes
+  let galleryHTML = '';
+  if (imagesList.length > 1) {
+    let imagesHTML = '';
+    let dotsHTML = '';
+    
+    imagesList.forEach((url, idx) => {
+      imagesHTML += `<img src="${optimizeCloudinaryUrl(url, 500)}" alt="${prod.name} - ${idx + 1}" class="detail-main-img ${idx === 0 ? 'active' : ''}" id="detail-img-${idx}" data-index="${idx}" style="${idx === 0 ? '' : 'display: none;'}">`;
+      dotsHTML += `<span class="indicator-dot ${idx === 0 ? 'active' : ''}" data-index="${idx}"></span>`;
+    });
+
+    galleryHTML = `
+      <div class="detail-gallery-carousel">
+        <button class="carousel-nav-btn prev" id="detail-gallery-prev" aria-label="Foto anterior">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div class="carousel-images-wrapper">
+          ${imagesHTML}
+        </div>
+        <button class="carousel-nav-btn next" id="detail-gallery-next" aria-label="Siguiente foto">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <div class="carousel-indicators">
+          ${dotsHTML}
+        </div>
+        <div class="detail-guarantee-note" style="margin-top: 15px; width: 100%;">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Garantía oficial y soporte directo en local</span>
+        </div>
+      </div>
+    `;
+  } else {
+    galleryHTML = `
       <div class="detail-gallery">
-        <img src="${optimizeCloudinaryUrl(prod.image, 500)}" alt="${prod.name}" class="detail-main-img" id="detail-main-image">
+        <img src="${optimizeCloudinaryUrl(prod.image || 'assets/placeholder.png', 500)}" alt="${prod.name}" class="detail-main-img" id="detail-main-image">
         <div class="detail-guarantee-note">
           <i class="fa-solid fa-shield-halved"></i>
           <span>Garantía oficial y soporte directo en local</span>
         </div>
       </div>
+    `;
+  }
+
+  // Renderizar contenido dinámico conciso y elegante
+  productDetailContent.innerHTML = `
+    <div class="detail-grid">
+      <!-- Columna Izquierda: Galería Visual Premium -->
+      ${galleryHTML}
       
       <!-- Columna Derecha: Panel de Detalles Conciso y Estilizado -->
       <div class="detail-info-panel">
@@ -610,6 +650,52 @@ function openProductDetail(productId) {
       </div>
     </div>
   `;
+
+  // Lógica del carrusel si el producto tiene más de 1 imagen
+  if (imagesList.length > 1) {
+    const imagesElements = productDetailContent.querySelectorAll('.carousel-images-wrapper img');
+    const prevBtn = productDetailContent.querySelector('#detail-gallery-prev');
+    const nextBtn = productDetailContent.querySelector('#detail-gallery-next');
+    const dots = productDetailContent.querySelectorAll('.indicator-dot');
+
+    let activeIndex = 0;
+
+    function showImage(index) {
+      activeIndex = index;
+      
+      // Ocultar todas las imágenes y desactivar dots
+      imagesElements.forEach((img, idx) => {
+        if (idx === index) {
+          img.style.display = 'block';
+          img.classList.add('active');
+          dots[idx].classList.add('active');
+        } else {
+          img.style.display = 'none';
+          img.classList.remove('active');
+          dots[idx].classList.remove('active');
+        }
+      });
+    }
+
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      let nextIndex = (activeIndex - 1 + imagesList.length) % imagesList.length;
+      showImage(nextIndex);
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      let nextIndex = (activeIndex + 1) % imagesList.length;
+      showImage(nextIndex);
+    });
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showImage(idx);
+      });
+    });
+  }
 
   // Lógica del selector de cantidad
   const btnMinus = productDetailContent.querySelector('.qty-minus');

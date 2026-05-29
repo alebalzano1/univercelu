@@ -1028,63 +1028,156 @@
             filter: brightness(1.1);
         }
 
-        /* Subida de Imagen Form */
-        .image-upload-wrapper {
+        /* Contenedor de Subida Múltiple Drag & Drop */
+        .multi-image-upload-container {
             display: flex;
-            gap: 20px;
-            align-items: flex-start;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
         }
 
-        .image-upload-preview {
-            width: 120px;
-            height: 120px;
+        .upload-dropzone {
+            border: 2px dashed rgba(168, 85, 247, 0.35);
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .upload-dropzone:hover, .upload-dropzone.dragover {
+            border-color: var(--green);
+            background: rgba(0, 255, 208, 0.04);
+            box-shadow: 0 0 15px rgba(0, 255, 208, 0.15);
+        }
+
+        .dropzone-icon {
+            font-size: 2.2rem;
+            color: var(--neon-violet);
+            text-shadow: var(--glow-violet);
+            transition: var(--transition);
+        }
+
+        .upload-dropzone:hover .dropzone-icon, .upload-dropzone.dragover .dropzone-icon {
+            color: var(--green);
+            transform: translateY(-3px);
+            text-shadow: 0 0 10px var(--green);
+        }
+
+        .dropzone-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            width: 100%;
+        }
+
+        .dropzone-text-primary {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .dropzone-text-secondary {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Thumbnails Preview Grid */
+        .preview-thumbnails-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .thumbnail-card {
+            position: relative;
+            width: 90px;
+            height: 90px;
             border-radius: 12px;
-            border: 1px dashed var(--border);
-            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.35);
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            animation: fadeSlideIn 0.35s ease-out;
         }
 
-        .image-upload-preview img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
+        .thumbnail-card.loading {
+            border-color: rgba(0, 255, 208, 0.3);
         }
 
-        .image-upload-controls {
-            flex-grow: 1;
+        .thumbnail-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .image-upload-btn-label {
-            display: inline-block;
-            padding: 10px 18px;
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--neon-cyan);
+        .thumbnail-remove-btn {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(255, 56, 56, 0.85);
+            border: none;
+            color: var(--white);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            z-index: 5;
+        }
+
+        .thumbnail-remove-btn:hover {
+            background: var(--red);
+            transform: scale(1.15) rotate(90deg);
+        }
+
+        .thumbnail-badge {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(168, 85, 247, 0.85);
+            color: var(--white);
+            font-size: 0.65rem;
             font-family: 'Barlow Condensed', sans-serif;
             font-weight: 700;
-            font-size: 12px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition);
+            letter-spacing: 0.5px;
             text-align: center;
-            margin-bottom: 8px;
+            padding: 2px 0;
+            text-transform: uppercase;
         }
 
-        .image-upload-btn-label:hover {
-            border-color: var(--neon-cyan);
-            background: var(--surface-hover);
+        .thumbnail-badge.principal {
+            background: rgba(0, 255, 208, 0.85);
+            color: var(--black);
+            font-weight: 900;
         }
 
-        .image-upload-status {
-            font-size: 11px;
-            color: var(--muted);
+        .thumbnail-spinner {
+            color: var(--green);
+            font-size: 1.3rem;
+            animation: fa-spin 1s linear infinite;
         }
+
 
         /* Checkbox groups */
         .checkbox-group-row {
@@ -1499,19 +1592,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Foto del Producto</label>
-                        <div class="image-upload-wrapper">
-                            <div class="image-upload-preview">
-                                <img src="" alt="Previsualización" id="modalImgPreview">
-                            </div>
-                            <div class="image-upload-controls">
-                                <input type="hidden" id="prodImg">
-                                <input type="file" id="prodFile" accept="image/*" style="display: none;" onchange="handleProductImageUpload(this)">
-                                <label for="prodFile" class="image-upload-btn-label">
-                                    <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar Foto
+                        <label>Fotos del Producto (Hasta 3 fotos · La primera es la principal)</label>
+                        <div class="multi-image-upload-container">
+                            <div class="upload-dropzone" id="uploadDropzone">
+                                <input type="file" id="prodFiles" accept="image/*" multiple style="display: none;">
+                                <label for="prodFiles" class="dropzone-label" style="cursor: pointer; display: block; width: 100%;">
+                                    <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
+                                    <span class="dropzone-text-primary">Seleccionar o arrastrar fotos</span>
+                                    <span class="dropzone-text-secondary">Soporta hasta 3 imágenes PNG, JPG o WEBP</span>
                                 </label>
-                                <div class="image-upload-status" id="modalImgStatus">Esperando foto... (Sube un archivo para procesarlo directo en Cloudinary)</div>
                             </div>
+                            
+                            <!-- Grid de previsualizaciones horizontales -->
+                            <div class="preview-thumbnails-grid" id="previewThumbnailsGrid"></div>
+                            
+                            <input type="hidden" id="prodImg">
+                            <input type="hidden" id="prodImg2">
+                            <input type="hidden" id="prodImg3">
                         </div>
                     </div>
                 </div>
@@ -1660,27 +1757,131 @@
             }
         }
 
-        // Subidor de imágenes local a Cloudinary
-        async function handleProductImageUpload(input) {
-            const file = input.files[0];
-            if (!file) return;
+        // Estado local para almacenar las URLs de las fotos del producto
+        let uploadedImagesList = [];
 
-            const status = document.getElementById('modalImgStatus');
-            status.innerHTML = 'Procesando archivo... <i class="fa-solid fa-spinner fa-spin"></i>';
-            status.style.color = 'var(--neon-cyan)';
+        // Manejador para el cargador múltiple
+        async function handleProductFilesUpload(files) {
+            if (!files || files.length === 0) return;
 
-            try {
-                const url = await FirebaseService.uploadImage(file);
-                document.getElementById('prodImg').value = url;
-                updateModalPreview();
-                showToast('Imagen subida a Cloudinary exitosamente', 'success');
-            } catch (error) {
-                console.error("Error al subir imagen:", error);
-                status.textContent = 'Error al subir imagen ✕';
-                status.style.color = 'var(--red)';
-                showToast('Fallo crítico al subir imagen', 'error');
+            const remainingCapacity = 3 - uploadedImagesList.length;
+            if (remainingCapacity <= 0) {
+                showToast('Límite de fotos alcanzado (máximo 3 fotos)', 'error');
+                return;
+            }
+
+            const filesToUpload = Array.from(files).slice(0, remainingCapacity);
+            if (files.length > remainingCapacity) {
+                showToast(`Solo se procesarán las primeras ${remainingCapacity} fotos de tu selección`, 'info');
+            }
+
+            const grid = document.getElementById('previewThumbnailsGrid');
+
+            for (const file of filesToUpload) {
+                // Crear un skeleton temporal de carga con spinner en el grid para feedback instantáneo
+                const skeleton = document.createElement('div');
+                skeleton.className = 'thumbnail-card loading';
+                skeleton.innerHTML = `<i class="fa-solid fa-spinner thumbnail-spinner"></i>`;
+                grid.appendChild(skeleton);
+
+                try {
+                    const url = await FirebaseService.uploadImage(file);
+                    // Añadir la URL real de Cloudinary al listado
+                    uploadedImagesList.push(url);
+                    showToast('Imagen subida exitosamente', 'success');
+                } catch (error) {
+                    console.error("Error al subir archivo a Cloudinary:", error);
+                    showToast('Fallo al subir una de las imágenes', 'error');
+                } finally {
+                    // Remover el skeleton temporal
+                    skeleton.remove();
+                    // Re-renderizar las miniaturas reales
+                    renderThumbnails();
+                }
             }
         }
+
+        // Renderizar miniaturas horizontales con opción de eliminar
+        function renderThumbnails() {
+            const grid = document.getElementById('previewThumbnailsGrid');
+            grid.innerHTML = '';
+
+            uploadedImagesList.forEach((url, index) => {
+                const card = document.createElement('div');
+                card.className = 'thumbnail-card';
+                
+                const isPrincipal = (index === 0);
+                const badgeText = isPrincipal ? 'Principal' : `Foto ${index + 1}`;
+                const badgeClass = isPrincipal ? 'thumbnail-badge principal' : 'thumbnail-badge';
+
+                card.innerHTML = `
+                    <img src="${url}" alt="Miniatura ${index + 1}">
+                    <span class="${badgeClass}">${badgeText}</span>
+                    <button type="button" class="thumbnail-remove-btn" onclick="removeThumbnail(${index})" title="Eliminar foto">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Sincronizar con inputs ocultos para el submit
+            document.getElementById('prodImg').value = uploadedImagesList[0] || '';
+            document.getElementById('prodImg2').value = uploadedImagesList[1] || '';
+            document.getElementById('prodImg3').value = uploadedImagesList[2] || '';
+        }
+
+        // Eliminar miniatura del listado
+        window.removeThumbnail = function(index) {
+            uploadedImagesList.splice(index, 1);
+            renderThumbnails();
+            showToast('Foto eliminada del catálogo temporal', 'info');
+        }
+
+        // Configurar los eventos de arrastrar y soltar (Drag & Drop)
+        function setupDragAndDrop() {
+            const dropzone = document.getElementById('uploadDropzone');
+            const fileInput = document.getElementById('prodFiles');
+
+            if (!dropzone || !fileInput) return;
+
+            // Al hacer clic en la zona, abrir selector de archivos
+            dropzone.addEventListener('click', () => fileInput.click());
+
+            // Al cambiar archivos mediante selector tradicional
+            fileInput.addEventListener('change', (e) => {
+                handleProductFilesUpload(e.target.files);
+                fileInput.value = ''; // Resetear para permitir re-seleccionar los mismos archivos
+            });
+
+            // Eventos de arrastre
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropzone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropzone.classList.add('dragover');
+                }, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropzone.classList.remove('dragover');
+                }, false);
+            });
+
+            dropzone.addEventListener('drop', (e) => {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleProductFilesUpload(files);
+            }, false);
+        }
+
+        // Configurar el inicio de Drag & Drop una vez que cargue el DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            setupDragAndDrop();
+        });
+
 
         // Toast Messages
         function showToast(msg, type = 'info') {
@@ -1859,9 +2060,9 @@
             document.getElementById('productModalTitle').textContent = title;
             document.getElementById('prodId').value = id;
             document.getElementById('productForm').reset();
-            document.getElementById('modalImgPreview').src = '';
-            document.getElementById('modalImgStatus').textContent = 'Esperando foto...';
-            document.getElementById('modalImgStatus').style.color = 'var(--muted)';
+            
+            // Inicializar estado local de imágenes
+            uploadedImagesList = [];
 
             if (id) {
                 const p = products.find(prod => prod.id === id);
@@ -1872,12 +2073,24 @@
                     document.getElementById('prodOriginalPrice').value = p.originalPrice || '';
                     document.getElementById('prodBadge').value = p.badge || '';
                     document.getElementById('prodDesc').value = p.description || '';
-                    document.getElementById('prodImg').value = p.image || '';
                     document.getElementById('prodAvailable').checked = (p.available !== false);
                     document.getElementById('prodFeatured').checked = !!p.featured;
-                    updateModalPreview();
+                    
+                    // Cargar fotos existentes en el estado local
+                    if (p.image && p.image !== 'assets/placeholder.png' && p.image.trim() !== '') {
+                        uploadedImagesList.push(p.image);
+                    }
+                    if (p.image2 && p.image2.trim() !== '') {
+                        uploadedImagesList.push(p.image2);
+                    }
+                    if (p.image3 && p.image3.trim() !== '') {
+                        uploadedImagesList.push(p.image3);
+                    }
                 }
             }
+            
+            // Renderizar la grilla de miniaturas
+            renderThumbnails();
             prodModal.classList.add('open');
         }
 
@@ -1933,27 +2146,8 @@
             }
         }
 
-        function updateModalPreview() {
-            const url = document.getElementById('prodImg').value.trim();
-            const img = document.getElementById('modalImgPreview');
-            const status = document.getElementById('modalImgStatus');
 
-            if (url) {
-                img.src = url;
-                img.onload = () => {
-                    status.textContent = 'Foto lista para sincronizar ✓';
-                    status.style.color = 'var(--green)';
-                };
-                img.onerror = () => {
-                    status.textContent = 'Fallo al procesar imagen ✕';
-                    status.style.color = 'var(--red)';
-                };
-            } else {
-                img.src = '';
-                status.textContent = 'Sube un archivo para procesarlo directo en Cloudinary';
-                status.style.color = 'var(--muted)';
-            }
-        }
+
 
         // Submit form product
         document.getElementById('productForm').onsubmit = async (e) => {
@@ -1970,6 +2164,8 @@
             const originalPrice = originalPriceVal ? Number(originalPriceVal) : null;
             const badge = document.getElementById('prodBadge').value.trim() || null;
             const image = document.getElementById('prodImg').value.trim();
+            const image2 = document.getElementById('prodImg2').value.trim() || null;
+            const image3 = document.getElementById('prodImg3').value.trim() || null;
             const available = document.getElementById('prodAvailable').checked;
             const featured = document.getElementById('prodFeatured').checked;
             const description = document.getElementById('prodDesc').value.trim() || 'Sin descripción.';
@@ -1986,6 +2182,8 @@
                         p.originalPrice = originalPrice;
                         p.badge = badge;
                         p.image = image;
+                        p.image2 = image2;
+                        p.image3 = image3;
                         p.description = description;
                         p.available = available;
                         p.featured = featured;
@@ -2001,6 +2199,8 @@
                         originalPrice,
                         badge,
                         image: image || 'assets/placeholder.png',
+                        image2,
+                        image3,
                         description,
                         available,
                         featured
