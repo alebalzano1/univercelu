@@ -3782,6 +3782,28 @@ footer {
 
 /* Móvil (768px) */
 @media screen and (max-width: 768px) {
+  .header-container {
+    padding: 12px 15px;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+    gap: 8px;
+  }
+
+  .logo div {
+    height: 35px !important;
+    width: 35px !important;
+  }
+
+  .cart-icon-btn {
+    padding: 8px 12px;
+  }
+
+  .cart-icon-btn span:not(.cart-badge) {
+    display: none;
+  }
+
   .glass-card {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;

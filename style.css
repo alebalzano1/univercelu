@@ -1374,6 +1374,28 @@ footer {
 
 /* Móvil (768px) */
 @media screen and (max-width: 768px) {
+  .header-container {
+    padding: 12px 15px; /* Reducir padding para optimizar ancho de pantalla */
+  }
+
+  .logo {
+    font-size: 1.25rem; /* Ajustar tamaño de la marca */
+    gap: 8px;
+  }
+
+  .logo div {
+    height: 35px !important;
+    width: 35px !important; /* Ajustar el círculo del logo */
+  }
+
+  .cart-icon-btn {
+    padding: 8px 12px; /* Reducir botones del carrito */
+  }
+
+  .cart-icon-btn span:not(.cart-badge) {
+    display: none; /* Ocultar el texto redundante 'Carrito' en móvil y priorizar el icono + burbuja */
+  }
+
   .glass-card {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
