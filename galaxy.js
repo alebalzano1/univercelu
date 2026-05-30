@@ -10,13 +10,6 @@
   let width = (canvas.width = window.innerWidth);
   let height = (canvas.height = window.innerHeight);
 
-  // Resize listener
-  window.addEventListener('resize', () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-    initNebulae(); // Re-initialize nebulae dynamically
-  });
-
   // --- Configuration ---
   const isMobile = window.innerWidth < 768;
   const STAR_COUNT = isMobile ? 40 : 120; // Optimizado para 60 FPS estables en todas las pantallas
@@ -157,6 +150,25 @@
       });
     }
   }
+
+  // Resize listener
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    
+    // Regenerar todos los elementos según nuevo tamaño
+    stars.length = 0;
+    particles.length = 0;
+    
+    const newIsMobile = window.innerWidth < 768;
+    const newStarCount = newIsMobile ? 80 : 220;
+    const newParticleCount = newIsMobile ? 12 : 22;
+    
+    for (let i = 0; i < newStarCount; i++) stars.push(new Star3D());
+    for (let i = 0; i < newParticleCount; i++) particles.push(new Particle3D());
+    
+    initNebulae();
+  });
 
   // --- Initialize ---
   function init() {

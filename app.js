@@ -16,11 +16,51 @@ function optimizeCloudinaryUrl(url, width = 300) {
   return url;
 }
 
+// Helper centralizado para formatear precios
+function formatPrice(price) {
+  return (!price || price === 0) ? 'Consultar' : `$${price.toLocaleString('es-AR')}`;
+}
+
+// Indicador de horario abierto/cerrado en tiempo real
+function updateStoreStatus() {
+  const badge = document.getElementById('store-status-badge');
+  if (!badge) return;
+
+  // Horario: Lunes(1) a Sábado(6), 9:30 a 20:00 (hora Argentina UTC-3)
+  const now = new Date();
+  // Convertir a hora de Argentina (UTC-3)
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const argTime = new Date(utc + (-3 * 3600000));
+
+  const day = argTime.getDay();   // 0=Dom, 1=Lun ... 6=Sab
+  const hour = argTime.getHours();
+  const min = argTime.getMinutes();
+  const currentMinutes = hour * 60 + min;
+  const openMinutes = 9 * 60 + 30;   // 9:30
+  const closeMinutes = 20 * 60;       // 20:00
+
+  const isWeekday = day >= 1 && day <= 6;
+  const isInHours = currentMinutes >= openMinutes && currentMinutes < closeMinutes;
+  const isOpen = isWeekday && isInHours;
+
+  if (isOpen) {
+    badge.textContent = '🟢 Abierto ahora';
+    badge.className = 'store-status-badge status-open';
+  } else {
+    badge.textContent = '🔴 Cerrado ahora';
+    badge.className = 'store-status-badge status-closed';
+  }
+
+  // Actualizar cada minuto
+  setTimeout(updateStoreStatus, 60000);
+}
+
 /* ==========================================================================
    Variables de Estado y Elementos del DOM
    ========================================================================== */
 let carrito = JSON.parse(localStorage.getItem('univercelu_cart')) || [];
 let currentSearchQuery = "";
+let currentSortOrder = "default";
 
 // Elementos DOM del Catálogo
 const productsGrid = document.getElementById('products-catalog-grid');
@@ -38,6 +78,12 @@ const cartItemsBody = document.getElementById('cart-items-body');
 const cartSummaryQty = document.getElementById('cart-summary-qty');
 const cartSummaryTotal = document.getElementById('cart-summary-total');
 const checkoutWspBtn = document.getElementById('checkout-whatsapp-btn');
+const clearCartBtn = document.getElementById('clear-cart-btn');
+const nameModalOverlay = document.getElementById('name-modal-overlay');
+const nameModal = document.getElementById('name-modal');
+const customerNameInput = document.getElementById('customer-name-input');
+const nameModalConfirmBtn = document.getElementById('name-modal-confirm-btn');
+const nameModalCancelBtn = document.getElementById('name-modal-cancel-btn');
 
 // Elementos DOM del Detalle de Producto
 const productDetailOverlay = document.getElementById('product-detail-overlay');
@@ -53,6 +99,8 @@ const navbarLinks = document.getElementById('navbar-links');
    Inicialización y Renderizado
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', async () => {
+  // Al comienzo del bloque DOMContentLoaded, agregar esta llamada
+  updateStoreStatus();
   // Renderizar Skeletons de forma inmediata en la grilla para feedback visual premium
   renderSkeletons();
   updateCartUI();
@@ -83,6 +131,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Renderizar catálogo real una vez cargados los productos
   renderCatalog('todos');
+  renderFeatured();
+  updateFilterCounts();
 });
 
 // Renderizar Skeletons de carga premium con animación galáctica
@@ -102,6 +152,67 @@ function renderSkeletons() {
     `;
     productsGrid.appendChild(card);
   }
+}
+
+// Renderizar sección de productos destacados
+function renderFeatured() {
+  const featuredGrid = document.getElementById('featured-products-grid');
+  if (!featuredGrid) return;
+
+  const destacados = PRODUCTOS.filter(p => p.featured && p.available);
+  if (destacados.length === 0) {
+    document.getElementById('destacados')?.style.setProperty('display', 'none');
+    return;
+  }
+
+  featuredGrid.innerHTML = '';
+  destacados.forEach((prod, index) => {
+    const isConsultar = !prod.price || prod.price === 0;
+
+    const card = document.createElement('div');
+    card.className = 'featured-card glass-card';
+    card.style.animation = `fadeSlideIn 0.5s ease-out ${index * 0.07}s both`;
+    card.style.cursor = 'pointer';
+
+    card.innerHTML = `
+      <div class="featured-card-img">
+        <img src="${optimizeCloudinaryUrl(prod.image, 260)}" alt="${prod.name}" loading="lazy">
+        ${prod.badge ? `<div class="product-badge">${prod.badge}</div>` : ''}
+      </div>
+      <div class="featured-card-info">
+        <span class="featured-card-name">${prod.name}</span>
+        <span class="featured-card-price">${isConsultar ? 'Consultar' : formatPrice(prod.price)}</span>
+      </div>
+    `;
+
+    card.addEventListener('click', () => openProductDetail(prod.id));
+    featuredGrid.appendChild(card);
+  });
+}
+
+// Actualizar contadores de cantidad por categoría en los filtros
+function updateFilterCounts() {
+  const categoryCounts = {};
+  PRODUCTOS.forEach(p => {
+    if (!categoryCounts[p.category]) categoryCounts[p.category] = 0;
+    categoryCounts[p.category]++;
+  });
+  const total = PRODUCTOS.length;
+
+  // Actualizar botón "Todos"
+  const allBtn = document.getElementById('filter-btn-all');
+  if (allBtn) allBtn.innerHTML = `Todos <span class="filter-count">${total}</span>`;
+
+  // Actualizar cada botón de categoría
+  const filterBtns = document.querySelectorAll('.filter-btn[data-category]');
+  filterBtns.forEach(btn => {
+    const cat = btn.getAttribute('data-category');
+    if (cat === 'todos') return;
+    const count = categoryCounts[cat] || 0;
+    if (count > 0) {
+      btn.innerHTML = `${btn.textContent.trim()} <span class="filter-count">${count}</span>`;
+    }
+  });
 }
 
 // Aplicar configuración general dinámica al DOM de la web
@@ -155,13 +266,32 @@ function renderCatalog(categoryFilter) {
     : PRODUCTOS.filter(p => p.category === categoryFilter);
 
   const query = currentSearchQuery.toLowerCase().trim();
-  const productosFiltrados = query === ''
+  let productosFiltrados = query === ''
     ? categoryFiltered
     : categoryFiltered.filter(p => 
         p.name.toLowerCase().includes(query) || 
         (p.description && p.description.toLowerCase().includes(query)) ||
         p.category.toLowerCase().includes(query)
       );
+
+  // Ordenamiento configurable
+  if (currentSortOrder === 'price-asc') {
+    productosFiltrados.sort((a, b) => {
+      const pa = (!a.price || a.price === 0) ? Infinity : a.price;
+      const pb = (!b.price || b.price === 0) ? Infinity : b.price;
+      return pa - pb;
+    });
+  } else if (currentSortOrder === 'price-desc') {
+    productosFiltrados.sort((a, b) => {
+      const pa = (!a.price || a.price === 0) ? -Infinity : a.price;
+      const pb = (!b.price || b.price === 0) ? -Infinity : b.price;
+      return pb - pa;
+    });
+  } else if (currentSortOrder === 'name-az') {
+    productosFiltrados.sort((a, b) => a.name.localeCompare(b.name, 'es'));
+  } else if (currentSortOrder === 'name-za') {
+    productosFiltrados.sort((a, b) => b.name.localeCompare(a.name, 'es'));
+  }
 
   // Manejo de cero resultados (búsqueda vacía) con estética galáctica
   if (productosFiltrados.length === 0) {
@@ -197,8 +327,6 @@ function renderCatalog(categoryFilter) {
     card.className = 'product-card glass-card';
     card.id = `prod-${prod.id}`;
     card.style.cursor = 'pointer';
-    // Retraso de animación para efecto cascada
-    card.style.animation = `fadeSlideIn 0.5s ease-out ${index * 0.08}s both`;
 
     const badgeHTML = prod.badge 
       ? `<div class="product-badge">${prod.badge}</div>` 
@@ -223,7 +351,7 @@ function renderCatalog(categoryFilter) {
     // Precios formateados
     const priceHTML = isConsultar
       ? `<span class="current-price">Consultar</span>`
-      : `<span class="current-price">$${prod.price.toLocaleString('es-AR')}</span>${prod.originalPrice ? ` <span class="old-price">$${prod.originalPrice.toLocaleString('es-AR')}</span>` : ''}`;
+      : `<span class="current-price">${formatPrice(prod.price)}</span>${prod.originalPrice ? ` <span class="old-price">${formatPrice(prod.originalPrice)}</span>` : ''}`;
 
     card.innerHTML = `
       ${badgeHTML}
@@ -266,6 +394,23 @@ function renderCatalog(categoryFilter) {
         btn.style.transform = '';
       }, 150);
     });
+  });
+
+  // Intersection Observer para animación de entrada suave al hacer scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target); // Solo animar una vez
+      }
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: '0px 0px -30px 0px'
+  });
+
+  productsGrid.querySelectorAll('.product-card').forEach(card => {
+    observer.observe(card);
   });
 }
 
@@ -443,9 +588,11 @@ function updateCartUI() {
     `;
     checkoutWspBtn.style.opacity = '0.5';
     checkoutWspBtn.style.pointerEvents = 'none';
+    if (clearCartBtn) clearCartBtn.style.display = 'none';
   } else {
     checkoutWspBtn.style.opacity = '1';
     checkoutWspBtn.style.pointerEvents = 'all';
+    if (clearCartBtn) clearCartBtn.style.display = 'flex';
 
     carrito.forEach(item => {
       totalArticulos += item.cantidad;
@@ -459,7 +606,7 @@ function updateCartUI() {
         </div>
         <div class="cart-item-details">
           <h4 class="cart-item-name">${item.name}</h4>
-          <span class="cart-item-price">${(!item.price || item.price === 0) ? 'Consultar' : `$${(item.price * item.cantidad).toLocaleString('es-AR')}`}</span>
+          <span class="cart-item-price">${formatPrice(item.price * item.cantidad)}</span>
           <div class="cart-item-qty">
             <button class="qty-btn dec-btn" data-id="${item.id}">-</button>
             <span class="qty-val">${item.cantidad}</span>
@@ -488,10 +635,23 @@ function updateCartUI() {
     });
   }
 
-  // Actualizar totales y contadores
+  // Actualizar totales y contadores (siempre, independientemente de si hay items o no)
   cartCounter.textContent = totalArticulos;
   cartSummaryQty.textContent = totalArticulos;
-  cartSummaryTotal.textContent = totalPrecio === 0 ? 'Consultar' : `$${totalPrecio.toLocaleString('es-AR')}`;
+
+  // Detectar si hay ítems sin precio
+  const tieneItemsSinPrecio = carrito.some(i => !i.price || i.price === 0);
+  const tieneItemsConPrecio = carrito.some(i => i.price && i.price > 0);
+
+  let totalDisplay;
+  if (tieneItemsConPrecio && tieneItemsSinPrecio) {
+    totalDisplay = `$${totalPrecio.toLocaleString('es-AR')} + consultar`;
+  } else if (tieneItemsConPrecio) {
+    totalDisplay = `$${totalPrecio.toLocaleString('es-AR')}`;
+  } else {
+    totalDisplay = 'Consultar';
+  }
+  cartSummaryTotal.textContent = totalDisplay;
 }
 
 /* ==========================================================================
@@ -771,10 +931,80 @@ function closeProductDetail() {
   document.body.style.overflow = ''; // Restaurar scroll
 }
 
+function enviarPedidoWhatsApp() {
+  const nombre = customerNameInput.value.trim();
+
+  let totalPrecio = 0;
+  let tienePrecios = false;
+  let listaProductos = '';
+
+  carrito.forEach(item => {
+    const isConsultar = (!item.price || item.price === 0);
+    if (!isConsultar) {
+      const subtotal = item.price * item.cantidad;
+      totalPrecio += subtotal;
+      tienePrecios = true;
+    }
+    const priceEachStr = isConsultar ? 'Consultar' : `$${item.price.toLocaleString('es-AR')}`;
+    listaProductos += `- ${item.cantidad}x ${item.name} (${priceEachStr})\n`;
+  });
+
+  const hayItemsSinPrecio = carrito.some(i => !i.price || i.price === 0);
+  let totalStr;
+  if (tienePrecios && hayItemsSinPrecio) {
+    totalStr = `$${totalPrecio.toLocaleString('es-AR')} + consultar precio de ítems sin precio`;
+  } else if (tienePrecios) {
+    totalStr = `$${totalPrecio.toLocaleString('es-AR')}`;
+  } else {
+    totalStr = 'Consultar';
+  }
+
+  const saludo = nombre
+    ? `Hola, soy *${nombre}*! Te hago el siguiente pedido desde la web:\n`
+    : `Hola Univercelu! Te hago el siguiente pedido desde la web:\n`;
+
+  let mensaje = saludo;
+  mensaje += listaProductos;
+  mensaje += `Total: ${totalStr}\n`;
+  mensaje += `Quedo a la espera, gracias!`;
+
+  // Cerrar modal de nombre
+  nameModal.classList.remove('open');
+  nameModalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+
+  const encodedMessage = encodeURIComponent(mensaje);
+  const wspURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+  window.open(wspURL, '_blank');
+
+  // Toast de confirmación
+  const toastEl = document.createElement('div');
+  toastEl.className = 'wsp-sent-toast';
+  toastEl.innerHTML = `
+    <i class="fa-brands fa-whatsapp"></i>
+    <span>¡Pedido enviado! Vas a recibir respuesta pronto.</span>
+  `;
+  document.body.appendChild(toastEl);
+  setTimeout(() => toastEl.classList.add('visible'), 50);
+  setTimeout(() => {
+    toastEl.classList.remove('visible');
+    setTimeout(() => toastEl.remove(), 400);
+  }, 3500);
+}
+
 // Configurar los manejadores de eventos generales
 function setupEventListeners() {
   // Modal de Carrito
   openCartBtn.addEventListener('click', openCart);
+  if (clearCartBtn) {
+    clearCartBtn.addEventListener('click', () => {
+      if (confirm('¿Vaciar el carrito? Se eliminarán todos los productos.')) {
+        carrito = [];
+        saveCart();
+        updateCartUI();
+      }
+    });
+  }
   closeCartBtn.addEventListener('click', closeCart);
   cartOverlay.addEventListener('click', closeCart);
 
@@ -855,42 +1085,37 @@ function setupEventListeners() {
   }
 
 
-  // Botón de Checkout de WhatsApp (Construcción de Pedido Premium)
+  // Botón de Checkout de WhatsApp — abre modal de nombre primero
   checkoutWspBtn.addEventListener('click', () => {
     if (carrito.length === 0) return;
+    // Mostrar modal de nombre
+    customerNameInput.value = '';
+    nameModal.classList.add('open');
+    nameModalOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => customerNameInput.focus(), 200);
+  });
 
-    let totalPrecio = 0;
-    let tienePrecios = false;
-    let listaProductos = '';
+  // Cancelar modal de nombre
+  nameModalCancelBtn.addEventListener('click', () => {
+    nameModal.classList.remove('open');
+    nameModalOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  });
 
-    carrito.forEach(item => {
-      const isConsultar = (!item.price || item.price === 0);
-      let subtotalStr = '';
-      if (isConsultar) {
-        subtotalStr = 'Consultar';
-      } else {
-        const subtotal = item.price * item.cantidad;
-        totalPrecio += subtotal;
-        tienePrecios = true;
-        subtotalStr = `$${subtotal.toLocaleString('es-AR')}`;
-      }
-      
-      const priceEachStr = isConsultar ? 'Consultar' : `$${item.price.toLocaleString('es-AR')}`;
-      listaProductos += `- ${item.cantidad}x ${item.name} (${priceEachStr})\n`;
-    });
+  nameModalOverlay.addEventListener('click', () => {
+    nameModal.classList.remove('open');
+    nameModalOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  });
 
-    const totalStr = tienePrecios ? `$${totalPrecio.toLocaleString('es-AR')}` : 'Consultar';
+  // Confirmar nombre y enviar a WhatsApp
+  nameModalConfirmBtn.addEventListener('click', () => {
+    enviarPedidoWhatsApp();
+  });
 
-    let mensaje = `Hola Univercelu! Te hago el siguiente pedido desde la web:\n`;
-    mensaje += `${listaProductos}`;
-    mensaje += `Total: ${totalStr}\n`;
-    mensaje += `Quedo a la espera, gracias!`;
-
-    const encodedMessage = encodeURIComponent(mensaje);
-    const wspURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-    
-    // Abrir WhatsApp en pestaña nueva
-    window.open(wspURL, '_blank');
+  customerNameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') enviarPedidoWhatsApp();
   });
 
   // Header opaco al scrollear
@@ -949,6 +1174,17 @@ function setupEventListeners() {
       if (isTouch && hintText) {
         hintText.textContent = isActive ? "Toca para armar" : "Toca para desarmar";
       }
+    });
+  }
+
+  // Selector de Ordenamiento
+  const sortSelect = document.getElementById('sort-select');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (e) => {
+      currentSortOrder = e.target.value;
+      const activeFilterBtn = document.querySelector('.filter-btn.active');
+      const activeCategory = activeFilterBtn ? activeFilterBtn.getAttribute('data-category') : 'todos';
+      renderCatalog(activeCategory);
     });
   }
 }

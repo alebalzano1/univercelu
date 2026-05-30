@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#06040c">
   <title>Univercelu | Accesorios y Servicio Técnico de Celulares</title>
   
   <!-- SEO Meta Tags -->
@@ -198,6 +199,19 @@
 
 
   <!-- ==========================================================================
+       SECCIÓN DE PRODUCTOS DESTACADOS
+       ========================================================================== -->
+  <section class="featured-section" id="destacados">
+    <div class="section-header">
+      <span class="section-subtitle">Lo más buscado</span>
+      <h2 class="section-title">⭐ Más Vendidos</h2>
+    </div>
+    <div class="featured-grid" id="featured-products-grid">
+      <!-- Se inyecta dinámicamente -->
+    </div>
+  </section>
+
+  <!-- ==========================================================================
        SECCIÓN DEL CATÁLOGO DE PRODUCTOS
        ========================================================================== -->
   <section class="catalog-section" id="catalogo">
@@ -215,6 +229,20 @@
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
+    </div>
+    
+    <!-- Selector de Ordenamiento -->
+    <div class="sort-container" id="sort-wrapper">
+      <label for="sort-select" class="sort-label">
+        <i class="fa-solid fa-arrow-up-wide-short"></i> Ordenar:
+      </label>
+      <select id="sort-select" class="sort-select">
+        <option value="default">Por defecto</option>
+        <option value="price-asc">Menor precio</option>
+        <option value="price-desc">Mayor precio</option>
+        <option value="name-az">Nombre A-Z</option>
+        <option value="name-za">Nombre Z-A</option>
+      </select>
     </div>
     
     <!-- Filtros de Categoría -->
@@ -260,6 +288,7 @@
         <h3>⏰ Horarios</h3>
         <p>Lunes a Sábado</p>
         <p>9:30 hs a 20:00 hs</p>
+        <span class="store-status-badge" id="store-status-badge"></span>
       </div>
 
       <!-- Envíos -->
@@ -304,13 +333,42 @@
   <!-- ==========================================================================
        MODAL DE CARRITO DE COMPRAS (SLIDE-OVER DESDE LA DERECHA)
        ========================================================================== -->
+  <!-- Modal de nombre del cliente para checkout -->
+  <div class="name-modal-overlay" id="name-modal-overlay"></div>
+  <div class="name-modal" id="name-modal">
+    <div class="name-modal-header">
+      <i class="fa-brands fa-whatsapp name-modal-icon"></i>
+      <h3>¿A nombre de quién enviamos el pedido?</h3>
+      <p>Tu nombre aparecerá en el mensaje de WhatsApp para que podamos atenderte mejor.</p>
+    </div>
+    <input
+      type="text"
+      id="customer-name-input"
+      class="name-modal-input"
+      placeholder="Tu nombre..."
+      maxlength="40"
+      autocomplete="given-name"
+    >
+    <div class="name-modal-actions">
+      <button class="name-modal-cancel" id="name-modal-cancel-btn">Cancelar</button>
+      <button class="name-modal-confirm" id="name-modal-confirm-btn">
+        Enviar pedido <i class="fa-brands fa-whatsapp"></i>
+      </button>
+    </div>
+  </div>
+
   <div class="cart-overlay" id="shopping-cart-overlay"></div>
   <aside class="cart-modal" id="shopping-cart-modal">
     <div class="cart-header">
       <h2>Mi <span>Carrito</span></h2>
-      <button class="close-cart-btn" id="close-cart-btn" aria-label="Cerrar carrito">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+      <div class="cart-header-actions">
+        <button class="clear-cart-btn" id="clear-cart-btn" aria-label="Vaciar carrito" title="Vaciar carrito" style="display:none;">
+          <i class="fa-solid fa-trash-can"></i> Vaciar
+        </button>
+        <button class="close-cart-btn" id="close-cart-btn" aria-label="Cerrar carrito">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
     </div>
     
     <!-- Cuerpo del Carrito -->
@@ -383,9 +441,8 @@
         &copy; 2026 Univercelu. Todos los derechos reservados. | Maipú 510, Merlo Centro, entre Libertador y Sarandí.
       </p>
       
-      <a href="admin.html" class="admin-footer-btn" aria-label="Acceso Administrador" title="Panel de Administración">
-        <i class="fa-solid fa-user-gear"></i> Acceso Administrador
-      </a>
+      <!-- Acceso admin oculto del footer para visitantes -->
+      <!-- Para acceder al panel de administración, ir directamente a /admin.html -->
     </div>
   </footer>
 
