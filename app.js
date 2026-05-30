@@ -99,7 +99,6 @@ const navbarLinks = document.getElementById('navbar-links');
    Inicialización y Renderizado
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', async () => {
-  // Al comienzo del bloque DOMContentLoaded, agregar esta llamada
   updateStoreStatus();
   // Renderizar Skeletons de forma inmediata en la grilla para feedback visual premium
   renderSkeletons();
