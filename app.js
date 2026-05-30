@@ -522,6 +522,13 @@ function getProductMockData(productId) {
   return { stock };
 }
 
+function isVideoUrl(url) {
+  if (!url) return false;
+  const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.quicktime'];
+  const lowerUrl = url.toLowerCase();
+  return videoExtensions.some(ext => lowerUrl.endsWith(ext)) || lowerUrl.includes('/video/upload/');
+}
+
 /* Lógica del Modal Detalle de Producto Simplificado y de Alto Impacto */
 function openProductDetail(productId) {
   const prod = PRODUCTOS.find(p => p.id === productId);
@@ -553,7 +560,11 @@ function openProductDetail(productId) {
     let dotsHTML = '';
     
     imagesList.forEach((url, idx) => {
-      imagesHTML += `<img src="${optimizeCloudinaryUrl(url, 500)}" alt="${prod.name} - ${idx + 1}" class="detail-main-img ${idx === 0 ? 'active' : ''}" id="detail-img-${idx}" data-index="${idx}" style="${idx === 0 ? '' : 'display: none;'}">`;
+      if (isVideoUrl(url)) {
+        imagesHTML += `<video src="${url}" class="detail-main-img ${idx === 0 ? 'active' : ''}" id="detail-img-${idx}" data-index="${idx}" style="${idx === 0 ? '' : 'display: none;'}" autoplay loop muted playsinline controls></video>`;
+      } else {
+        imagesHTML += `<img src="${optimizeCloudinaryUrl(url, 500)}" alt="${prod.name} - ${idx + 1}" class="detail-main-img ${idx === 0 ? 'active' : ''}" id="detail-img-${idx}" data-index="${idx}" style="${idx === 0 ? '' : 'display: none;'}">`;
+      }
       dotsHTML += `<span class="indicator-dot ${idx === 0 ? 'active' : ''}" data-index="${idx}"></span>`;
     });
 
@@ -578,9 +589,13 @@ function openProductDetail(productId) {
       </div>
     `;
   } else {
+    const singleMedia = isVideoUrl(prod.image)
+      ? `<video src="${prod.image}" class="detail-main-img" id="detail-main-image" autoplay loop muted playsinline controls style="width: 100%; border-radius: 12px; object-fit: cover;"></video>`
+      : `<img src="${optimizeCloudinaryUrl(prod.image || 'assets/placeholder.png', 500)}" alt="${prod.name}" class="detail-main-img" id="detail-main-image">`;
+
     galleryHTML = `
       <div class="detail-gallery">
-        <img src="${optimizeCloudinaryUrl(prod.image || 'assets/placeholder.png', 500)}" alt="${prod.name}" class="detail-main-img" id="detail-main-image">
+        ${singleMedia}
         <div class="detail-guarantee-note">
           <i class="fa-solid fa-shield-halved"></i>
           <span>Garantía oficial y soporte directo en local</span>
@@ -653,7 +668,7 @@ function openProductDetail(productId) {
 
   // Lógica del carrusel si el producto tiene más de 1 imagen
   if (imagesList.length > 1) {
-    const imagesElements = productDetailContent.querySelectorAll('.carousel-images-wrapper img');
+    const imagesElements = productDetailContent.querySelectorAll('.carousel-images-wrapper img, .carousel-images-wrapper video');
     const prevBtn = productDetailContent.querySelector('#detail-gallery-prev');
     const nextBtn = productDetailContent.querySelector('#detail-gallery-next');
     const dots = productDetailContent.querySelectorAll('.indicator-dot');
@@ -663,16 +678,25 @@ function openProductDetail(productId) {
     function showImage(index) {
       activeIndex = index;
       
-      // Ocultar todas las imágenes y desactivar dots
+      // Ocultar todas las imágenes/videos y desactivar dots
       imagesElements.forEach((img, idx) => {
         if (idx === index) {
           img.style.display = 'block';
           img.classList.add('active');
           dots[idx].classList.add('active');
+          // Si es un video, reproducirlo automáticamente
+          if (img.tagName === 'VIDEO') {
+            img.currentTime = 0;
+            img.play().catch(e => console.log('Autoplay prevent:', e));
+          }
         } else {
           img.style.display = 'none';
           img.classList.remove('active');
           dots[idx].classList.remove('active');
+          // Si es un video, pausarlo
+          if (img.tagName === 'VIDEO') {
+            img.pause();
+          }
         }
       });
     }

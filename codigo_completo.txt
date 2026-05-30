@@ -219,6 +219,8 @@
       <button class="filter-btn" data-category="cargadores" id="filter-btn-cargadores">Cargadores</button>
       <button class="filter-btn" data-category="audio" id="filter-btn-audio">Audio</button>
       <button class="filter-btn" data-category="vidrios" id="filter-btn-vidrios">Vidrios</button>
+      <button class="filter-btn" data-category="teclados" id="filter-btn-teclados">Teclados</button>
+      <button class="filter-btn" data-category="otros" id="filter-btn-otros">Otros</button>
       <button class="filter-btn" data-category="servicio" id="filter-btn-servicio">Servicio Técnico</button>
     </div>
     
@@ -1058,6 +1060,8 @@
         .card-badge-left.badge-apple { background: #ff3377; }
         .card-badge-left.badge-auriculares { background: #00ffff; }
         .card-badge-left.badge-cargadores { background: #ffd700; }
+        .card-badge-left.badge-otros { background: #a855f7; color: #fff; }
+        .card-badge-left.badge-teclados { background: #00ff99; color: #000; }
 
         .card-badge-right {
             position: absolute;
@@ -1739,6 +1743,8 @@
                     <button class="chip" data-filter="cargadores" onclick="setCategoryFilter('cargadores')">Cargadores</button>
                     <button class="chip" data-filter="audio" onclick="setCategoryFilter('audio')">Audio</button>
                     <button class="chip" data-filter="vidrios" onclick="setCategoryFilter('vidrios')">Vidrios</button>
+                    <button class="chip" data-filter="teclados" onclick="setCategoryFilter('teclados')">Teclados</button>
+                    <button class="chip" data-filter="otros" onclick="setCategoryFilter('otros')">Otros</button>
                 </div>
 
                 <div class="products-admin-grid" id="tblProductsBody">
@@ -1863,6 +1869,8 @@
                                 <option value="cargadores">Cargadores</option>
                                 <option value="audio">Audio</option>
                                 <option value="vidrios">Vidrios</option>
+                                <option value="teclados">Teclados</option>
+                                <option value="otros">Otros</option>
                             </select>
                         </div>
                     </div>
@@ -1901,8 +1909,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="prodDesc">Descripción Corta</label>
-                        <textarea id="prodDesc" class="form-input" rows="3" required placeholder="Adaptador USB-C original Apple..."></textarea>
+                        <label for="prodDesc">Descripción Corta (Opcional)</label>
+                        <textarea id="prodDesc" class="form-input" rows="3" placeholder="Adaptador USB-C original Apple..."></textarea>
                     </div>
 
                     <div class="form-group">
@@ -1913,11 +1921,11 @@
                             </div>
                             <div class="image-upload-controls">
                                 <input type="hidden" id="prodImg">
-                                <input type="file" id="prodFile" accept="image/*" style="display: none;" onchange="handleProductImageUpload(this)">
+                                <input type="file" id="prodFile" accept="image/*,video/*" style="display: none;" onchange="handleProductImageUpload(this)">
                                 <label for="prodFile" class="image-upload-btn-label">
-                                    <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar Foto
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar Foto o Video
                                 </label>
-                                <div class="image-upload-status" id="modalImgStatus">Esperando foto... (Sube un archivo para procesarlo directo en Cloudinary)</div>
+                                <div class="image-upload-status" id="modalImgStatus">Esperando archivo... (Sube una foto o video para procesarlo directo en Cloudinary)</div>
                             </div>
                         </div>
                     </div>
@@ -2340,24 +2348,58 @@
             }
         }
 
+        function isVideoUrl(url) {
+            if (!url) return false;
+            const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.quicktime'];
+            const lowerUrl = url.toLowerCase();
+            return videoExtensions.some(ext => lowerUrl.endsWith(ext)) || lowerUrl.includes('/video/upload/');
+        }
+
         function updateModalPreview() {
             const url = document.getElementById('prodImg').value.trim();
             const img = document.getElementById('modalImgPreview');
             const status = document.getElementById('modalImgStatus');
 
             if (url) {
-                img.src = url;
-                img.onload = () => {
-                    status.textContent = 'Foto lista para sincronizar ✓';
+                if (isVideoUrl(url)) {
+                    img.style.display = 'none';
+                    let videoPreview = document.getElementById('modalVideoPreview');
+                    if (!videoPreview) {
+                        videoPreview = document.createElement('video');
+                        videoPreview.id = 'modalVideoPreview';
+                        videoPreview.style.width = '100%';
+                        videoPreview.style.height = '100%';
+                        videoPreview.style.objectFit = 'cover';
+                        videoPreview.muted = true;
+                        videoPreview.autoplay = true;
+                        videoPreview.loop = true;
+                        videoPreview.playsInline = true;
+                        img.parentNode.appendChild(videoPreview);
+                    }
+                    videoPreview.src = url;
+                    videoPreview.style.display = 'block';
+                    status.textContent = 'Video listo para sincronizar ✓';
                     status.style.color = 'var(--green)';
-                };
-                img.onerror = () => {
-                    status.textContent = 'Fallo al procesar imagen ✕';
-                    status.style.color = 'var(--red)';
-                };
+                } else {
+                    const videoPreview = document.getElementById('modalVideoPreview');
+                    if (videoPreview) videoPreview.style.display = 'none';
+                    img.style.display = 'block';
+                    img.src = url;
+                    img.onload = () => {
+                        status.textContent = 'Foto lista para sincronizar ✓';
+                        status.style.color = 'var(--green)';
+                    };
+                    img.onerror = () => {
+                        status.textContent = 'Fallo al procesar imagen ✕';
+                        status.style.color = 'var(--red)';
+                    };
+                }
             } else {
+                const videoPreview = document.getElementById('modalVideoPreview');
+                if (videoPreview) videoPreview.style.display = 'none';
+                img.style.display = 'block';
                 img.src = '';
-                status.textContent = 'Sube un archivo para procesarlo directo en Cloudinary';
+                status.textContent = 'Sube una foto o video para procesarlo directo en Cloudinary';
                 status.style.color = 'var(--muted)';
             }
         }
@@ -4781,6 +4823,13 @@ function getProductMockData(productId) {
   return { stock };
 }
 
+function isVideoUrl(url) {
+  if (!url) return false;
+  const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.quicktime'];
+  const lowerUrl = url.toLowerCase();
+  return videoExtensions.some(ext => lowerUrl.endsWith(ext)) || lowerUrl.includes('/video/upload/');
+}
+
 /* Lógica del Modal Detalle de Producto Simplificado y de Alto Impacto */
 function openProductDetail(productId) {
   const prod = PRODUCTOS.find(p => p.id === productId);
@@ -4802,12 +4851,16 @@ function openProductDetail(productId) {
     ? `<span class="detail-discount-percent">${discountPercent}% OFF</span>` 
     : '';
 
+  const singleMedia = isVideoUrl(prod.image)
+    ? `<video src="${prod.image}" class="detail-main-img" id="detail-main-image" autoplay loop muted playsinline controls style="width: 100%; border-radius: 12px; object-fit: cover;"></video>`
+    : `<img src="${optimizeCloudinaryUrl(prod.image, 500)}" alt="${prod.name}" class="detail-main-img" id="detail-main-image">`;
+
   // Renderizar contenido dinámico conciso y elegante
   productDetailContent.innerHTML = `
     <div class="detail-grid">
       <!-- Columna Izquierda: Galería Visual Premium -->
       <div class="detail-gallery">
-        <img src="${optimizeCloudinaryUrl(prod.image, 500)}" alt="${prod.name}" class="detail-main-img" id="detail-main-image">
+        ${singleMedia}
         <div class="detail-guarantee-note">
           <i class="fa-solid fa-shield-halved"></i>
           <span>Garantía oficial y soporte directo en local</span>
@@ -5520,14 +5573,18 @@ const FirebaseService = {
         }
     },
 
-    // --- SUBIDA DE IMÁGENES A CLOUDINARY ---
+    // --- SUBIDA DE IMÁGENES Y VIDEOS A CLOUDINARY ---
     async uploadImage(file) {
         console.log("[Cloudinary] Iniciando subida a Cloudinary...");
 
         // Reutilizamos el bucket y preset para garantizar compatibilidad directa
         const cloudName = "dgb5o9y0v";
         const uploadPreset = "ugda3w5p";
-        const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+        
+        // Detección automática de tipo de archivo para redirección a Cloudinary
+        const isVideo = file.type && file.type.startsWith("video/");
+        const resourceType = isVideo ? "video" : "image";
+        const url = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`;
 
         const formData = new FormData();
         formData.append("file", file);
@@ -5541,14 +5598,14 @@ const FirebaseService = {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.error?.message || "Error al subir la imagen");
+                throw new Error(errorData.error?.message || "Error al subir el archivo");
             }
 
             const data = await response.json();
-            console.log("[Cloudinary] Imagen subida exitosamente:", data.secure_url);
+            console.log("[Cloudinary] Archivo subido exitosamente:", data.secure_url);
             return data.secure_url;
         } catch (error) {
-            console.error("[Cloudinary] Error crítico al subir imagen:", error);
+            console.error("[Cloudinary] Error crítico al subir archivo:", error);
             throw error;
         }
     }

@@ -651,6 +651,8 @@
         .card-badge-left.badge-apple { background: #ff3377; }
         .card-badge-left.badge-auriculares { background: #00ffff; }
         .card-badge-left.badge-cargadores { background: #ffd700; }
+        .card-badge-left.badge-otros { background: #a855f7; color: #fff; }
+        .card-badge-left.badge-teclados { background: #00ff99; color: #000; }
 
         .card-badge-right {
             position: absolute;
@@ -1425,6 +1427,8 @@
                     <button class="chip" data-filter="cargadores" onclick="setCategoryFilter('cargadores')">Cargadores</button>
                     <button class="chip" data-filter="audio" onclick="setCategoryFilter('audio')">Audio</button>
                     <button class="chip" data-filter="vidrios" onclick="setCategoryFilter('vidrios')">Vidrios</button>
+                    <button class="chip" data-filter="teclados" onclick="setCategoryFilter('teclados')">Teclados</button>
+                    <button class="chip" data-filter="otros" onclick="setCategoryFilter('otros')">Otros</button>
                 </div>
 
                 <div class="products-admin-grid" id="tblProductsBody">
@@ -1549,6 +1553,8 @@
                                 <option value="cargadores">Cargadores</option>
                                 <option value="audio">Audio</option>
                                 <option value="vidrios">Vidrios</option>
+                                <option value="teclados">Teclados</option>
+                                <option value="otros">Otros</option>
                             </select>
                         </div>
                     </div>
@@ -1587,19 +1593,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="prodDesc">Descripción Corta</label>
-                        <textarea id="prodDesc" class="form-input" rows="3" required placeholder="Adaptador USB-C original Apple..."></textarea>
+                        <label for="prodDesc">Descripción Corta (Opcional)</label>
+                        <textarea id="prodDesc" class="form-input" rows="3" placeholder="Adaptador USB-C original Apple..."></textarea>
                     </div>
 
                     <div class="form-group">
                         <label>Fotos del Producto (Hasta 3 fotos · La primera es la principal)</label>
                         <div class="multi-image-upload-container">
                             <div class="upload-dropzone" id="uploadDropzone">
-                                <input type="file" id="prodFiles" accept="image/*" multiple style="display: none;">
+                                <input type="file" id="prodFiles" accept="image/*,video/*" multiple style="display: none;">
                                 <label for="prodFiles" class="dropzone-label" style="cursor: pointer; display: block; width: 100%;">
                                     <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
-                                    <span class="dropzone-text-primary">Seleccionar o arrastrar fotos</span>
-                                    <span class="dropzone-text-secondary">Soporta hasta 3 imágenes PNG, JPG o WEBP</span>
+                                    <span class="dropzone-text-primary">Seleccionar o arrastrar fotos y videos</span>
+                                    <span class="dropzone-text-secondary">Soporta hasta 3 archivos PNG, JPG, WEBP o videos MP4</span>
                                 </label>
                             </div>
                             
@@ -1801,6 +1807,13 @@
             }
         }
 
+        function isVideoUrl(url) {
+            if (!url) return false;
+            const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.quicktime'];
+            const lowerUrl = url.toLowerCase();
+            return videoExtensions.some(ext => lowerUrl.endsWith(ext)) || lowerUrl.includes('/video/upload/');
+        }
+
         // Renderizar miniaturas horizontales con opción de eliminar
         function renderThumbnails() {
             const grid = document.getElementById('previewThumbnailsGrid');
@@ -1814,8 +1827,12 @@
                 const badgeText = isPrincipal ? 'Principal' : `Foto ${index + 1}`;
                 const badgeClass = isPrincipal ? 'thumbnail-badge principal' : 'thumbnail-badge';
 
+                const mediaPreview = isVideoUrl(url)
+                    ? `<video src="${url}" muted playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>`
+                    : `<img src="${url}" alt="Miniatura ${index + 1}">`;
+
                 card.innerHTML = `
-                    <img src="${url}" alt="Miniatura ${index + 1}">
+                    ${mediaPreview}
                     <span class="${badgeClass}">${badgeText}</span>
                     <button type="button" class="thumbnail-remove-btn" onclick="removeThumbnail(${index})" title="Eliminar foto">
                         <i class="fa-solid fa-xmark"></i>

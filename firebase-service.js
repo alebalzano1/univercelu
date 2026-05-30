@@ -199,14 +199,18 @@ const FirebaseService = {
         }
     },
 
-    // --- SUBIDA DE IMÁGENES A CLOUDINARY ---
+    // --- SUBIDA DE IMÁGENES Y VIDEOS A CLOUDINARY ---
     async uploadImage(file) {
         console.log("[Cloudinary] Iniciando subida a Cloudinary...");
 
         // Reutilizamos el bucket y preset para garantizar compatibilidad directa
         const cloudName = "dgb5o9y0v";
         const uploadPreset = "ugda3w5p";
-        const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+        
+        // Detección automática de tipo de archivo para redirección a Cloudinary
+        const isVideo = file.type && file.type.startsWith("video/");
+        const resourceType = isVideo ? "video" : "image";
+        const url = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`;
 
         const formData = new FormData();
         formData.append("file", file);
@@ -220,14 +224,14 @@ const FirebaseService = {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.error?.message || "Error al subir la imagen");
+                throw new Error(errorData.error?.message || "Error al subir el archivo");
             }
 
             const data = await response.json();
-            console.log("[Cloudinary] Imagen subida exitosamente:", data.secure_url);
+            console.log("[Cloudinary] Archivo subido exitosamente:", data.secure_url);
             return data.secure_url;
         } catch (error) {
-            console.error("[Cloudinary] Error crítico al subir imagen:", error);
+            console.error("[Cloudinary] Error crítico al subir archivo:", error);
             throw error;
         }
     }

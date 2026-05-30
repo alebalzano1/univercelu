@@ -19,9 +19,9 @@
 
   // --- Configuration ---
   const isMobile = window.innerWidth < 768;
-  const STAR_COUNT = isMobile ? 80 : 220;
-  const NEBULA_COUNT = isMobile ? 3 : 6;
-  const PARTICLE_COUNT = isMobile ? 12 : 22;
+  const STAR_COUNT = isMobile ? 40 : 120; // Optimizado para 60 FPS estables en todas las pantallas
+  const NEBULA_COUNT = isMobile ? 1 : 2;  // Reducción masiva de renderizado de gradientes radiales
+  const PARTICLE_COUNT = isMobile ? 6 : 12;
 
   const stars = [];
   const particles = [];
@@ -196,7 +196,6 @@
 
       const grad = ctx.createRadialGradient(neb.x, neb.y, 0, neb.x, neb.y, pulseSize);
       grad.addColorStop(0, neb.color + neb.opacity + ')');
-      grad.addColorStop(0.4, neb.color + (neb.opacity * 0.5) + ')');
       grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
       ctx.fillStyle = grad;
