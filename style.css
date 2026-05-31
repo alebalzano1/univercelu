@@ -2505,4 +2505,40 @@ footer {
   box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
 }
 
+/* Botón de Acceso de Administrador en Footer */
+.admin-access-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  color: var(--text-muted);
+  font-family: var(--font-title);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-glass);
+}
+
+.admin-access-btn:hover {
+  background: rgba(168, 85, 247, 0.1);
+  border-color: var(--primary-glow);
+  color: var(--text-main);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.25);
+  transform: translateY(-1px);
+}
+
+.admin-access-btn i {
+  font-size: 0.85rem;
+  color: var(--primary-glow);
+}
+
+
+
+
+
 

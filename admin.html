@@ -590,8 +590,8 @@
         /* Grid de Tarjetas de Productos */
         .products-admin-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
         }
 
         .product-admin-card {
@@ -1284,7 +1284,7 @@
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label for="loginEmail">Email de Administrador</label>
-                    <input type="email" id="loginEmail" class="form-input" required placeholder="admin@univercelu.com">
+                    <input type="email" id="loginEmail" class="form-input" required placeholder="correo">
                 </div>
                 
                 <div class="form-group">
@@ -1351,7 +1351,7 @@
             
             <div class="sidebar-footer">
                 <div class="auth-user-info">
-                    <span class="auth-email" id="sidebarUserEmail">admin@univercelu.com</span>
+                    <span class="auth-email" id="sidebarUserEmail">sesion@univercelu.com</span>
                     <span class="auth-status">
                         <span class="status-dot"></span>
                         En Órbita <span class="auth-text-gray" style="color:var(--muted); font-size:10px;"></span>
@@ -1648,6 +1648,26 @@
         </div>
     </div>
 
+    <!-- MODAL DE CONFIRMACIÓN PREMIUM (CERRAR SESIÓN) -->
+    <div class="modal-overlay" id="confirmLogoutModalOverlay">
+        <div class="modal-card" style="max-width: 400px; text-align: center;">
+            <div class="modal-header" style="border-bottom: none; padding-bottom: 0; justify-content: center; position: relative;">
+                <div style="font-size: 50px; color: var(--neon-violet); text-shadow: 0 0 15px rgba(138, 43, 226, 0.4); margin-top: 10px;">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+            </div>
+            <div class="modal-body" style="padding: 20px 30px;">
+                <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1.5px; color: var(--white); margin-bottom: 12px;">¿Cerrar Sesión?</h3>
+                <p style="color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 15px;">¿Seguro que deseas desconectarte y volver al espacio exterior?</p>
+                <p style="color: rgba(255, 255, 255, 0.35); font-size: 11px; font-style: italic;">Tendrás que volver a autenticarte para ingresar al panel.</p>
+            </div>
+            <div class="modal-footer" style="border-top: none; padding-top: 0; justify-content: center; gap: 15px; padding-bottom: 30px;">
+                <button type="button" class="btn-modal-cancel" id="btnCancelLogout" style="min-width: 120px;">Cancelar</button>
+                <button type="button" class="btn-modal-save" id="btnConfirmLogout" style="background: linear-gradient(135deg, var(--neon-violet) 0%, #7c3aed 100%); box-shadow: 0 0 15px rgba(138, 43, 226, 0.35); min-width: 120px; color: var(--white); border: none;">Desconectarse</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Contenedor de notificaciones de Toast -->
     <div class="toast-container" id="toastContainer"></div>
 
@@ -1716,14 +1736,25 @@
             });
         }
 
-        document.getElementById('btnLogoutAction').onclick = async () => {
-            if (confirm('¿Seguro que deseas desconectarte y volver al espacio exterior?')) {
-                try {
-                    await FirebaseService.logout();
-                    showToast('Sesión cerrada con éxito', 'info');
-                } catch (error) {
-                    showToast('Error al cerrar sesión', 'error');
-                }
+        const logoutModal = document.getElementById('confirmLogoutModalOverlay');
+        const btnCancelLogout = document.getElementById('btnCancelLogout');
+        const btnConfirmLogout = document.getElementById('btnConfirmLogout');
+
+        document.getElementById('btnLogoutAction').onclick = () => {
+            logoutModal.classList.add('open');
+        };
+
+        btnCancelLogout.onclick = () => {
+            logoutModal.classList.remove('open');
+        };
+
+        btnConfirmLogout.onclick = async () => {
+            logoutModal.classList.remove('open');
+            try {
+                await FirebaseService.logout();
+                showToast('Sesión cerrada con éxito', 'info');
+            } catch (error) {
+                showToast('Error al cerrar sesión', 'error');
             }
         };
 

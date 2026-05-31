@@ -30,8 +30,9 @@
   <!-- Favicon (Emoji de Celular) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📱</text></svg>">
   
-  <!-- Hojas de Estilo -->
-  <link rel="stylesheet" href="style.css">
+  <!-- Hojas de Estilo (DESARROLLO / PRODUCCIÓN) -->
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <link rel="stylesheet" href="style.min.css">
   
   <!-- FontAwesome Icons para iconografía premium -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -104,6 +105,14 @@
     ]
   }
   </script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 </head>
 <body>
 
@@ -118,7 +127,7 @@
     <div class="header-container">
       <a href="#" class="logo" id="logo-header">
         <div style="height: 45px; width: 45px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-glow); box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); flex-shrink: 0;">
-          <img src="assets/logo.jpg" alt="Univercelu Logo" style="height: 100%; width: 100%; object-fit: cover; transform: scale(1.12);">
+          <img src="assets/logo.jpg" alt="Univercelu - Venta de accesorios y servicio técnico especializado de celulares en Merlo Centro" style="height: 100%; width: 100%; object-fit: cover; transform: scale(1.12);">
         </div>
         <span>Univercelu</span>
       </a>
@@ -165,11 +174,12 @@
           <a href="#catalogo" class="btn-premium btn-primary" id="hero-btn-buy">
             Ver Catálogo <i class="fa-solid fa-arrow-trend-up"></i>
           </a>
-          <a href="https://wa.me/5491136719257?text=Hola%20Univercelu!%20Me%20contacto%20desde%20la%20web%20para%20hacerte%20una%20consulta." 
+          <a href="#" 
              target="_blank" 
              rel="noopener" 
-             class="btn-premium btn-outline" 
-             id="hero-btn-whatsapp">
+             class="btn-premium btn-outline whatsapp-btn" 
+             id="hero-btn-whatsapp"
+             data-context="hero">
             Escribinos <i class="fa-brands fa-whatsapp"></i>
           </a>
           <a href="https://www.instagram.com/univercelu_merlo/" target="_blank" rel="noopener" class="btn-premium btn-outline" id="hero-btn-instagram">
@@ -182,8 +192,8 @@
         <div class="hero-glow-back"></div>
         <div class="hero-image-wrapper repair-hover-effect">
           <!-- Imágenes perfectamente alineadas para evitar superposición de fondos cuadrados -->
-          <img src="assets/hero-assembled.png" alt="Celulares Univercelu" class="hero-img-assembled" id="hero-cover-image">
-          <img src="assets/hero-exploded.jpg" alt="Servicio Técnico Univercelu" class="hero-img-exploded">
+          <img src="assets/hero-assembled.png" alt="Smartphone con accesorios y protector de pantalla aplicados, que representa la calidad y precisión de Univercelu" class="hero-img-assembled" id="hero-cover-image">
+          <img src="assets/hero-exploded.jpg" alt="Despiece tridimensional de un teléfono móvil mostrando componentes internos como batería y placa para reparación técnica" class="hero-img-exploded">
           
           <!-- Etiquetas 3D que flotan al exterior de la tarjeta -->
           <span class="layer-label label-screen">Módulo Pantalla</span>
@@ -311,6 +321,8 @@
         <p>Tarjeta (3 cuotas sin interés)</p>
       </div>
 
+
+
       <!-- Google Maps -->
       <div class="info-item glass-card" id="info-card-map" 
       style="grid-column: 1 / -1; padding: 0; overflow: hidden; 
@@ -412,7 +424,7 @@
   <!-- ==========================================================================
        BOTÓN FLOTANTE DE CONTACTO RÁPIDO A WHATSAPP
        ========================================================================== -->
-  <a href="https://wa.me/5491136719257?text=Hola%20Univercelu!%20Me%20contacto%20desde%20la%20web%20para%20hacerte%20una%20consulta." target="_blank" rel="noopener" class="whatsapp-float" id="floating-whatsapp-btn" aria-label="Contacto directo por WhatsApp">
+  <a href="#" target="_blank" rel="noopener" class="whatsapp-float whatsapp-btn" id="floating-whatsapp-btn" aria-label="Contacto directo por WhatsApp" data-context="general">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
 
@@ -423,7 +435,7 @@
     <div class="footer-container">
       <a href="#" class="logo" id="logo-footer">
         <div style="height: 40px; width: 40px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-glow); flex-shrink: 0;">
-          <img src="assets/logo.jpg" alt="Univercelu Logo" style="height: 100%; width: 100%; object-fit: cover; transform: scale(1.12);">
+          <img src="assets/logo.jpg" alt="Logo circular de Univercelu - Accesorios, repuestos y servicio técnico de celulares en Buenos Aires" style="height: 100%; width: 100%; object-fit: cover; transform: scale(1.12);" loading="lazy">
         </div>
         <span>Univercelu</span>
       </a>
@@ -432,7 +444,7 @@
         <a href="https://www.instagram.com/univercelu_merlo/" target="_blank" rel="noopener" class="social-btn ig" id="footer-social-instagram" aria-label="Síguenos en Instagram">
           <i class="fa-brands fa-instagram"></i>
         </a>
-        <a href="https://wa.me/5491136719257" target="_blank" rel="noopener" class="social-btn wsp" id="footer-social-whatsapp" aria-label="Chatea en WhatsApp">
+        <a href="#" target="_blank" rel="noopener" class="social-btn wsp whatsapp-btn" id="footer-social-whatsapp" aria-label="Chatea en WhatsApp" data-context="general">
           <i class="fa-brands fa-whatsapp"></i>
         </a>
       </div>
@@ -441,8 +453,10 @@
         &copy; 2026 Univercelu. Todos los derechos reservados. | Maipú 510, Merlo Centro, entre Libertador y Sarandí.
       </p>
       
-      <!-- Acceso admin oculto del footer para visitantes -->
-      <!-- Para acceder al panel de administración, ir directamente a /admin.html -->
+      <!-- Acceso admin del footer -->
+      <a href="admin.html" class="admin-access-btn" id="footer-admin-btn">
+        <i class="fa-solid fa-lock-open"></i> Panel de Administración
+      </a>
     </div>
   </footer>
 
@@ -456,8 +470,73 @@
   <script src="seed-data.js"></script>
   <script src="firebase-service.js"></script>
 
-  <!-- Archivo Script de Lógica -->
-  <script src="app.js"></script>
+  <!-- SCRIPTS DE LÓGICA (DESARROLLO / PRODUCCIÓN) -->
+  
+  <!-- MODO DESARROLLO (Módulos de Lógica Separados) - Descomentar para desarrollo activo -->
+  <!-- <script src="catalog-service.js"></script>
+  <script src="cart-service.js"></script>
+  <script src="ui-controller.js"></script>
+  <script src="app.js"></script> -->
+
+  <!-- MODO PRODUCCIÓN (Consolidado y Minificado) -->
+  <script src="app.min.js" defer></script>
+
+  <!-- ==========================================================================
+       SCRIPT DE INTEGRACIÓN DE WHATSAPP (Mensajes Dinámicos)
+       ========================================================================== -->
+  <script>
+    // Configuración WhatsApp
+    const WHATSAPP_CONFIG = {
+      phone: '5491136719257',
+      messages: {
+        hero: 'Hola Univercelu! Quiero conocer más sobre los accesorios que ofrecen.',
+        product: (name) => `Hola Univercelu! Me interesa ${name}. ¿Tienen en stock? ¿Cuál es el precio?`,
+        service: 'Hola Univercelu! Necesito servicio técnico. ¿Cuáles son los horarios y ubicación?',
+        general: 'Hola Univercelu! Tengo una consulta.'
+      }
+    };
+
+    // Función para generar URL
+    function getWhatsAppUrl(context, productName = null) {
+      let message = WHATSAPP_CONFIG.messages[context] || WHATSAPP_CONFIG.messages['general'];
+      if (typeof message === 'function') {
+        message = message(productName);
+      }
+      return `https://wa.me/${WHATSAPP_CONFIG.phone}?text=${encodeURIComponent(message)}`;
+    }
+
+    // Aplicar a todos los botones (estáticos y dinámicos usando delegación de eventos para robustez en SPA/catalogos)
+    function initializeWhatsAppButtons() {
+      document.querySelectorAll('.whatsapp-btn').forEach(btn => {
+        const context = btn.dataset.context;
+        const product = btn.dataset.product;
+        btn.href = getWhatsAppUrl(context, product);
+      });
+    }
+
+    // Inicialización inicial
+    initializeWhatsAppButtons();
+
+    // Delegación de eventos para interceptar clics y asegurar que los enlaces dinámicos se construyan al vuelo
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.whatsapp-btn');
+      if (btn) {
+        const context = btn.dataset.context;
+        const product = btn.dataset.product;
+        
+        // Asignar el href correcto antes de la navegación
+        btn.href = getWhatsAppUrl(context, product);
+        
+        // Rastrear en Google Analytics (si está implementado)
+        if (window.gtag) {
+          gtag('event', 'whatsapp_click', {
+            context: context,
+            product: product || 'general'
+          });
+        }
+      }
+    });
+  </script>
 
   <!-- Canvas de Fondo Galáctico Animado -->
   <canvas id="galaxy-bg" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
