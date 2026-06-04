@@ -1893,7 +1893,10 @@
             if (!dropzone || !fileInput) return;
 
             // Al hacer clic en la zona, abrir selector de archivos
-            dropzone.addEventListener('click', () => fileInput.click());
+            dropzone.addEventListener('click', (e) => {
+                if (e.target.closest('label') || e.target === fileInput) return;
+                fileInput.click();
+            });
 
             // Al cambiar archivos mediante selector tradicional
             fileInput.addEventListener('change', (e) => {
