@@ -13,10 +13,10 @@
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://alebalzano1.github.io/univercelu/">
+  <meta property="og:url" content="https://univercelu.vercel.app/">
   <meta property="og:title" content="Univercelu | Accesorios y Servicio Técnico de Celulares en Merlo">
   <meta property="og:description" content="Más de 10 años en el rubro. Fundas, cables, cargadores, vidrios, auriculares y servicio técnico para todas las marcas. Merlo Centro, Buenos Aires.">
-  <meta property="og:image" content="https://alebalzano1.github.io/univercelu/assets/hero-assembled.png">
+  <meta property="og:image" content="https://univercelu.vercel.app/assets/hero-assembled.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="es_AR">
@@ -25,7 +25,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Univercelu | Accesorios y Servicio Técnico en Merlo">
   <meta name="twitter:description" content="Más de 10 años en el rubro. Los mejores accesorios para tu celular al mejor precio.">
-  <meta name="twitter:image" content="https://alebalzano1.github.io/univercelu/assets/hero-assembled.png">
+  <meta name="twitter:image" content="https://univercelu.vercel.app/assets/hero-assembled.png">
   
   <!-- Favicon (Emoji de Celular) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📱</text></svg>">
@@ -44,14 +44,14 @@
     "@graph": [
       {
         "@type": "MobilePhoneStore",
-        "@id": "https://alebalzano1.github.io/univercelu/#store",
+        "@id": "https://univercelu.vercel.app/#store",
         "name": "Univercelu",
         "image": [
-          "https://alebalzano1.github.io/univercelu/assets/logo.jpg",
-          "https://alebalzano1.github.io/univercelu/assets/hero-assembled.png"
+          "https://univercelu.vercel.app/assets/logo.jpg",
+          "https://univercelu.vercel.app/assets/hero-assembled.png"
         ],
-        "logo": "https://alebalzano1.github.io/univercelu/assets/logo.jpg",
-        "url": "https://alebalzano1.github.io/univercelu/",
+        "logo": "https://univercelu.vercel.app/assets/logo.jpg",
+        "url": "https://univercelu.vercel.app/",
         "telephone": "+5491136719257",
         "priceRange": "$$",
         "address": {
@@ -87,14 +87,14 @@
           "https://wa.me/5491136719257"
         ],
         "hasMap": "https://maps.google.com/?q=Maip%C3%BA+510,+Merlo+Centro,+Buenos+Aires",
-        "description": "Más de 10 años de trayectoria. Venta de accesorios, fundas, cables, cargadores, vidrios templados y servicio técnico especializado para todas las marcas en Merlo Centro."
+        "description": "Más de 10 años de trayectoria. Venta de accesorios, fundas, cables, cargadores, vidrios templados y servicio técnico especializado para todas las marcas in Merlo Centro."
       },
       {
         "@type": "Service",
-        "@id": "https://alebalzano1.github.io/univercelu/#service-repair",
+        "@id": "https://univercelu.vercel.app/#service-repair",
         "name": "Servicio Técnico Especializado de Celulares",
         "provider": {
-          "@id": "https://alebalzano1.github.io/univercelu/#store"
+          "@id": "https://univercelu.vercel.app/#store"
         },
         "description": "Servicio de reparación rápida para celulares de todas las marcas (Samsung, iPhone, Motorola, Xiaomi). Cambio de módulos, pantallas, pin de carga y batería en el acto.",
         "areaServed": {
@@ -190,18 +190,22 @@
       
       <div class="hero-visual">
         <div class="hero-glow-back"></div>
-        <div class="hero-image-wrapper repair-hover-effect">
+        <!-- Contenedor de la experiencia 3D en tiempo real -->
+        <div id="phone-3d-container" style="display: none; width: 100%; max-width: 450px; aspect-ratio: 1 / 1; position: relative; cursor: grab; opacity: 0; transition: opacity 0.5s ease; z-index: 5;"></div>
+        
+        <!-- Fallback en 2D estático con efecto hover -->
+        <div id="hero-fallback-wrapper" class="hero-image-wrapper repair-hover-effect">
           <!-- Imágenes perfectamente alineadas para evitar superposición de fondos cuadrados -->
           <img src="assets/hero-assembled.png" alt="Smartphone con accesorios y protector de pantalla aplicados, que representa la calidad y precisión de Univercelu" class="hero-img-assembled" id="hero-cover-image">
           <img src="assets/hero-exploded.jpg" alt="Despiece tridimensional de un teléfono móvil mostrando componentes internos como batería y placa para reparación técnica" class="hero-img-exploded">
-          
-          <!-- Etiquetas 3D que flotan al exterior de la tarjeta -->
-          <span class="layer-label label-screen">Módulo Pantalla</span>
-          <span class="layer-label label-board">Placa & Batería</span>
-          <span class="layer-label label-back">Chasis & Cámaras</span>
-
-          <div class="hover-hint"><i class="fa-solid fa-screwdriver-wrench"></i> <span class="hint-text">Hover para desarmar</span></div>
         </div>
+        
+        <!-- Etiquetas 3D que flotan al exterior de la tarjeta -->
+        <span class="layer-label label-screen">Módulo Pantalla</span>
+        <span class="layer-label label-board">Placa & Batería</span>
+        <span class="layer-label label-back">Chasis & Cámaras</span>
+
+        <div class="hover-hint"><i class="fa-solid fa-screwdriver-wrench"></i> <span class="hint-text">Hover para desarmar</span></div>
       </div>
     </div>
   </section>
@@ -217,7 +221,10 @@
       <h2 class="section-title">⭐ Más Vendidos</h2>
     </div>
     <div class="featured-grid" id="featured-products-grid">
-      <!-- Se inyecta dinámicamente -->
+      <div class="loading-spinner-placeholder" style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-family: var(--font-title);">
+        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem; color: var(--primary-glow); margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto;"></i>
+        <span>Buscando recomendados en el espacio...</span>
+      </div>
     </div>
   </section>
 
@@ -270,7 +277,10 @@
     
     <!-- Grid de Productos (Renderizado Dinámicamente en JS) -->
     <div class="products-grid" id="products-catalog-grid">
-      <!-- Los productos se inyectarán de forma dinámica aquí -->
+      <div class="loading-spinner-placeholder" style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-family: var(--font-title);">
+        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 2rem; color: var(--primary-glow); margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto;"></i>
+        <span>Conectando con el satélite comercial...</span>
+      </div>
     </div>
   </section>
 
@@ -433,7 +443,7 @@
        ========================================================================== -->
   <footer>
     <div class="footer-container">
-      <a href="#" class="logo" id="logo-footer">
+      <a href="#inicio" class="logo" id="logo-footer">
         <div style="height: 40px; width: 40px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-glow); flex-shrink: 0;">
           <img src="assets/logo.jpg" alt="Logo circular de Univercelu - Accesorios, repuestos y servicio técnico de celulares en Buenos Aires" style="height: 100%; width: 100%; object-fit: cover; transform: scale(1.12);" loading="lazy">
         </div>
@@ -450,7 +460,7 @@
       </div>
       
       <p class="footer-copy" id="footer-copyright-text">
-        &copy; 2026 Univercelu. Todos los derechos reservados. | Maipú 510, Merlo Centro, entre Libertador y Sarandí.
+        &copy; <span id="current-year"></span> Univercelu. Todos los derechos reservados. | Maipú 510, Merlo Centro, entre Libertador y Sarandí.
       </p>
       
       <!-- Acceso admin del footer -->
@@ -541,5 +551,9 @@
   <!-- Canvas de Fondo Galáctico Animado -->
   <canvas id="galaxy-bg" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
   <script src="galaxy.js"></script>
+
+  <!-- Librería Three.js (Procedural 3D) y Script de Experiencia Interactiva -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="phone-3d.js"></script>
 </body>
 </html>

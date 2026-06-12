@@ -414,17 +414,18 @@ nav a:hover::after, nav a.active::after {
     box-shadow: 0 15px 45px rgba(168, 85, 247, 0.45);
   }
 
-  .hero-image-wrapper.repair-hover-effect:hover .label-screen {
+  /* Hover sobre la tarjeta en el fallback 2D */
+  .hero-image-wrapper.repair-hover-effect:hover ~ .label-screen {
     opacity: 1;
     transform: translate3d(140px, -15px, 80px);
   }
 
-  .hero-image-wrapper.repair-hover-effect:hover .label-board {
+  .hero-image-wrapper.repair-hover-effect:hover ~ .label-board {
     opacity: 1;
     transform: translate3d(-140px, 0, 60px);
   }
 
-  .hero-image-wrapper.repair-hover-effect:hover .label-back {
+  .hero-image-wrapper.repair-hover-effect:hover ~ .label-back {
     opacity: 1;
     transform: translate3d(140px, 15px, 40px);
   }
@@ -456,17 +457,17 @@ nav a:hover::after, nav a.active::after {
   box-shadow: 0 15px 45px rgba(168, 85, 247, 0.45);
 }
 
-.hero-image-wrapper.repair-hover-effect.active-tap .label-screen {
+.hero-image-wrapper.repair-hover-effect.active-tap ~ .label-screen {
   opacity: 1;
   transform: translate3d(140px, -15px, 80px);
 }
 
-.hero-image-wrapper.repair-hover-effect.active-tap .label-board {
+.hero-image-wrapper.repair-hover-effect.active-tap ~ .label-board {
   opacity: 1;
   transform: translate3d(-140px, 0, 60px);
 }
 
-.hero-image-wrapper.repair-hover-effect.active-tap .label-back {
+.hero-image-wrapper.repair-hover-effect.active-tap ~ .label-back {
   opacity: 1;
   transform: translate3d(140px, 15px, 40px);
 }
@@ -480,13 +481,33 @@ nav a:hover::after, nav a.active::after {
    3. RESPONSIVE / MÓVIL (Ocultar etiquetas flotantes y ajustar márgenes laterales)
    ========================================================================== */
 @media (max-width: 768px) {
-  .hero-image-wrapper.repair-hover-effect .layer-label {
+  .hero-visual .layer-label {
     display: none !important;
   }
 }
 
+/* ESTILOS DE CONTENEDOR 3D (THREE.JS) */
+#phone-3d-container {
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  border-radius: 30px;
+  background: transparent;
+  z-index: 5;
+  transition: opacity 0.5s ease;
+  overflow: visible;
+}
+
+#phone-3d-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 30px;
+  display: block;
+}
+
 /* ETIQUETAS FLOTANTES DE COMPONENTES (LABELS) - Configuración base */
-.hero-image-wrapper.repair-hover-effect .layer-label {
+.hero-visual .layer-label {
   position: absolute;
   font-family: var(--font-title);
   font-size: 0.72rem;
@@ -508,18 +529,32 @@ nav a:hover::after, nav a.active::after {
   transform-style: preserve-3d;
 }
 
-/* Posiciones iniciales */
-.hero-image-wrapper.repair-hover-effect .label-screen {
+/* Clases añadidas programáticamente en modo 3D por JS */
+.layer-label.visible-3d-mode {
+  opacity: 1 !important;
+}
+.layer-label.label-screen.visible-3d-mode {
+  transform: translate3d(140px, -15px, 80px) !important;
+}
+.layer-label.label-board.visible-3d-mode {
+  transform: translate3d(-140px, 0, 60px) !important;
+}
+.layer-label.label-back.visible-3d-mode {
+  transform: translate3d(140px, 15px, 40px) !important;
+}
+
+/* Posiciones iniciales base */
+.hero-visual .label-screen {
   top: 15%;
   right: 20px;
 }
 
-.hero-image-wrapper.repair-hover-effect .label-board {
+.hero-visual .label-board {
   top: 50%;
   left: 20px;
 }
 
-.hero-image-wrapper.repair-hover-effect .label-back {
+.hero-visual .label-back {
   bottom: 15%;
   right: 20px;
 }

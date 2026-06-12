@@ -137,7 +137,7 @@ function applyStoreConfiguration() {
 
   const copyEl = document.getElementById('footer-copyright-text');
   if (copyEl && CONFIG.storeName) {
-    copyEl.innerHTML = `&copy; 2026 ${CONFIG.storeName}. Todos los derechos reservados. | ${CONFIG.deliveryZone || 'Maipú 510, Merlo Centro'}.`;
+    copyEl.innerHTML = `&copy; ${new Date().getFullYear()} ${CONFIG.storeName}. Todos los derechos reservados. | ${CONFIG.deliveryZone || 'Maipú 510, Merlo Centro'}.`;
   }
 }
 
@@ -346,6 +346,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderSkeletons();
   updateCartUI();
   setupEventListeners();
+
+  // Inicializar año actual en el copyright del footer
+  const yearEl = document.getElementById('current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   try {
     const [fetchedProducts, fetchedConfig] = await Promise.all([

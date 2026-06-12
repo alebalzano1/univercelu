@@ -108,7 +108,7 @@ function updateCartUI() {
       itemRow.className = 'cart-item';
       itemRow.innerHTML = `
         <div class="cart-item-img">
-          <img src="${item.image}" alt="${item.name}">
+          <img src="${optimizeCloudinaryUrl(item.image, 100)}" alt="${item.name}">
         </div>
         <div class="cart-item-details">
           <h4 class="cart-item-name">${item.name}</h4>

@@ -53,7 +53,11 @@ function renderSkeletons() {
   const productsGrid = document.getElementById('products-catalog-grid');
   if (!productsGrid) return;
   
-  productsGrid.innerHTML = '';
+  productsGrid.innerHTML = `
+    <div class="catalog-loading-indicator" style="grid-column: 1 / -1; text-align: center; padding: 20px; color: var(--text-muted); font-family: var(--font-title); font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
+      <i class="fa-solid fa-spinner fa-spin" style="color: var(--primary-glow);"></i> Cargando el universo de productos...
+    </div>
+  `;
   for (let i = 0; i < 6; i++) {
     const card = document.createElement('div');
     card.className = 'product-card skeleton-card glass-card';
