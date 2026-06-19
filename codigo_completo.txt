@@ -464,10 +464,6 @@ ARCHIVO: index.html
         &copy; <span id="current-year"></span> Univercelu. Todos los derechos reservados. | Maipú 510, Merlo Centro, entre Libertador y Sarandí.
       </p>
       
-      <!-- Acceso admin del footer -->
-      <a href="admin.html" class="admin-access-btn" id="footer-admin-btn">
-        <i class="fa-solid fa-lock-open"></i> Panel de Administración
-      </a>
     </div>
   </footer>
 
