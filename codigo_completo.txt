@@ -1,8 +1,6 @@
-
+﻿
 ================================================================================
-
- ARCHIVO: index.html
-
+ARCHIVO: index.html
 ================================================================================
 
 <!DOCTYPE html>
@@ -197,22 +195,18 @@
       
       <div class="hero-visual">
         <div class="hero-glow-back"></div>
-        <!-- Contenedor de la experiencia 3D en tiempo real -->
-        <div id="phone-3d-container" style="display: none; width: 100%; max-width: 450px; aspect-ratio: 1 / 1; position: relative; cursor: grab; opacity: 0; transition: opacity 0.5s ease; z-index: 5;"></div>
-        
-        <!-- Fallback en 2D estático con efecto hover -->
-        <div id="hero-fallback-wrapper" class="hero-image-wrapper repair-hover-effect">
+        <div class="hero-image-wrapper repair-hover-effect">
           <!-- Imágenes perfectamente alineadas para evitar superposición de fondos cuadrados -->
           <img src="assets/hero-assembled.png" alt="Smartphone con accesorios y protector de pantalla aplicados, que representa la calidad y precisión de Univercelu" class="hero-img-assembled" id="hero-cover-image">
           <img src="assets/hero-exploded.jpg" alt="Despiece tridimensional de un teléfono móvil mostrando componentes internos como batería y placa para reparación técnica" class="hero-img-exploded">
-        </div>
-        
-        <!-- Etiquetas 3D que flotan al exterior de la tarjeta -->
-        <span class="layer-label label-screen">Módulo Pantalla</span>
-        <span class="layer-label label-board">Placa & Batería</span>
-        <span class="layer-label label-back">Chasis & Cámaras</span>
+          
+          <!-- Etiquetas 3D que flotan al exterior de la tarjeta -->
+          <span class="layer-label label-screen">Módulo Pantalla</span>
+          <span class="layer-label label-board">Placa & Batería</span>
+          <span class="layer-label label-back">Chasis & Cámaras</span>
 
-        <div class="hover-hint"><i class="fa-solid fa-screwdriver-wrench"></i> <span class="hint-text">Hover para desarmar</span></div>
+          <div class="hover-hint"><i class="fa-solid fa-screwdriver-wrench"></i> <span class="hint-text">Hover para desarmar</span></div>
+        </div>
       </div>
     </div>
   </section>
@@ -559,17 +553,12 @@
   <canvas id="galaxy-bg" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
   <script src="galaxy.js"></script>
 
-  <!-- Librería Three.js (Procedural 3D) y Script de Experiencia Interactiva -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="phone-3d.js"></script>
 </body>
 </html>
 
 
 ================================================================================
-
- ARCHIVO: admin.html
-
+ARCHIVO: admin.html
 ================================================================================
 
 <!DOCTYPE html>
@@ -2926,9 +2915,7 @@
 
 
 ================================================================================
-
- ARCHIVO: style.css
-
+ARCHIVO: style.css
 ================================================================================
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
@@ -3347,18 +3334,17 @@ nav a:hover::after, nav a.active::after {
     box-shadow: 0 15px 45px rgba(168, 85, 247, 0.45);
   }
 
-  /* Hover sobre la tarjeta en el fallback 2D */
-  .hero-image-wrapper.repair-hover-effect:hover ~ .label-screen {
+  .hero-image-wrapper.repair-hover-effect:hover .label-screen {
     opacity: 1;
     transform: translate3d(140px, -15px, 80px);
   }
 
-  .hero-image-wrapper.repair-hover-effect:hover ~ .label-board {
+  .hero-image-wrapper.repair-hover-effect:hover .label-board {
     opacity: 1;
     transform: translate3d(-140px, 0, 60px);
   }
 
-  .hero-image-wrapper.repair-hover-effect:hover ~ .label-back {
+  .hero-image-wrapper.repair-hover-effect:hover .label-back {
     opacity: 1;
     transform: translate3d(140px, 15px, 40px);
   }
@@ -3390,17 +3376,17 @@ nav a:hover::after, nav a.active::after {
   box-shadow: 0 15px 45px rgba(168, 85, 247, 0.45);
 }
 
-.hero-image-wrapper.repair-hover-effect.active-tap ~ .label-screen {
+.hero-image-wrapper.repair-hover-effect.active-tap .label-screen {
   opacity: 1;
   transform: translate3d(140px, -15px, 80px);
 }
 
-.hero-image-wrapper.repair-hover-effect.active-tap ~ .label-board {
+.hero-image-wrapper.repair-hover-effect.active-tap .label-board {
   opacity: 1;
   transform: translate3d(-140px, 0, 60px);
 }
 
-.hero-image-wrapper.repair-hover-effect.active-tap ~ .label-back {
+.hero-image-wrapper.repair-hover-effect.active-tap .label-back {
   opacity: 1;
   transform: translate3d(140px, 15px, 40px);
 }
@@ -3414,33 +3400,13 @@ nav a:hover::after, nav a.active::after {
    3. RESPONSIVE / MÓVIL (Ocultar etiquetas flotantes y ajustar márgenes laterales)
    ========================================================================== */
 @media (max-width: 768px) {
-  .hero-visual .layer-label {
+  .hero-image-wrapper.repair-hover-effect .layer-label {
     display: none !important;
   }
 }
 
-/* ESTILOS DE CONTENEDOR 3D (THREE.JS) */
-#phone-3d-container {
-  width: 100%;
-  max-width: 450px;
-  aspect-ratio: 1 / 1;
-  position: relative;
-  border-radius: 30px;
-  background: transparent;
-  z-index: 5;
-  transition: opacity 0.5s ease;
-  overflow: visible;
-}
-
-#phone-3d-container canvas {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 30px;
-  display: block;
-}
-
 /* ETIQUETAS FLOTANTES DE COMPONENTES (LABELS) - Configuración base */
-.hero-visual .layer-label {
+.hero-image-wrapper.repair-hover-effect .layer-label {
   position: absolute;
   font-family: var(--font-title);
   font-size: 0.72rem;
@@ -3462,32 +3428,18 @@ nav a:hover::after, nav a.active::after {
   transform-style: preserve-3d;
 }
 
-/* Clases añadidas programáticamente en modo 3D por JS */
-.layer-label.visible-3d-mode {
-  opacity: 1 !important;
-}
-.layer-label.label-screen.visible-3d-mode {
-  transform: translate3d(140px, -15px, 80px) !important;
-}
-.layer-label.label-board.visible-3d-mode {
-  transform: translate3d(-140px, 0, 60px) !important;
-}
-.layer-label.label-back.visible-3d-mode {
-  transform: translate3d(140px, 15px, 40px) !important;
-}
-
-/* Posiciones iniciales base */
-.hero-visual .label-screen {
+/* Posiciones iniciales */
+.hero-image-wrapper.repair-hover-effect .label-screen {
   top: 15%;
   right: 20px;
 }
 
-.hero-visual .label-board {
+.hero-image-wrapper.repair-hover-effect .label-board {
   top: 50%;
   left: 20px;
 }
 
-.hero-visual .label-back {
+.hero-image-wrapper.repair-hover-effect .label-back {
   bottom: 15%;
   right: 20px;
 }
@@ -5513,1520 +5465,7 @@ footer {
 
 
 ================================================================================
-
- ARCHIVO: firebase-config.js
-
-================================================================================
-
-// Configuración de Firebase para UNIVERCE CELU
-const firebaseConfig = {
-    apiKey: "AIzaSyC7LQ_56rZ97pQLCpU3tWlO6Hq8WNvaZNQ",
-    authDomain: "univercelu.firebaseapp.com",
-    projectId: "univercelu",
-    storageBucket: "univercelu.firebasestorage.app",
-    messagingSenderId: "304176642195",
-    appId: "1:304176642195:web:10467faf885ce766923566"
-};
-
-window.firebaseConfig = firebaseConfig;
-
-
-================================================================================
-
- ARCHIVO: seed-data.js
-
-================================================================================
-
-// Datos semilla iniciales para UNIVERCE CELU
-const initialProducts = [
-  // FUNDAS
-  {
-    id: "silicon-case",
-    name: "Silicon Case",
-    category: "fundas",
-    price: 5500,
-    originalPrice: 6500,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673394/pyfo8bnllfp0x9aauyun.jpg",
-    description: "Funda de silicona líquida de alta calidad, suave al tacto con felpa interna protectora anti-rayaduras.",
-    badge: "Populares",
-    available: true,
-    featured: true
-  },
-  {
-    id: "funda-transparente",
-    name: "Funda Transparente",
-    category: "fundas",
-    price: 4000,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673395/e5dsco3oo1ppzlgpw2bc.jpg",
-    description: "Funda de TPU flexible totalmente transparente con esquinas reforzadas para amortiguación avanzada.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "funda-transparente-magsafe",
-    name: "Funda Transparente MagSafe",
-    category: "fundas",
-    price: 7500,
-    originalPrice: 9000,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673396/vqx8t739vfho8yygj1gi.jpg",
-    description: "Funda ultra-protectora transparente con anillo magnético integrado compatible con carga rápida MagSafe.",
-    badge: "Nuevo",
-    available: true,
-    featured: true
-  },
-  {
-    id: "funda-silicon-soporte",
-    name: "Funda Silicon con Soporte",
-    category: "fundas",
-    price: 6800,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673398/fdmlomkktcig4v5qqejg.jpg",
-    description: "Funda de silicona resistente equipada con anillo trasero de metal plegable para soporte cómodo y seguro.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "funda-silicon-comun",
-    name: "Funda Silicon Común",
-    category: "fundas",
-    price: 4800,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673399/lkayfatx9le9h7nechbn.jpg",
-    description: "Funda clásica de silicona flexible con ajuste perfecto, bordes elevados y textura antideslizante.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "funda-rigida-reforzada",
-    name: "Funda Rígida Reforzada",
-    category: "fundas",
-    price: 8500,
-    originalPrice: 10000,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673402/fsiljh9u7tmm9ymeuyie.jpg",
-    description: "Funda híbrida de alta resistencia con doble capa de protección contra impactos extremos y caídas duras.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-
-  // CABLES
-  {
-    id: "cable-usb-c-samsung",
-    name: "Cable USB tipo C Samsung",
-    category: "cables",
-    price: 6000,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673404/s95hemc79bbw2rvea8ad.jpg",
-    description: "Cable de carga rápida original Samsung con conectores USB-C en ambos extremos para alta durabilidad.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "cable-usb-c-motorola",
-    name: "Cable USB tipo C Motorola",
-    category: "cables",
-    price: 5800,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673405/s9wcvkapqjv2hbd2llkd.jpg",
-    description: "Cable original Motorola TurboPower tipo C de gran rendimiento y velocidad estable de transferencia.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "cable-usb-c-oferta",
-    name: "Cable USB tipo C Oferta",
-    category: "cables",
-    price: 3500,
-    originalPrice: 5000,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673406/ymgwxols0rsvh1jazayi.jpg",
-    description: "Cable de carga tipo C universal reforzado de 1 metro de longitud a un precio de oferta imperdible.",
-    badge: "Oferta",
-    available: true,
-    featured: true
-  },
-  {
-    id: "cable-micro-usb-oferta",
-    name: "Cable Micro USB Oferta",
-    category: "cables",
-    price: 2500,
-    originalPrice: 3500,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673408/qxnqbwgmcioorpyqwntr.jpg",
-    description: "Cable micro USB universal reforzado de gran rendimiento en oferta especial para modelos clásicos.",
-    badge: "Oferta",
-    available: true,
-    featured: true
-  },
-  {
-    id: "cable-iphone-lightning",
-    name: "Cable iPhone Lightning",
-    category: "cables",
-    price: 7000,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673409/ijoh8caewf02mm5dbihh.jpg",
-    description: "Cable de carga y datos reforzado con conector Lightning compatible con iPhone, iPad y iPod.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "cable-c-lightning",
-    name: "Cable C a Lightning",
-    category: "cables",
-    price: 8500,
-    originalPrice: 11000,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673411/wg3c518mkouyhycnyjhs.jpg",
-    description: "Cable de carga rápida con conexión USB-C a conector Lightning de Apple, compatible con protocolo Power Delivery.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "cable-usb-lightning",
-    name: "Cable USB a Lightning",
-    category: "cables",
-    price: 6500,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673412/kjv4n2i286wshrlz2rly.jpg",
-    description: "Cable clásico de carga y sincronización con conexión USB-A a conector Lightning de alta durabilidad.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "cable-c-c",
-    name: "Cable C a C",
-    category: "cables",
-    price: 7800,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673413/xj17zt67wpoveruywujn.jpg",
-    description: "Cable USB Tipo-C a Tipo-C de alta velocidad para carga ultra-rápida y transmisión de datos masiva.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "cable-auxiliar",
-    name: "Cable Auxiliar",
-    category: "cables",
-    price: 3200,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673414/bdutha53t67pikouxpkl.jpg",
-    description: "Cable de audio Jack de 3.5mm a 3.5mm con conectores dorados reforzados y cable trenzado anti-enredos.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-
-  // CARGADORES
-  {
-    id: "cabezal-samsung-45w",
-    name: "Cabezal Samsung 45W",
-    category: "cargadores",
-    price: 24000,
-    originalPrice: 28000,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673416/scok8pssi8oqrmfammpo.jpg",
-    description: "Cabezal de pared original Samsung de 45W Super Fast Charging 2.0 equipado con puerto USB-C.",
-    badge: "45W",
-    available: true,
-    featured: true
-  },
-  {
-    id: "cabezal-iphone-20w",
-    name: "Cabezal iPhone 20W",
-    category: "cargadores",
-    price: 19500,
-    originalPrice: 24000,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673417/p1pk4osq35g5lil5hspu.jpg",
-    description: "Adaptador de pared original USB-C de 20W para carga rápida de modelos Apple iPhone y iPad.",
-    badge: "20W",
-    available: true,
-    featured: true
-  },
-  {
-    id: "cargador-samsung-completo",
-    name: "Cargador Samsung Completo",
-    category: "cargadores",
-    price: 15500,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673418/ay8gd0uo7wtdcmqfq2f8.jpg",
-    description: "Kit completo de pared Samsung que incluye adaptador de corriente rápido y cable Tipo C reforzado.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "cargador-motorola-completo",
-    name: "Cargador Motorola Completo",
-    category: "cargadores",
-    price: 14800,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673420/pj6rzcv7n8ebaeqivapp.jpg",
-    description: "Kit completo original Motorola TurboPower de gran rendimiento con adaptador de pared y cable Tipo C.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "cargador-puxida-25w",
-    name: "Cargador Puxida 25W",
-    category: "cargadores",
-    price: 9500,
-    originalPrice: 12000,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673421/dbxs0tggmjdv3nq8qzmo.jpg",
-    description: "Cargador rápido de pared marca Puxida de 25W con conector USB-C compatible con múltiples marcas.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-
-  // AUDIO
-  {
-    id: "auriculares-inalambricos",
-    name: "Auriculares Inalámbricos",
-    category: "audio",
-    price: 18500,
-    originalPrice: 22000,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673422/qdifryhqothw8qcqw33b.jpg",
-    description: "Auriculares inalámbricos TWS Bluetooth de alta fidelidad con estuche de carga inteligente y control táctil.",
-    badge: "Bluetooth",
-    available: true,
-    featured: true
-  },
-  {
-    id: "auriculares-cable",
-    name: "Auriculares con Cable",
-    category: "audio",
-    price: 4500,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673423/ccavwvad4dvwivpy4sni.jpg",
-    description: "Auriculares manos libres clásicos con conector Jack de 3.5mm con sonido estéreo y micrófono incorporado.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "parlante",
-    name: "Parlante",
-    category: "audio",
-    price: 22000,
-    originalPrice: 26000,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673425/rsdutseps1i84jjcxz7s.jpg",
-    description: "Parlante portátil Bluetooth de gran alcance, sonido envolvente premium con graves reforzados y batería de larga duración.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-
-  // VIDRIOS
-  {
-    id: "vidrio-9d",
-    name: "Vidrio 9D",
-    category: "vidrios",
-    price: 3500,
-    originalPrice: 4500,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673426/nnjahrfhlqu1mnl2tcxx.jpg",
-    description: "Vidrio templado protector 9D de dureza 9H con cobertura total del dispositivo y bordes curvos reforzados.",
-    badge: "9D",
-    available: true,
-    featured: true
-  },
-  {
-    id: "vidrio-anti-espia",
-    name: "Vidrio Anti Espía",
-    category: "vidrios",
-    price: 4800,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673427/mtsugrhcx8hh8oksdq3u.jpg",
-    description: "Vidrio templado con tecnología de privacidad que oscurece la pantalla ante miradas laterales sospechosas.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-  {
-    id: "hidrogel",
-    name: "Hidrógel",
-    category: "vidrios",
-    price: 4000,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673429/o1ougen9fzelmmrt1tmz.jpg",
-    description: "Protector de pantalla flexible de hidrogel premium con autoreparación de micro-rayaduras cotidianas.",
-    badge: null,
-    available: true,
-    featured: false
-  },
-
-  // SERVICIO TÉCNICO
-  {
-    id: "servicio-tecnico",
-    name: "Servicio Técnico Todas las Marcas",
-    category: "servicio",
-    price: 0,
-    originalPrice: null,
-    image: "https://res.cloudinary.com/dgb5o9y0v/image/upload/v1779673430/djmudob9yrqaislfsrae.jpg",
-    description: "Reparamos todas las marcas. Presupuesto sin cargo en el momento, repuestos originales y reparaciones rápidas en el día.",
-    badge: "Soporte Técnico",
-    available: true,
-    featured: true
-  }
-];
-
-const initialConfig = {
-  storeName: "Univercelu",
-  tagline: "Más de 10 años en el rubro.",
-  whatsapp: "5491136719257",
-  instagram: "univercelu_merlo",
-  deliveryZone: "Maipú 510, Merlo Centro (entre Libertador y Sarandí)",
-  minOrder: 0,
-  welcomeMessage: "¡Hola! Quisiera hacer un pedido de accesorios 📱"
-};
-
-window.initialProducts = initialProducts;
-window.initialConfig   = initialConfig;
-
-
-================================================================================
-
- ARCHIVO: firebase-service.js
-
-================================================================================
-
-// Firebase & Cloudinary Service for UNIVERCE CELU
-// Sincronización robusta en tiempo real con soporte de persistencia local (Sandbox)
-
-let db = null;
-let isFirebaseActive = false;
-
-// Inicializar Firebase si las credenciales son válidas
-try {
-    const config = window.firebaseConfig;
-    if (config && config.apiKey && config.apiKey !== "[PEGAR VALOR REAL]" && config.apiKey !== "") {
-        firebase.initializeApp(config);
-        db = firebase.firestore();
-        isFirebaseActive = true;
-        console.log("🔥 [Firebase] Conexión establecida con éxito en la nube de Universe Celu.");
-    } else {
-        console.warn("⚠️ [Firebase] Corriendo en modo Local / Sandbox (LocalStorage). Configura las credenciales reales en firebase-config.js para conectar la base de datos en la nube.");
-    }
-} catch (error) {
-    console.error("❌ [Firebase] Error al inicializar Firebase:", error);
-}
-
-const FirebaseService = {
-    // --- Diagnóstico de Conexión ---
-    isCloudActive() {
-        return isFirebaseActive;
-    },
-
-    // --- AUTENTICACIÓN ---
-    async login(email, password) {
-        const auth = firebase.auth();
-        return await auth.signInWithEmailAndPassword(email, password);
-    },
-
-    async changePassword(newPassword) {
-        const user = firebase.auth().currentUser;
-        if (user) {
-            return await user.updatePassword(newPassword);
-        } else {
-            throw new Error("No hay un usuario autenticado activo.");
-        }
-    },
-
-    async logout() {
-        const auth = firebase.auth();
-        return await auth.signOut();
-    },
-
-    onAuth(callback) {
-        const auth = firebase.auth();
-        auth.onAuthStateChanged((user) => {
-            callback(user);
-        });
-    },
-
-    // --- Autosiembra (Seeding) ---
-    // Si la base de datos está vacía, se inicializa automáticamente con los valores por defecto
-    async autoSeedDatabase(initialProducts, initialConfig) {
-        if (!isFirebaseActive) return;
-        try {
-            const productSnapshot = await db.collection("products").limit(1).get();
-            if (productSnapshot.empty) {
-                console.log("🌱 [Firebase] Base de datos vacía. Iniciando autosiembra para Universe Celu...");
-
-                // Sembrar Productos
-                for (const p of initialProducts) {
-                    await db.collection("products").doc(p.id).set(p);
-                }
-
-                // Sembrar Configuración
-                await db.collection("settings").doc("main").set(initialConfig);
-
-                console.log("🌱 [Firebase] Autosiembra completada con éxito.");
-            }
-
-            // No se siembran credenciales en la base de datos por ser inseguro.
-            // Los usuarios de administración se manejan directamente desde Firebase Auth Console.
-        } catch (error) {
-            console.error("❌ [Firebase] Error durante el proceso de autosiembra:", error);
-        }
-    },
-
-    // --- Restablecer y Sembrar Base de Datos Forzado ---
-    async forceResetAndSeedDatabase(initialProducts, initialConfig) {
-        if (!isFirebaseActive) {
-            // Local fallback logic
-            localStorage.setItem("univercelu_products_v3", JSON.stringify(initialProducts));
-            localStorage.setItem("univercelu_config", JSON.stringify(initialConfig));
-            return;
-        }
-        try {
-            console.log("⚠️ [Firebase] Iniciando limpieza total de productos...");
-            const snapshot = await db.collection("products").get();
-            for (const doc of snapshot.docs) {
-                await db.collection("products").doc(doc.id).delete();
-            }
-
-            console.log("🌱 [Firebase] Escribiendo catálogo oficial limpio...");
-            for (const p of initialProducts) {
-                await db.collection("products").doc(p.id).set(p);
-            }
-
-            console.log("⚙️ [Firebase] Escribiendo configuraciones comerciales por defecto...");
-            await db.collection("settings").doc("main").set(initialConfig);
-
-            console.log("✨ [Firebase] Base de datos restablecida con éxito.");
-        } catch (error) {
-            console.error("❌ [Firebase] Error en restablecimiento forzado:", error);
-            throw error;
-        }
-    },
-
-    // --- PRODUCTOS ---
-    async getProducts() {
-        if (!isFirebaseActive) {
-            // Modo local: Leer de localStorage
-            const local = localStorage.getItem("univercelu_products_v3");
-            return local ? JSON.parse(local) : null;
-        }
-        try {
-            console.log("[Firebase] Obteniendo productos de Firestore...");
-            const snapshot = await db.collection("products").get();
-            return snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));
-        } catch (error) {
-            console.error("[Firebase] Error al obtener productos:", error);
-            throw error;
-        }
-    },
-
-    async saveProduct(product) {
-        if (!isFirebaseActive) {
-            // Guardar localmente
-            let localProducts = await this.getProducts() || [];
-            const index = localProducts.findIndex(p => p.id === product.id);
-            if (index > -1) {
-                localProducts[index] = product;
-            } else {
-                localProducts.push(product);
-            }
-            localStorage.setItem("univercelu_products_v3", JSON.stringify(localProducts));
-            return;
-        }
-        try {
-            const id = product.id;
-            console.log("[Firebase] Guardando producto:", id);
-            await db.collection("products").doc(id).set(product);
-        } catch (error) {
-            console.error("[Firebase] Error al guardar producto:", error);
-            throw error;
-        }
-    },
-
-    async deleteProduct(id) {
-        if (!isFirebaseActive) {
-            // Eliminar localmente
-            let localProducts = await this.getProducts() || [];
-            localProducts = localProducts.filter(p => p.id !== id);
-            localStorage.setItem("univercelu_products_v3", JSON.stringify(localProducts));
-            return;
-        }
-        try {
-            console.log("[Firebase] Eliminando producto:", id);
-            await db.collection("products").doc(id).delete();
-        } catch (error) {
-            console.error("[Firebase] Error al eliminar producto:", error);
-            throw error;
-        }
-    },
-
-    // --- CONFIGURACIÓN GENERAL ---
-    async getConfig() {
-        if (!isFirebaseActive) {
-            const local = localStorage.getItem("univercelu_config");
-            return local ? JSON.parse(local) : null;
-        }
-        try {
-            console.log("[Firebase] Obteniendo configuraciones de Firestore...");
-            const doc = await db.collection("settings").doc("main").get();
-            return doc.exists ? doc.data() : null;
-        } catch (error) {
-            console.error("[Firebase] Error al obtener configuración:", error);
-            throw error;
-        }
-    },
-
-    async saveConfig(configData) {
-        if (!isFirebaseActive) {
-            localStorage.setItem("univercelu_config", JSON.stringify(configData));
-            return;
-        }
-        try {
-            console.log("[Firebase] Guardando configuración general...");
-            await db.collection("settings").doc("main").set(configData);
-        } catch (error) {
-            console.error("[Firebase] Error al guardar configuración:", error);
-            throw error;
-        }
-    },
-
-    // --- SUBIDA DE IMÁGENES Y VIDEOS A CLOUDINARY ---
-    async uploadImage(file) {
-        console.log("[Cloudinary] Iniciando subida a Cloudinary...");
-
-        // Reutilizamos el bucket y preset para garantizar compatibilidad directa
-        const cloudName = "dgb5o9y0v";
-        const uploadPreset = "ugda3w5p";
-        
-        // Detección automática de tipo de archivo para redirección a Cloudinary
-        const isVideo = file.type && file.type.startsWith("video/");
-        const resourceType = isVideo ? "video" : "image";
-        const url = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`;
-
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", uploadPreset);
-
-        try {
-            const response = await fetch(url, {
-                method: "POST",
-                body: formData
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error?.message || "Error al subir el archivo");
-            }
-
-            const data = await response.json();
-            console.log("[Cloudinary] Archivo subido exitosamente:", data.secure_url);
-            return data.secure_url;
-        } catch (error) {
-            console.error("[Cloudinary] Error crítico al subir archivo:", error);
-            throw error;
-        }
-    }
-};
-
-// Exportar para uso global
-window.FirebaseService = FirebaseService;
-
-// Auto-siembra reactiva: si la base de datos está vacía, carga los datos iniciales
-document.addEventListener("DOMContentLoaded", () => {
-    // Ejecución inicial en la carga del DOM
-    FirebaseService.autoSeedDatabase(
-        window.initialProducts,
-        window.initialConfig
-    );
-
-    // Ejecución reactiva en cuanto se detecte la restauración de la sesión del administrador
-    if (typeof firebase !== 'undefined' && isFirebaseActive) {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                console.log("🔑 [Firebase Auth] Administrador detectado. Verificando autosiembra...");
-                FirebaseService.autoSeedDatabase(
-                    window.initialProducts,
-                    window.initialConfig
-                );
-            }
-        });
-    }
-});
-
-
-================================================================================
-
- ARCHIVO: catalog-service.js
-
-================================================================================
-
-/* ==========================================================================
-   UNIVERCELU - SERVICIO DE CATÁLOGO (catalog-service.js)
-   ========================================================================== */
-
-/**
- * Optimiza la URL de una imagen alojada en Cloudinary estableciendo dimensiones,
- * calidad y formato automáticos para agilizar la carga del sitio.
- */
-function optimizeCloudinaryUrl(url, width = 300) {
-  if (!url) return '';
-  if (url.includes('res.cloudinary.com') && url.includes('/upload/')) {
-    return url.replace('/upload/', `/upload/w_${width},c_scale,q_auto,f_auto/`);
-  }
-  return url;
-}
-
-/**
- * Formatea un precio numérico al formato de pesos argentinos.
- * Retorna 'Consultar' si el precio no está definido o es cero.
- */
-function formatPrice(price) {
-  return (!price || price === 0) ? 'Consultar' : `$${price.toLocaleString('es-AR')}`;
-}
-
-/**
- * Obtiene datos simulados de stock de forma determinista basados en el ID del producto
- * para dotar de realismo a la experiencia del cliente.
- */
-function getProductMockData(productId) {
-  let hash = 0;
-  for (let i = 0; i < productId.length; i++) {
-    hash += productId.charCodeAt(i);
-  }
-  const stock = 3 + (hash % 5); // Stock determinista entre 3 y 7
-  return { stock };
-}
-
-/**
- * Determina si una URL corresponde a un archivo de video
- */
-function isVideoUrl(url) {
-  if (!url) return false;
-  const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.quicktime'];
-  const lowerUrl = url.toLowerCase();
-  return videoExtensions.some(ext => lowerUrl.endsWith(ext)) || lowerUrl.includes('/video/upload/');
-}
-
-/**
- * Dibuja skeletons (cajas grises animadas) en la grilla para simular
- * una carga progresiva ultra-rápida y premium.
- */
-function renderSkeletons() {
-  const productsGrid = document.getElementById('products-catalog-grid');
-  if (!productsGrid) return;
-  
-  productsGrid.innerHTML = `
-    <div class="catalog-loading-indicator" style="grid-column: 1 / -1; text-align: center; padding: 20px; color: var(--text-muted); font-family: var(--font-title); font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
-      <i class="fa-solid fa-spinner fa-spin" style="color: var(--primary-glow);"></i> Cargando el universo de productos...
-    </div>
-  `;
-  for (let i = 0; i < 6; i++) {
-    const card = document.createElement('div');
-    card.className = 'product-card skeleton-card glass-card';
-    card.innerHTML = `
-      <div class="skeleton-img"></div>
-      <div class="skeleton-details">
-        <div class="skeleton-line category"></div>
-        <div class="skeleton-line name"></div>
-        <div class="skeleton-line desc"></div>
-        <div class="skeleton-line price"></div>
-      </div>
-    `;
-    productsGrid.appendChild(card);
-  }
-}
-
-/**
- * Renderiza la sección de productos más buscados o destacados
- */
-function renderFeatured() {
-  const featuredGrid = document.getElementById('featured-products-grid');
-  if (!featuredGrid) return;
-
-  const destacados = PRODUCTOS.filter(p => p.featured && p.available);
-  if (destacados.length === 0) {
-    document.getElementById('destacados')?.style.setProperty('display', 'none');
-    return;
-  }
-
-  featuredGrid.innerHTML = '';
-  destacados.forEach((prod, index) => {
-    const isConsultar = !prod.price || prod.price === 0;
-
-    const card = document.createElement('div');
-    card.className = 'featured-card glass-card';
-    card.style.animation = `fadeSlideIn 0.5s ease-out ${index * 0.07}s both`;
-    card.style.cursor = 'pointer';
-
-    card.innerHTML = `
-      <div class="featured-card-img">
-        <img src="${optimizeCloudinaryUrl(prod.image, 260)}" alt="${prod.name}" loading="lazy">
-        ${prod.badge ? `<div class="product-badge">${prod.badge}</div>` : ''}
-      </div>
-      <div class="featured-card-info">
-        <span class="featured-card-name">${prod.name}</span>
-        <span class="featured-card-price">${isConsultar ? 'Consultar' : formatPrice(prod.price)}</span>
-      </div>
-    `;
-
-    card.addEventListener('click', () => openProductDetail(prod.id));
-    featuredGrid.appendChild(card);
-  });
-}
-
-/**
- * Actualiza los contadores dinámicos de cantidad por categoría en los botones de filtrado
- */
-function updateFilterCounts() {
-  const categoryCounts = {};
-  PRODUCTOS.forEach(p => {
-    if (!categoryCounts[p.category]) categoryCounts[p.category] = 0;
-    categoryCounts[p.category]++;
-  });
-  const total = PRODUCTOS.length;
-
-  const allBtn = document.getElementById('filter-btn-all');
-  if (allBtn) allBtn.innerHTML = `Todos <span class="filter-count">${total}</span>`;
-
-  const filterBtns = document.querySelectorAll('.filter-btn[data-category]');
-  filterBtns.forEach(btn => {
-    const cat = btn.getAttribute('data-category');
-    if (cat === 'todos') return;
-    const count = categoryCounts[cat] || 0;
-    if (count > 0) {
-      btn.innerHTML = `${btn.textContent.trim().split(' ')[0]} <span class="filter-count">${count}</span>`;
-    }
-  });
-}
-
-/**
- * Renderiza el catálogo principal de productos aplicando filtros y ordenamiento
- */
-function renderCatalog(categoryFilter) {
-  const productsGrid = document.getElementById('products-catalog-grid');
-  if (!productsGrid) return;
-  
-  productsGrid.innerHTML = '';
-  
-  const categoryFiltered = categoryFilter === 'todos' 
-    ? PRODUCTOS 
-    : PRODUCTOS.filter(p => p.category === categoryFilter);
-
-  const query = currentSearchQuery.toLowerCase().trim();
-  let productosFiltrados = query === ''
-    ? categoryFiltered
-    : categoryFiltered.filter(p => 
-        p.name.toLowerCase().includes(query) || 
-        (p.description && p.description.toLowerCase().includes(query)) ||
-        p.category.toLowerCase().includes(query)
-      );
-
-  // Aplicar ordenamiento
-  if (currentSortOrder === 'price-asc') {
-    productosFiltrados.sort((a, b) => {
-      const pa = (!a.price || a.price === 0) ? Infinity : a.price;
-      const pb = (!b.price || b.price === 0) ? Infinity : b.price;
-      return pa - pb;
-    });
-  } else if (currentSortOrder === 'price-desc') {
-    productosFiltrados.sort((a, b) => {
-      const pa = (!a.price || a.price === 0) ? -Infinity : a.price;
-      const pb = (!b.price || b.price === 0) ? -Infinity : b.price;
-      return pb - pa;
-    });
-  } else if (currentSortOrder === 'name-az') {
-    productosFiltrados.sort((a, b) => a.name.localeCompare(b.name, 'es'));
-  } else if (currentSortOrder === 'name-za') {
-    productosFiltrados.sort((a, b) => b.name.localeCompare(a.name, 'es'));
-  }
-
-  // Si no hay resultados
-  if (productosFiltrados.length === 0) {
-    productsGrid.innerHTML = `
-      <div class="no-results-message">
-        <i class="fa-solid fa-satellite-dish"></i>
-        <h3>Búsqueda sin señal...</h3>
-        <p>No encontramos ningún producto que coincida con "${currentSearchQuery}".</p>
-        <button class="btn-premium btn-outline" id="reset-search-btn">
-          Ver todos los productos <i class="fa-solid fa-sparkles"></i>
-        </button>
-      </div>
-    `;
-
-    document.getElementById('reset-search-btn').addEventListener('click', () => {
-      const catalogSearchInput = document.getElementById('catalog-search-input');
-      const clearSearchBtn = document.getElementById('clear-search-btn');
-      
-      if (catalogSearchInput) catalogSearchInput.value = '';
-      currentSearchQuery = '';
-      if (clearSearchBtn) clearSearchBtn.style.display = 'none';
-      
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      filterButtons.forEach(b => b.classList.remove('active'));
-      const allBtn = document.getElementById('filter-btn-all');
-      if (allBtn) allBtn.classList.add('active');
-      
-      renderCatalog('todos');
-      if (catalogSearchInput) catalogSearchInput.focus();
-    });
-    return;
-  }
-
-  productosFiltrados.forEach((prod, index) => {
-    const card = document.createElement('div');
-    card.className = 'product-card glass-card';
-    card.id = `prod-${prod.id}`;
-    card.style.cursor = 'pointer';
-
-    const badgeHTML = prod.badge 
-      ? `<div class="product-badge">${prod.badge}</div>` 
-      : '';
-
-    let discountHTML = '';
-    if (prod.originalPrice && prod.price && prod.originalPrice > prod.price) {
-      const pct = Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100);
-      discountHTML = `<div class="product-discount-tag">-${pct}% OFF</div>`;
-    }
-
-    const isConsultar = !prod.price || prod.price === 0;
-
-    let transferPriceHTML = '';
-    if (!isConsultar) {
-      const transferPrice = Math.round(prod.price * 0.9);
-      transferPriceHTML = `<div class="product-transfer-price">$${transferPrice.toLocaleString('es-AR')} con 10% OFF en efectivo o transferencia</div>`;
-    }
-
-    const priceHTML = isConsultar
-      ? `<span class="current-price">Consultar</span>`
-      : `<span class="current-price">${formatPrice(prod.price)}</span>${prod.originalPrice ? ` <span class="old-price">${formatPrice(prod.originalPrice)}</span>` : ''}`;
-
-    card.innerHTML = `
-      ${badgeHTML}
-      <div class="product-image-container">
-        <img src="${optimizeCloudinaryUrl(prod.image, 300)}" alt="${prod.name}" loading="lazy">
-      </div>
-      <div class="product-details">
-        <h3 class="product-name">${prod.name}</h3>
-        ${discountHTML}
-        <div class="product-price-row">
-          ${priceHTML}
-        </div>
-        ${transferPriceHTML}
-        <button class="add-to-cart-btn" data-id="${prod.id}">
-          COMPRAR
-        </button>
-      </div>
-    `;
-
-    card.addEventListener('click', (e) => {
-      if (!e.target.closest('.add-to-cart-btn')) {
-        openProductDetail(prod.id);
-      }
-    });
-
-    productsGrid.appendChild(card);
-  });
-
-  // Agregar eventos a botones comprar
-  const addButtons = productsGrid.querySelectorAll('.add-to-cart-btn');
-  addButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const id = btn.getAttribute('data-id');
-      addToCart(id);
-      
-      btn.style.transform = 'scale(0.85)';
-      setTimeout(() => {
-        btn.style.transform = '';
-      }, 150);
-    });
-  });
-
-  // Animación suave con Intersection Observer
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -30px 0px'
-  });
-
-  productsGrid.querySelectorAll('.product-card').forEach(card => {
-    observer.observe(card);
-  });
-}
-
-
-================================================================================
-
- ARCHIVO: cart-service.js
-
-================================================================================
-
-/* ==========================================================================
-   UNIVERCELU - SERVICIO DE CARRITO DE COMPRAS (cart-service.js)
-   ========================================================================== */
-
-/**
- * Agrega un producto seleccionado al carrito, manejando incrementos o nuevas inserciones
- */
-function addToCart(productId, cantidadToAdd = 1) {
-  const prodBase = PRODUCTOS.find(p => p.id === productId);
-  if (!prodBase) return;
-
-  const itemExistente = carrito.find(item => item.id === productId);
-
-  if (itemExistente) {
-    itemExistente.cantidad += cantidadToAdd;
-  } else {
-    carrito.push({
-      id: prodBase.id,
-      name: prodBase.name,
-      price: prodBase.price,
-      image: prodBase.image,
-      cantidad: cantidadToAdd
-    });
-  }
-
-  saveCart();
-  updateCartUI();
-  
-  // Abrir modal de forma automática
-  openCart();
-}
-
-/**
- * Incrementa o decrementa la cantidad de un artículo directamente en el carrito
- */
-function updateQty(productId, increment) {
-  const item = carrito.find(i => i.id === productId);
-  if (!item) return;
-
-  item.cantidad += increment;
-
-  if (item.cantidad <= 0) {
-    carrito = carrito.filter(i => i.id !== productId);
-  }
-
-  saveCart();
-  updateCartUI();
-}
-
-/**
- * Remueve por completo un producto del carrito
- */
-function removeFromCart(productId) {
-  carrito = carrito.filter(i => i.id !== productId);
-  saveCart();
-  updateCartUI();
-}
-
-/**
- * Guarda en almacenamiento persistente el estado actual del carrito
- */
-function saveCart() {
-  localStorage.setItem('univercelu_cart', JSON.stringify(carrito));
-}
-
-/**
- * Renderiza la interfaz gráfica del carrito de compras y recalcula totales
- */
-function updateCartUI() {
-  const cartItemsBody = document.getElementById('cart-items-body');
-  const checkoutWspBtn = document.getElementById('checkout-whatsapp-btn');
-  const clearCartBtn = document.getElementById('clear-cart-btn');
-  const cartCounter = document.getElementById('cart-counter');
-  const cartSummaryQty = document.getElementById('cart-summary-qty');
-  const cartSummaryTotal = document.getElementById('cart-summary-total');
-
-  if (!cartItemsBody) return;
-
-  cartItemsBody.innerHTML = '';
-  
-  let totalArticulos = 0;
-  let totalPrecio = 0;
-
-  if (carrito.length === 0) {
-    cartItemsBody.innerHTML = `
-      <div class="cart-empty-message">
-        <i class="fa-solid fa-satellite-dish"></i>
-        <p>Tu carrito está en el espacio exterior... ¡Añade algunos productos para comenzar!</p>
-      </div>
-    `;
-    if (checkoutWspBtn) {
-      checkoutWspBtn.style.opacity = '0.5';
-      checkoutWspBtn.style.pointerEvents = 'none';
-    }
-    if (clearCartBtn) clearCartBtn.style.display = 'none';
-  } else {
-    if (checkoutWspBtn) {
-      checkoutWspBtn.style.opacity = '1';
-      checkoutWspBtn.style.pointerEvents = 'all';
-    }
-    if (clearCartBtn) clearCartBtn.style.display = 'flex';
-
-    carrito.forEach(item => {
-      totalArticulos += item.cantidad;
-      totalPrecio += item.price * item.cantidad;
-
-      const itemRow = document.createElement('div');
-      itemRow.className = 'cart-item';
-      itemRow.innerHTML = `
-        <div class="cart-item-img">
-          <img src="${optimizeCloudinaryUrl(item.image, 100)}" alt="${item.name}">
-        </div>
-        <div class="cart-item-details">
-          <h4 class="cart-item-name">${item.name}</h4>
-          <span class="cart-item-price">${formatPrice(item.price * item.cantidad)}</span>
-          <div class="cart-item-qty">
-            <button class="qty-btn dec-btn" data-id="${item.id}">-</button>
-            <span class="qty-val">${item.cantidad}</span>
-            <button class="qty-btn inc-btn" data-id="${item.id}">+</button>
-          </div>
-        </div>
-        <button class="remove-item-btn" data-id="${item.id}" title="Quitar artículo">
-          <i class="fa-solid fa-trash-can"></i>
-        </button>
-      `;
-
-      cartItemsBody.appendChild(itemRow);
-    });
-
-    // Eventos de botones
-    cartItemsBody.querySelectorAll('.dec-btn').forEach(btn => {
-      btn.addEventListener('click', () => updateQty(btn.getAttribute('data-id'), -1));
-    });
-
-    cartItemsBody.querySelectorAll('.inc-btn').forEach(btn => {
-      btn.addEventListener('click', () => updateQty(btn.getAttribute('data-id'), 1));
-    });
-
-    cartItemsBody.querySelectorAll('.remove-item-btn').forEach(btn => {
-      btn.addEventListener('click', () => removeFromCart(btn.getAttribute('data-id')));
-    });
-  }
-
-  // Totales y contadores
-  if (cartCounter) cartCounter.textContent = totalArticulos;
-  if (cartSummaryQty) cartSummaryQty.textContent = totalArticulos;
-
-  const tieneItemsSinPrecio = carrito.some(i => !i.price || i.price === 0);
-  const tieneItemsConPrecio = carrito.some(i => i.price && i.price > 0);
-
-  let totalDisplay;
-  if (tieneItemsConPrecio && tieneItemsSinPrecio) {
-    totalDisplay = `$${totalPrecio.toLocaleString('es-AR')} + consultar`;
-  } else if (tieneItemsConPrecio) {
-    totalDisplay = `$${totalPrecio.toLocaleString('es-AR')}`;
-  } else {
-    totalDisplay = 'Consultar';
-  }
-  if (cartSummaryTotal) cartSummaryTotal.textContent = totalDisplay;
-}
-
-/**
- * Da formato al pedido y abre el chat de WhatsApp del vendedor para completar el pedido
- */
-function enviarPedidoWhatsApp() {
-  const customerNameInput = document.getElementById('customer-name-input');
-  const nameModal = document.getElementById('name-modal');
-  const nameModalOverlay = document.getElementById('name-modal-overlay');
-
-  const nombre = customerNameInput ? customerNameInput.value.trim() : '';
-
-  let totalPrecio = 0;
-  let tienePrecios = false;
-  let listaProductos = '';
-
-  carrito.forEach(item => {
-    const isConsultar = (!item.price || item.price === 0);
-    if (!isConsultar) {
-      const subtotal = item.price * item.cantidad;
-      totalPrecio += subtotal;
-      tienePrecios = true;
-    }
-    const priceEachStr = isConsultar ? 'Consultar' : `$${item.price.toLocaleString('es-AR')}`;
-    listaProductos += `- ${item.cantidad}x ${item.name} (${priceEachStr})\n`;
-  });
-
-  const hayItemsSinPrecio = carrito.some(i => !i.price || i.price === 0);
-  let totalStr;
-  if (tienePrecios && hayItemsSinPrecio) {
-    totalStr = `$${totalPrecio.toLocaleString('es-AR')} + consultar precio de ítems sin precio`;
-  } else if (tienePrecios) {
-    totalStr = `$${totalPrecio.toLocaleString('es-AR')}`;
-  } else {
-    totalStr = 'Consultar';
-  }
-
-  const saludo = nombre
-    ? `Hola, soy *${nombre}*! Te hago el siguiente pedido desde la web:\n`
-    : `Hola Univercelu! Te hago el siguiente pedido desde la web:\n`;
-
-  let mensaje = saludo;
-  mensaje += listaProductos;
-  mensaje += `Total: ${totalStr}\n`;
-  mensaje += `Quedo a la espera, gracias!`;
-
-  if (nameModal) nameModal.classList.remove('open');
-  if (nameModalOverlay) nameModalOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-
-  const encodedMessage = encodeURIComponent(mensaje);
-  const wspURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-  window.open(wspURL, '_blank');
-
-  // Notificación toast premium de envío
-  const toastEl = document.createElement('div');
-  toastEl.className = 'wsp-sent-toast';
-  toastEl.innerHTML = `
-    <i class="fa-brands fa-whatsapp"></i>
-    <span>¡Pedido enviado! Vas a recibir respuesta pronto.</span>
-  `;
-  document.body.appendChild(toastEl);
-  setTimeout(() => toastEl.classList.add('visible'), 50);
-  setTimeout(() => {
-    toastEl.classList.remove('visible');
-    setTimeout(() => toastEl.remove(), 400);
-  }, 3500);
-}
-
-
-================================================================================
-
- ARCHIVO: ui-controller.js
-
-================================================================================
-
-/* ==========================================================================
-   UNIVERCELU - CONTROLADOR DE INTERFAZ (ui-controller.js)
-   ========================================================================== */
-
-/**
- * Abre la ventana deslizante del carrito de compras
- */
-function openCart() {
-  const cartModal = document.getElementById('shopping-cart-modal');
-  const cartOverlay = document.getElementById('shopping-cart-overlay');
-  
-  if (cartModal) cartModal.classList.add('open');
-  if (cartOverlay) cartOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-/**
- * Cierra la ventana deslizante del carrito de compras
- */
-function closeCart() {
-  const cartModal = document.getElementById('shopping-cart-modal');
-  const cartOverlay = document.getElementById('shopping-cart-overlay');
-  
-  if (cartModal) cartModal.classList.remove('open');
-  if (cartOverlay) cartOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-/**
- * Cierra la ventana de detalle de un producto específico
- */
-function closeProductDetail() {
-  const productDetailOverlay = document.getElementById('product-detail-overlay');
-  const productDetailModal = document.getElementById('product-detail-modal');
-  
-  if (productDetailOverlay) productDetailOverlay.classList.remove('open');
-  if (productDetailModal) productDetailModal.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-/**
- * Abre el modal detallado estilo Mercado Libre de un producto específico,
- * inyectando carruseles multimedia y especificaciones de forma dinámica.
- */
-function openProductDetail(productId) {
-  const prod = PRODUCTOS.find(p => p.id === productId);
-  if (!prod) return;
-
-  const productDetailContent = document.getElementById('product-detail-content');
-  const productDetailOverlay = document.getElementById('product-detail-overlay');
-  const productDetailModal = document.getElementById('product-detail-modal');
-
-  if (!productDetailContent) return;
-
-  const mockData = getProductMockData(productId);
-  let selectedQty = 1;
-
-  // Precios y descuentos
-  const discountPercent = prod.originalPrice 
-    ? Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100)
-    : 0;
-
-  const originalPriceHTML = prod.originalPrice 
-    ? `<span class="detail-original-price">$${prod.originalPrice.toLocaleString('es-AR')}</span>` 
-    : '';
-
-  const discountPercentHTML = discountPercent > 0 
-    ? `<span class="detail-discount-percent">${discountPercent}% OFF</span>` 
-    : '';
-
-  const imagesList = [prod.image, prod.image2, prod.image3].filter(img => img && img.trim() !== "");
-
-  // Generar HTML de galería
-  let galleryHTML = '';
-  if (imagesList.length > 1) {
-    let imagesHTML = '';
-    let dotsHTML = '';
-    
-    imagesList.forEach((url, idx) => {
-      if (isVideoUrl(url)) {
-        imagesHTML += `<video src="${url}" class="detail-main-img ${idx === 0 ? 'active' : ''}" id="detail-img-${idx}" data-index="${idx}" style="${idx === 0 ? '' : 'display: none;'}" autoplay loop muted playsinline controls></video>`;
-      } else {
-        imagesHTML += `<img src="${optimizeCloudinaryUrl(url, 500)}" alt="${prod.name} - ${idx + 1}" class="detail-main-img ${idx === 0 ? 'active' : ''}" id="detail-img-${idx}" data-index="${idx}" style="${idx === 0 ? '' : 'display: none;'}">`;
-      }
-      dotsHTML += `<span class="indicator-dot ${idx === 0 ? 'active' : ''}" data-index="${idx}"></span>`;
-    });
-
-    galleryHTML = `
-      <div class="detail-gallery-carousel">
-        <button class="carousel-nav-btn prev" id="detail-gallery-prev" aria-label="Foto anterior">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <div class="carousel-images-wrapper">
-          ${imagesHTML}
-        </div>
-        <button class="carousel-nav-btn next" id="detail-gallery-next" aria-label="Siguiente foto">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-        <div class="carousel-indicators">
-          ${dotsHTML}
-        </div>
-        <div class="detail-guarantee-note" style="margin-top: 15px; width: 100%;">
-          <i class="fa-solid fa-shield-halved"></i>
-          <span>Garantía oficial y soporte directo en local</span>
-        </div>
-      </div>
-    `;
-  } else {
-    const singleMedia = isVideoUrl(prod.image)
-      ? `<video src="${prod.image}" class="detail-main-img" id="detail-main-image" autoplay loop muted playsinline controls style="width: 100%; border-radius: 12px; object-fit: cover;"></video>`
-      : `<img src="${optimizeCloudinaryUrl(prod.image || 'assets/placeholder.png', 500)}" alt="${prod.name}" class="detail-main-img" id="detail-main-image">`;
-
-    galleryHTML = `
-      <div class="detail-gallery">
-        ${singleMedia}
-        <div class="detail-guarantee-note">
-          <i class="fa-solid fa-shield-halved"></i>
-          <span>Garantía oficial y soporte directo en local</span>
-        </div>
-      </div>
-    `;
-  }
-
-  // Renderizado dinámico del panel de detalles
-  productDetailContent.innerHTML = `
-    <div class="detail-grid">
-      ${galleryHTML}
-      <div class="detail-info-panel">
-        ${prod.badge ? `<span class="detail-badge-tag">${prod.badge}</span>` : ''}
-        <h2 class="detail-title">${prod.name}</h2>
-        
-        <div class="detail-price-section">
-          ${originalPriceHTML}
-          <div class="detail-price-row">
-            <span class="detail-current-price">${(!prod.price || prod.price === 0) ? 'Consultar' : `$${prod.price.toLocaleString('es-AR')}`}</span>
-            ${discountPercentHTML}
-          </div>
-        </div>
-
-        <div class="detail-benefits-box">
-          <div class="benefit-item">
-            <i class="fa-solid fa-credit-card"></i>
-            <span>💳 3 y 6 cuotas fijas · <strong>10% OFF</strong> en Efectivo/Transferencia</span>
-          </div>
-          <div class="benefit-item">
-            <i class="fa-solid fa-truck-fast"></i>
-            <span>📍 Retiro gratis en tienda (Maipú 510) · Envío rápido</span>
-          </div>
-        </div>
-
-        <div class="detail-quantity-and-stock">
-          <div class="detail-quantity-control-wrapper">
-            <span class="detail-qty-label">Cantidad:</span>
-            <div class="detail-quantity-control">
-              <button class="qty-control-btn qty-minus" aria-label="Disminuir cantidad">-</button>
-              <span class="qty-control-value" id="detail-qty-value">1</span>
-              <button class="qty-control-btn qty-plus" aria-label="Aumentar cantidad">+</button>
-            </div>
-          </div>
-          <span class="detail-stock-available">(Stock disponible: ${mockData.stock} unidades)</span>
-        </div>
-
-        <div class="detail-actions-buttons">
-          <button class="btn-detail buy-now" id="detail-buy-now-btn">
-            <i class="fa-solid fa-bolt"></i> Comprar ahora
-          </button>
-          <button class="btn-detail add-to-cart" id="detail-add-to-cart-btn">
-            <i class="fa-solid fa-basket-shopping"></i> Agregar al carrito
-          </button>
-        </div>
-
-        <div class="detail-description-box">
-          <h3>Descripción</h3>
-          <p>${prod.description}</p>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // Carrusel
-  if (imagesList.length > 1) {
-    const imagesElements = productDetailContent.querySelectorAll('.carousel-images-wrapper img, .carousel-images-wrapper video');
-    const prevBtn = productDetailContent.querySelector('#detail-gallery-prev');
-    const nextBtn = productDetailContent.querySelector('#detail-gallery-next');
-    const dots = productDetailContent.querySelectorAll('.indicator-dot');
-
-    let activeIndex = 0;
-
-    function showImage(index) {
-      activeIndex = index;
-      imagesElements.forEach((img, idx) => {
-        if (idx === index) {
-          img.style.display = 'block';
-          img.classList.add('active');
-          dots[idx].classList.add('active');
-          if (img.tagName === 'VIDEO') {
-            img.currentTime = 0;
-            img.play().catch(e => console.log('Autoplay prevent:', e));
-          }
-        } else {
-          img.style.display = 'none';
-          img.classList.remove('active');
-          dots[idx].classList.remove('active');
-          if (img.tagName === 'VIDEO') {
-            img.pause();
-          }
-        }
-      });
-    }
-
-    prevBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      let nextIndex = (activeIndex - 1 + imagesList.length) % imagesList.length;
-      showImage(nextIndex);
-    });
-
-    nextBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      let nextIndex = (activeIndex + 1) % imagesList.length;
-      showImage(nextIndex);
-    });
-
-    dots.forEach((dot, idx) => {
-      dot.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showImage(idx);
-      });
-    });
-  }
-
-  // Controles de cantidad
-  const btnMinus = productDetailContent.querySelector('.qty-minus');
-  const btnPlus = productDetailContent.querySelector('.qty-plus');
-  const qtyValue = productDetailContent.querySelector('#detail-qty-value');
-
-  btnMinus.addEventListener('click', () => {
-    if (selectedQty > 1) {
-      selectedQty--;
-      qtyValue.textContent = selectedQty;
-    }
-  });
-
-  btnPlus.addEventListener('click', () => {
-    if (selectedQty < mockData.stock) {
-      selectedQty++;
-      qtyValue.textContent = selectedQty;
-    }
-  });
-
-  // Comprar ahora (checkout express)
-  const btnBuyNow = productDetailContent.querySelector('#detail-buy-now-btn');
-  const checkoutWspBtn = document.getElementById('checkout-whatsapp-btn');
-  btnBuyNow.addEventListener('click', () => {
-    addToCart(prod.id, selectedQty);
-    closeProductDetail();
-    setTimeout(() => {
-      if (checkoutWspBtn) checkoutWspBtn.click();
-    }, 300);
-  });
-
-  // Agregar al carrito
-  const btnAddToCart = productDetailContent.querySelector('#detail-add-to-cart-btn');
-  btnAddToCart.addEventListener('click', () => {
-    addToCart(prod.id, selectedQty);
-    closeProductDetail();
-    openCart();
-  });
-
-  // Mostrar modal
-  if (productDetailOverlay) productDetailOverlay.classList.add('open');
-  if (productDetailModal) {
-    productDetailModal.classList.add('open');
-    productDetailModal.scrollTop = 0;
-  }
-  document.body.style.overflow = 'hidden';
-}
-
-/**
- * Actualiza el indicador de estado abierto/cerrado según el huso de Argentina (UTC-3)
- * Horario: Lunes a Sábado, 9:30 a 20:00.
- */
-function updateStoreStatus() {
-  const badge = document.getElementById('store-status-badge');
-  if (!badge) return;
-
-  const now = new Date();
-  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-  const argTime = new Date(utc + (-3 * 3600000));
-
-  const day = argTime.getDay();
-  const hour = argTime.getHours();
-  const min = argTime.getMinutes();
-  const currentMinutes = hour * 60 + min;
-  const openMinutes = 9 * 60 + 30; // 9:30
-  const closeMinutes = 20 * 60;     // 20:00
-
-  const isWeekday = day >= 1 && day <= 6;
-  const isInHours = currentMinutes >= openMinutes && currentMinutes < closeMinutes;
-  const isOpen = isWeekday && isInHours;
-
-  if (isOpen) {
-    badge.textContent = '🟢 Abierto ahora';
-    badge.className = 'store-status-badge status-open';
-  } else {
-    badge.textContent = '🔴 Cerrado ahora';
-    badge.className = 'store-status-badge status-closed';
-  }
-
-  setTimeout(updateStoreStatus, 60000);
-}
-
-
-
-
-
-================================================================================
-
- ARCHIVO: app.js
-
+ARCHIVO: app.js
 ================================================================================
 
 /* ==========================================================================
@@ -7407,515 +5846,1163 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 ================================================================================
-
- ARCHIVO: phone-3d.js
-
+ARCHIVO: cart-service.js
 ================================================================================
 
-// Univercelu 3D Interactive Phone Experience
-// Built procedurally in Three.js (No heavy external GLB assets, lightweight, responsive, WebGL Fallback)
+/* ==========================================================================
+   UNIVERCELU - SERVICIO DE CARRITO DE COMPRAS (cart-service.js)
+   ========================================================================== */
 
-(function () {
-  // 1. Detección de Soporte WebGL
-  function detectWebGL() {
-    try {
-      const canvas = document.createElement('canvas');
-      return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
-    } catch (e) {
-      return false;
-    }
+/**
+ * Agrega un producto seleccionado al carrito, manejando incrementos o nuevas inserciones
+ */
+function addToCart(productId, cantidadToAdd = 1) {
+  const prodBase = PRODUCTOS.find(p => p.id === productId);
+  if (!prodBase) return;
+
+  const itemExistente = carrito.find(item => item.id === productId);
+
+  if (itemExistente) {
+    itemExistente.cantidad += cantidadToAdd;
+  } else {
+    carrito.push({
+      id: prodBase.id,
+      name: prodBase.name,
+      price: prodBase.price,
+      image: prodBase.image,
+      cantidad: cantidadToAdd
+    });
   }
 
-  const container = document.getElementById('phone-3d-container');
-  const fallback = document.getElementById('hero-fallback-wrapper');
+  saveCart();
+  updateCartUI();
+  
+  // Abrir modal de forma automática
+  openCart();
+}
 
-  if (!container || !fallback) return;
+/**
+ * Incrementa o decrementa la cantidad de un artículo directamente en el carrito
+ */
+function updateQty(productId, increment) {
+  const item = carrito.find(i => i.id === productId);
+  if (!item) return;
 
-  // Si no hay soporte WebGL o el dispositivo es muy limitado, mantenemos el fallback
-  if (!detectWebGL() || typeof THREE === 'undefined') {
-    console.log('[3D] WebGL no soportado o librería Three.js ausente. Usando fallback estático.');
+  item.cantidad += increment;
+
+  if (item.cantidad <= 0) {
+    carrito = carrito.filter(i => i.id !== productId);
+  }
+
+  saveCart();
+  updateCartUI();
+}
+
+/**
+ * Remueve por completo un producto del carrito
+ */
+function removeFromCart(productId) {
+  carrito = carrito.filter(i => i.id !== productId);
+  saveCart();
+  updateCartUI();
+}
+
+/**
+ * Guarda en almacenamiento persistente el estado actual del carrito
+ */
+function saveCart() {
+  localStorage.setItem('univercelu_cart', JSON.stringify(carrito));
+}
+
+/**
+ * Renderiza la interfaz gráfica del carrito de compras y recalcula totales
+ */
+function updateCartUI() {
+  const cartItemsBody = document.getElementById('cart-items-body');
+  const checkoutWspBtn = document.getElementById('checkout-whatsapp-btn');
+  const clearCartBtn = document.getElementById('clear-cart-btn');
+  const cartCounter = document.getElementById('cart-counter');
+  const cartSummaryQty = document.getElementById('cart-summary-qty');
+  const cartSummaryTotal = document.getElementById('cart-summary-total');
+
+  if (!cartItemsBody) return;
+
+  cartItemsBody.innerHTML = '';
+  
+  let totalArticulos = 0;
+  let totalPrecio = 0;
+
+  if (carrito.length === 0) {
+    cartItemsBody.innerHTML = `
+      <div class="cart-empty-message">
+        <i class="fa-solid fa-satellite-dish"></i>
+        <p>Tu carrito está en el espacio exterior... ¡Añade algunos productos para comenzar!</p>
+      </div>
+    `;
+    if (checkoutWspBtn) {
+      checkoutWspBtn.style.opacity = '0.5';
+      checkoutWspBtn.style.pointerEvents = 'none';
+    }
+    if (clearCartBtn) clearCartBtn.style.display = 'none';
+  } else {
+    if (checkoutWspBtn) {
+      checkoutWspBtn.style.opacity = '1';
+      checkoutWspBtn.style.pointerEvents = 'all';
+    }
+    if (clearCartBtn) clearCartBtn.style.display = 'flex';
+
+    carrito.forEach(item => {
+      totalArticulos += item.cantidad;
+      totalPrecio += item.price * item.cantidad;
+
+      const itemRow = document.createElement('div');
+      itemRow.className = 'cart-item';
+      itemRow.innerHTML = `
+        <div class="cart-item-img">
+          <img src="${optimizeCloudinaryUrl(item.image, 100)}" alt="${item.name}">
+        </div>
+        <div class="cart-item-details">
+          <h4 class="cart-item-name">${item.name}</h4>
+          <span class="cart-item-price">${formatPrice(item.price * item.cantidad)}</span>
+          <div class="cart-item-qty">
+            <button class="qty-btn dec-btn" data-id="${item.id}">-</button>
+            <span class="qty-val">${item.cantidad}</span>
+            <button class="qty-btn inc-btn" data-id="${item.id}">+</button>
+          </div>
+        </div>
+        <button class="remove-item-btn" data-id="${item.id}" title="Quitar artículo">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      `;
+
+      cartItemsBody.appendChild(itemRow);
+    });
+
+    // Eventos de botones
+    cartItemsBody.querySelectorAll('.dec-btn').forEach(btn => {
+      btn.addEventListener('click', () => updateQty(btn.getAttribute('data-id'), -1));
+    });
+
+    cartItemsBody.querySelectorAll('.inc-btn').forEach(btn => {
+      btn.addEventListener('click', () => updateQty(btn.getAttribute('data-id'), 1));
+    });
+
+    cartItemsBody.querySelectorAll('.remove-item-btn').forEach(btn => {
+      btn.addEventListener('click', () => removeFromCart(btn.getAttribute('data-id')));
+    });
+  }
+
+  // Totales y contadores
+  if (cartCounter) cartCounter.textContent = totalArticulos;
+  if (cartSummaryQty) cartSummaryQty.textContent = totalArticulos;
+
+  const tieneItemsSinPrecio = carrito.some(i => !i.price || i.price === 0);
+  const tieneItemsConPrecio = carrito.some(i => i.price && i.price > 0);
+
+  let totalDisplay;
+  if (tieneItemsConPrecio && tieneItemsSinPrecio) {
+    totalDisplay = `$${totalPrecio.toLocaleString('es-AR')} + consultar`;
+  } else if (tieneItemsConPrecio) {
+    totalDisplay = `$${totalPrecio.toLocaleString('es-AR')}`;
+  } else {
+    totalDisplay = 'Consultar';
+  }
+  if (cartSummaryTotal) cartSummaryTotal.textContent = totalDisplay;
+}
+
+/**
+ * Da formato al pedido y abre el chat de WhatsApp del vendedor para completar el pedido
+ */
+function enviarPedidoWhatsApp() {
+  const customerNameInput = document.getElementById('customer-name-input');
+  const nameModal = document.getElementById('name-modal');
+  const nameModalOverlay = document.getElementById('name-modal-overlay');
+
+  const nombre = customerNameInput ? customerNameInput.value.trim() : '';
+
+  let totalPrecio = 0;
+  let tienePrecios = false;
+  let listaProductos = '';
+
+  carrito.forEach(item => {
+    const isConsultar = (!item.price || item.price === 0);
+    if (!isConsultar) {
+      const subtotal = item.price * item.cantidad;
+      totalPrecio += subtotal;
+      tienePrecios = true;
+    }
+    const priceEachStr = isConsultar ? 'Consultar' : `$${item.price.toLocaleString('es-AR')}`;
+    listaProductos += `- ${item.cantidad}x ${item.name} (${priceEachStr})\n`;
+  });
+
+  const hayItemsSinPrecio = carrito.some(i => !i.price || i.price === 0);
+  let totalStr;
+  if (tienePrecios && hayItemsSinPrecio) {
+    totalStr = `$${totalPrecio.toLocaleString('es-AR')} + consultar precio de ítems sin precio`;
+  } else if (tienePrecios) {
+    totalStr = `$${totalPrecio.toLocaleString('es-AR')}`;
+  } else {
+    totalStr = 'Consultar';
+  }
+
+  const saludo = nombre
+    ? `Hola, soy *${nombre}*! Te hago el siguiente pedido desde la web:\n`
+    : `Hola Univercelu! Te hago el siguiente pedido desde la web:\n`;
+
+  let mensaje = saludo;
+  mensaje += listaProductos;
+  mensaje += `Total: ${totalStr}\n`;
+  mensaje += `Quedo a la espera, gracias!`;
+
+  if (nameModal) nameModal.classList.remove('open');
+  if (nameModalOverlay) nameModalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+
+  const encodedMessage = encodeURIComponent(mensaje);
+  const wspURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+  window.open(wspURL, '_blank');
+
+  // Notificación toast premium de envío
+  const toastEl = document.createElement('div');
+  toastEl.className = 'wsp-sent-toast';
+  toastEl.innerHTML = `
+    <i class="fa-brands fa-whatsapp"></i>
+    <span>¡Pedido enviado! Vas a recibir respuesta pronto.</span>
+  `;
+  document.body.appendChild(toastEl);
+  setTimeout(() => toastEl.classList.add('visible'), 50);
+  setTimeout(() => {
+    toastEl.classList.remove('visible');
+    setTimeout(() => toastEl.remove(), 400);
+  }, 3500);
+}
+
+
+================================================================================
+ARCHIVO: catalog-service.js
+================================================================================
+
+/* ==========================================================================
+   UNIVERCELU - SERVICIO DE CATÁLOGO (catalog-service.js)
+   ========================================================================== */
+
+/**
+ * Optimiza la URL de una imagen alojada en Cloudinary estableciendo dimensiones,
+ * calidad y formato automáticos para agilizar la carga del sitio.
+ */
+function optimizeCloudinaryUrl(url, width = 300) {
+  if (!url) return '';
+  if (url.includes('res.cloudinary.com') && url.includes('/upload/')) {
+    return url.replace('/upload/', `/upload/w_${width},c_scale,q_auto,f_auto/`);
+  }
+  return url;
+}
+
+/**
+ * Formatea un precio numérico al formato de pesos argentinos.
+ * Retorna 'Consultar' si el precio no está definido o es cero.
+ */
+function formatPrice(price) {
+  return (!price || price === 0) ? 'Consultar' : `$${price.toLocaleString('es-AR')}`;
+}
+
+/**
+ * Obtiene datos simulados de stock de forma determinista basados en el ID del producto
+ * para dotar de realismo a la experiencia del cliente.
+ */
+function getProductMockData(productId) {
+  let hash = 0;
+  for (let i = 0; i < productId.length; i++) {
+    hash += productId.charCodeAt(i);
+  }
+  const stock = 3 + (hash % 5); // Stock determinista entre 3 y 7
+  return { stock };
+}
+
+/**
+ * Determina si una URL corresponde a un archivo de video
+ */
+function isVideoUrl(url) {
+  if (!url) return false;
+  const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.quicktime'];
+  const lowerUrl = url.toLowerCase();
+  return videoExtensions.some(ext => lowerUrl.endsWith(ext)) || lowerUrl.includes('/video/upload/');
+}
+
+/**
+ * Dibuja skeletons (cajas grises animadas) en la grilla para simular
+ * una carga progresiva ultra-rápida y premium.
+ */
+function renderSkeletons() {
+  const productsGrid = document.getElementById('products-catalog-grid');
+  if (!productsGrid) return;
+  
+  productsGrid.innerHTML = `
+    <div class="catalog-loading-indicator" style="grid-column: 1 / -1; text-align: center; padding: 20px; color: var(--text-muted); font-family: var(--font-title); font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
+      <i class="fa-solid fa-spinner fa-spin" style="color: var(--primary-glow);"></i> Cargando el universo de productos...
+    </div>
+  `;
+  for (let i = 0; i < 6; i++) {
+    const card = document.createElement('div');
+    card.className = 'product-card skeleton-card glass-card';
+    card.innerHTML = `
+      <div class="skeleton-img"></div>
+      <div class="skeleton-details">
+        <div class="skeleton-line category"></div>
+        <div class="skeleton-line name"></div>
+        <div class="skeleton-line desc"></div>
+        <div class="skeleton-line price"></div>
+      </div>
+    `;
+    productsGrid.appendChild(card);
+  }
+}
+
+/**
+ * Renderiza la sección de productos más buscados o destacados
+ */
+function renderFeatured() {
+  const featuredGrid = document.getElementById('featured-products-grid');
+  if (!featuredGrid) return;
+
+  const destacados = PRODUCTOS.filter(p => p.featured && p.available);
+  if (destacados.length === 0) {
+    document.getElementById('destacados')?.style.setProperty('display', 'none');
     return;
   }
 
-  console.log('[3D] Inicializando renderizador WebGL procedural...');
+  featuredGrid.innerHTML = '';
+  destacados.forEach((prod, index) => {
+    const isConsultar = !prod.price || prod.price === 0;
 
-  // --- Inicialización de Three.js ---
-  let scene, camera, renderer;
-  let phoneGroup;
-  let layerScreen, layerBoard, layerBack;
-  let width, height;
+    const card = document.createElement('div');
+    card.className = 'featured-card glass-card';
+    card.style.animation = `fadeSlideIn 0.5s ease-out ${index * 0.07}s both`;
+    card.style.cursor = 'pointer';
 
-  // Variables de Interacción
-  let isExploded = false;
-  let targetExplode = 0; // 0 = cerrado, 1 = abierto
-  let currentExplode = 0;
+    card.innerHTML = `
+      <div class="featured-card-img">
+        <img src="${optimizeCloudinaryUrl(prod.image, 260)}" alt="${prod.name}" loading="lazy">
+        ${prod.badge ? `<div class="product-badge">${prod.badge}</div>` : ''}
+      </div>
+      <div class="featured-card-info">
+        <span class="featured-card-name">${prod.name}</span>
+        <span class="featured-card-price">${isConsultar ? 'Consultar' : formatPrice(prod.price)}</span>
+      </div>
+    `;
 
-  let isDragging = false;
-  let previousMousePosition = { x: 0, y: 0 };
-  let targetRotation = { x: 0.1, y: -0.3 };
-  let currentRotation = { x: 0.1, y: -0.3 };
-  let rotationVelocity = { x: 0, y: 0 };
-  
-  const LERP_FACTOR = 0.08;
-  const DRAG_DAMPING = 0.92;
+    card.addEventListener('click', () => openProductDetail(prod.id));
+    featuredGrid.appendChild(card);
+  });
+}
 
-  function init() {
-    width = container.clientWidth || 450;
-    height = container.clientHeight || 450;
+/**
+ * Actualiza los contadores dinámicos de cantidad por categoría en los botones de filtrado
+ */
+function updateFilterCounts() {
+  const categoryCounts = {};
+  PRODUCTOS.forEach(p => {
+    if (!categoryCounts[p.category]) categoryCounts[p.category] = 0;
+    categoryCounts[p.category]++;
+  });
+  const total = PRODUCTOS.length;
 
-    // Escena
-    scene = new THREE.Scene();
+  const allBtn = document.getElementById('filter-btn-all');
+  if (allBtn) allBtn.innerHTML = `Todos <span class="filter-count">${total}</span>`;
 
-    // Cámara
-    camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.z = 12;
-
-    // Renderizador
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = false; // Optimización de FPS
-    container.appendChild(renderer.domElement);
-
-    // Luces
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
-    scene.add(ambientLight);
-
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.8);
-    dirLight1.position.set(5, 5, 5);
-    scene.add(dirLight1);
-
-    const dirLight2 = new THREE.DirectionalLight(0x7c3aed, 0.6); // Luz lila lateral
-    dirLight2.position.set(-5, -2, 2);
-    scene.add(dirLight2);
-
-    const pointLight = new THREE.PointLight(0xa855f7, 1.2, 10);
-    pointLight.position.set(0, 0, 2);
-    scene.add(pointLight);
-
-    // Contenedor del Celular
-    phoneGroup = new THREE.Group();
-    scene.add(phoneGroup);
-
-    // --- Construcción Procedural del Smartphone ---
-    buildSmartphone();
-
-    // Eventos
-    setupEventListeners();
-
-    // Activar el contenedor y ocultar el fallback
-    fallback.style.display = 'none';
-    container.style.display = 'block';
-    setTimeout(() => {
-      container.style.opacity = '1';
-    }, 50);
-
-    // Animación
-    animate();
-  }
-
-  // --- Generación de Texturas Procedurales en 2D Canvas ---
-  
-  function createScreenTexture() {
-    const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 1024;
-    const ctx = canvas.getContext('2d');
-
-    // Gradiente galáctico oscuro
-    const grad = ctx.createLinearGradient(0, 0, 0, 1024);
-    grad.addColorStop(0, '#0b001a');
-    grad.addColorStop(0.5, '#210f4d');
-    grad.addColorStop(1, '#050010');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 512, 1024);
-
-    // Nebulosa sutil en fondo de pantalla
-    ctx.globalCompositeOperation = 'screen';
-    const radGrad = ctx.createRadialGradient(256, 512, 0, 256, 512, 350);
-    radGrad.addColorStop(0, 'rgba(168, 85, 247, 0.25)');
-    radGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = radGrad;
-    ctx.beginPath();
-    ctx.arc(256, 512, 350, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.globalCompositeOperation = 'source-over';
-
-    // Líneas de órbita decorativas
-    ctx.strokeStyle = 'rgba(0, 242, 254, 0.15)';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.arc(256, 512, 210, 0, Math.PI * 2);
-    ctx.stroke();
-
-    // Texto de la Marca
-    ctx.fillStyle = '#ffffff';
-    ctx.textAlign = 'center';
-    ctx.font = 'bold 64px Outfit, Inter, Arial';
-    ctx.shadowBlur = 25;
-    ctx.shadowColor = '#a855f7';
-    ctx.fillText('UNIVERCE', 256, 460);
-
-    ctx.font = 'bold 54px Outfit, Inter, Arial';
-    ctx.fillStyle = '#00f2fe';
-    ctx.shadowColor = '#00f2fe';
-    ctx.fillText('CELU', 256, 525);
-
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = 'rgba(226, 217, 243, 0.85)';
-    ctx.font = '500 24px Inter, Arial';
-    ctx.fillText('Servicio Técnico & Accesorios', 256, 595);
-
-    // Barra de Estado Superior
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-    ctx.font = 'bold 22px Inter, Arial';
-    ctx.fillText('09:30', 80, 50);
-    ctx.fillText('📶 🔋 98%', 420, 50);
-
-    // Icono Central de Herramientas
-    ctx.fillStyle = '#a855f7';
-    ctx.font = '40px FontAwesome, Arial';
-    ctx.fillText('🛠️', 256, 360);
-
-    return new THREE.CanvasTexture(canvas);
-  }
-
-  function createBoardTexture() {
-    const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 1024;
-    const ctx = canvas.getContext('2d');
-
-    // Placa verde/gris oscuro
-    ctx.fillStyle = '#0d151c';
-    ctx.fillRect(0, 0, 512, 1024);
-
-    // Dibujar trazas del circuito integradas (Cian fluorescente)
-    ctx.strokeStyle = '#00f2fe';
-    ctx.lineWidth = 5;
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = '#00f2fe';
-
-    const paths = [
-      [[100, 100], [200, 200], [200, 400], [150, 450]],
-      [[412, 100], [312, 200], [312, 350], [362, 400]],
-      [[100, 800], [256, 600], [256, 500]],
-      [[412, 800], [350, 750], [350, 600]]
-    ];
-
-    paths.forEach(p => {
-      ctx.beginPath();
-      ctx.moveTo(p[0][0], p[0][1]);
-      for (let i = 1; i < p.length; i++) {
-        ctx.lineTo(p[i][0], p[i][1]);
-      }
-      ctx.stroke();
-    });
-
-    // Puntos de soldadura
-    ctx.fillStyle = '#ff007f';
-    ctx.shadowColor = '#ff007f';
-    ctx.shadowBlur = 8;
-    for (let i = 0; i < 15; i++) {
-      ctx.beginPath();
-      ctx.arc(Math.random() * 412 + 50, Math.random() * 850 + 100, 6, 0, Math.PI * 2);
-      ctx.fill();
+  const filterBtns = document.querySelectorAll('.filter-btn[data-category]');
+  filterBtns.forEach(btn => {
+    const cat = btn.getAttribute('data-category');
+    if (cat === 'todos') return;
+    const count = categoryCounts[cat] || 0;
+    if (count > 0) {
+      btn.innerHTML = `${btn.textContent.trim().split(' ')[0]} <span class="filter-count">${count}</span>`;
     }
+  });
+}
 
-    return new THREE.CanvasTexture(canvas);
-  }
-
-  // --- Modelado de Capas ---
+/**
+ * Renderiza el catálogo principal de productos aplicando filtros y ordenamiento
+ */
+function renderCatalog(categoryFilter) {
+  const productsGrid = document.getElementById('products-catalog-grid');
+  if (!productsGrid) return;
   
-  function buildSmartphone() {
-    const phoneWidth = 3.2;
-    const phoneHeight = 6.4;
-    const thickness = 0.08;
+  productsGrid.innerHTML = '';
+  
+  const categoryFiltered = categoryFilter === 'todos' 
+    ? PRODUCTOS 
+    : PRODUCTOS.filter(p => p.category === categoryFilter);
 
-    // --- CAPA 1: PANTALLA FRONTAL (Glass + UI Canvas) ---
-    layerScreen = new THREE.Group();
-    layerScreen.position.z = 0.4; // Desplazamiento inicial cerrado
-    phoneGroup.add(layerScreen);
-
-    // Vidrio externo transparente (Physical Material de alta calidad)
-    const glassGeo = new THREE.BoxGeometry(phoneWidth, phoneHeight, 0.03);
-    const glassMat = new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      roughness: 0.05,
-      metalness: 0.1,
-      transmission: 0.7,
-      thickness: 0.25,
-      transparent: true,
-      opacity: 0.95
-    });
-    const glassMesh = new THREE.Mesh(glassGeo, glassMat);
-    layerScreen.add(glassMesh);
-
-    // Plano del Display (Bajo el vidrio)
-    const displayGeo = new THREE.PlaneGeometry(phoneWidth - 0.12, phoneHeight - 0.12);
-    const displayMat = new THREE.MeshBasicMaterial({
-      map: createScreenTexture(),
-      transparent: true
-    });
-    const displayMesh = new THREE.Mesh(displayGeo, displayMat);
-    displayMesh.position.z = 0.016; // Justo en la superficie del cristal
-    layerScreen.add(displayMesh);
-
-    // --- CAPA 2: PLACA BASE (Motherboard + Chips + Batería) ---
-    layerBoard = new THREE.Group();
-    layerBoard.position.z = 0.0;
-    phoneGroup.add(layerBoard);
-
-    // Placa verde/negra
-    const boardGeo = new THREE.BoxGeometry(phoneWidth - 0.15, phoneHeight - 0.15, 0.04);
-    const boardMat = new THREE.MeshStandardMaterial({
-      map: createBoardTexture(),
-      roughness: 0.7,
-      metalness: 0.2
-    });
-    const boardMesh = new THREE.Mesh(boardGeo, boardMat);
-    layerBoard.add(boardMesh);
-
-    // Batería Metálica
-    const batteryGeo = new THREE.BoxGeometry(phoneWidth * 0.45, phoneHeight * 0.45, 0.08);
-    const batteryMat = new THREE.MeshStandardMaterial({
-      color: 0xcccccc,
-      metalness: 0.9,
-      roughness: 0.15
-    });
-    const batteryMesh = new THREE.Mesh(batteryGeo, batteryMat);
-    batteryMesh.position.set(-phoneWidth * 0.12, -phoneHeight * 0.08, 0.05);
-    layerBoard.add(batteryMesh);
-
-    // Procesador (Golden Chip)
-    const cpuGeo = new THREE.BoxGeometry(0.7, 0.7, 0.06);
-    const cpuMat = new THREE.MeshStandardMaterial({
-      color: 0xffd700, // Oro
-      metalness: 0.8,
-      roughness: 0.3
-    });
-    const cpuMesh = new THREE.Mesh(cpuGeo, cpuMat);
-    cpuMesh.position.set(phoneWidth * 0.18, phoneHeight * 0.18, 0.05);
-    layerBoard.add(cpuMesh);
-
-    // --- CAPA 3: CHASIS & CÁMARAS TRASERAS (Back Cover) ---
-    layerBack = new THREE.Group();
-    layerBack.position.z = -0.4;
-    phoneGroup.add(layerBack);
-
-    // Carcasa trasera lila metalizado brillante
-    const backGeo = new THREE.BoxGeometry(phoneWidth, phoneHeight, thickness);
-    const backMat = new THREE.MeshStandardMaterial({
-      color: 0x7c3aed, // Lila de la marca (#7C3AED)
-      metalness: 0.8,
-      roughness: 0.35
-    });
-    const backMesh = new THREE.Mesh(backGeo, backMat);
-    layerBack.add(backMesh);
-
-    // Módulo de Cámaras (Relieve rectangular redondeado)
-    const camModuleGeo = new THREE.BoxGeometry(1.1, 1.8, 0.12);
-    const camModuleMat = new THREE.MeshStandardMaterial({
-      color: 0x1d152d, // Violeta muy oscuro brillante
-      metalness: 0.6,
-      roughness: 0.2
-    });
-    const camModuleMesh = new THREE.Mesh(camModuleGeo, camModuleMat);
-    camModuleMesh.position.set(-phoneWidth * 0.22, phoneHeight * 0.28, -thickness - 0.02);
-    layerBack.add(camModuleMesh);
-
-    // 3 Lentes de Cámara (Cilindros reflectantes con cristales)
-    const lensGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.08, 16);
-    const lensMat = new THREE.MeshPhysicalMaterial({
-      color: 0x111111,
-      roughness: 0.02,
-      metalness: 0.9,
-      transmission: 0.3,
-      thickness: 0.1,
-      transparent: true
-    });
-
-    for (let i = 0; i < 3; i++) {
-      const lensMesh = new THREE.Mesh(lensGeo, lensMat);
-      lensMesh.rotation.x = Math.PI / 2;
-      lensMesh.position.set(
-        -phoneWidth * 0.22, 
-        phoneHeight * 0.28 + (0.42 - i * 0.42), 
-        -thickness - 0.08
+  const query = currentSearchQuery.toLowerCase().trim();
+  let productosFiltrados = query === ''
+    ? categoryFiltered
+    : categoryFiltered.filter(p => 
+        p.name.toLowerCase().includes(query) || 
+        (p.description && p.description.toLowerCase().includes(query)) ||
+        p.category.toLowerCase().includes(query)
       );
-      layerBack.add(lensMesh);
-    }
+
+  // Aplicar ordenamiento
+  if (currentSortOrder === 'price-asc') {
+    productosFiltrados.sort((a, b) => {
+      const pa = (!a.price || a.price === 0) ? Infinity : a.price;
+      const pb = (!b.price || b.price === 0) ? Infinity : b.price;
+      return pa - pb;
+    });
+  } else if (currentSortOrder === 'price-desc') {
+    productosFiltrados.sort((a, b) => {
+      const pa = (!a.price || a.price === 0) ? -Infinity : a.price;
+      const pb = (!b.price || b.price === 0) ? -Infinity : b.price;
+      return pb - pa;
+    });
+  } else if (currentSortOrder === 'name-az') {
+    productosFiltrados.sort((a, b) => a.name.localeCompare(b.name, 'es'));
+  } else if (currentSortOrder === 'name-za') {
+    productosFiltrados.sort((a, b) => b.name.localeCompare(a.name, 'es'));
   }
 
-  // --- Controladores de Eventos (Arrastre y Explode) ---
-  
-  function setupEventListeners() {
-    // Escuchar hover para explosión del despiece
-    container.addEventListener('mouseenter', () => {
-      isExploded = true;
-      targetExplode = 1;
-      updateHtmlLabelsVisibility(true);
-    });
+  // Si no hay resultados
+  if (productosFiltrados.length === 0) {
+    productsGrid.innerHTML = `
+      <div class="no-results-message">
+        <i class="fa-solid fa-satellite-dish"></i>
+        <h3>Búsqueda sin señal...</h3>
+        <p>No encontramos ningún producto que coincida con "${currentSearchQuery}".</p>
+        <button class="btn-premium btn-outline" id="reset-search-btn">
+          Ver todos los productos <i class="fa-solid fa-sparkles"></i>
+        </button>
+      </div>
+    `;
 
-    container.addEventListener('mouseleave', () => {
-      isExploded = false;
-      targetExplode = 0;
-      updateHtmlLabelsVisibility(false);
-      isDragging = false;
-    });
-
-    // Soporte para toques en móvil (Alterna Explode)
-    container.addEventListener('touchstart', (e) => {
-      isExploded = !isExploded;
-      targetExplode = isExploded ? 1 : 0;
-      updateHtmlLabelsVisibility(isExploded);
+    document.getElementById('reset-search-btn').addEventListener('click', () => {
+      const catalogSearchInput = document.getElementById('catalog-search-input');
+      const clearSearchBtn = document.getElementById('clear-search-btn');
       
-      // Inicializar arrastre táctil
-      if (e.touches.length === 1) {
-        isDragging = true;
-        previousMousePosition = {
-          x: e.touches[0].clientX,
-          y: e.touches[0].clientY
-        };
-      }
-    }, { passive: true });
-
-    container.addEventListener('touchmove', (e) => {
-      if (isDragging && e.touches.length === 1) {
-        const deltaX = e.touches[0].clientX - previousMousePosition.x;
-        const deltaY = e.touches[0].clientY - previousMousePosition.y;
-
-        targetRotation.y += deltaX * 0.007;
-        targetRotation.x += deltaY * 0.007;
-
-        // Limitar rotación X para evitar voltear de cabeza
-        targetRotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, targetRotation.x));
-
-        previousMousePosition = {
-          x: e.touches[0].clientX,
-          y: e.touches[0].clientY
-        };
-      }
-    }, { passive: true });
-
-    container.addEventListener('touchend', () => {
-      isDragging = false;
-    }, { passive: true });
-
-    // Drag-to-Rotate con el Mouse (Desktop)
-    container.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      previousMousePosition = {
-        x: e.clientX,
-        y: e.clientY
-      };
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      if (isDragging) {
-        const deltaX = e.clientX - previousMousePosition.x;
-        const deltaY = e.clientY - previousMousePosition.y;
-
-        targetRotation.y += deltaX * 0.005;
-        targetRotation.x += deltaY * 0.005;
-
-        // Limitar rotación X
-        targetRotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, targetRotation.x));
-
-        previousMousePosition = {
-          x: e.clientX,
-          y: e.clientY
-        };
-      }
-    });
-
-    window.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
-    // Responsividad del Canvas
-    window.addEventListener('resize', onWindowResize);
-  }
-
-  function onWindowResize() {
-    width = container.clientWidth || 450;
-    height = container.clientHeight || 450;
-
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(width, height);
-  }
-
-  // --- Lógica del HTML Fallback Labels ---
-  // Mostramos las etiquetas originales flotantes cuando se abre el celular en 3D
-  function updateHtmlLabelsVisibility(show) {
-    // Buscamos las etiquetas flotantes en la página
-    const labels = document.querySelectorAll('.layer-label');
-    const hint = document.querySelector('.hover-hint');
-
-    labels.forEach(label => {
-      if (show) {
-        label.classList.add('visible-3d-mode');
-      } else {
-        label.classList.remove('visible-3d-mode');
-      }
-    });
-
-    if (hint) {
-      if (show) {
-        hint.style.opacity = '0';
-      } else {
-        hint.style.opacity = '1';
-      }
-    }
-  }
-
-  // --- Loop de Animación (Render) ---
-  
-  function animate() {
-    requestAnimationFrame(animate);
-
-    const time = Date.now();
-
-    // 1. Suavizado (Lerp) para la animación de Despiece (Explosion)
-    currentExplode += (targetExplode - currentExplode) * LERP_FACTOR;
-
-    // Reposicionar capas según el nivel de despiece
-    layerScreen.position.z = 0.45 + currentExplode * 1.5;  // Módulo de Pantalla vuela adelante
-    layerBack.position.z = -0.45 - currentExplode * 1.5;  // Chasis trasero vuela atrás
-    // La placa base se mantiene flotando en el medio
-    
-    // 2. Rotación Orbital por Arrastre (Lerp)
-    if (!isDragging) {
-      // Auto-rotación lenta cuando el usuario no arrastra
-      targetRotation.y += 0.0035;
+      if (catalogSearchInput) catalogSearchInput.value = '';
+      currentSearchQuery = '';
+      if (clearSearchBtn) clearSearchBtn.style.display = 'none';
       
-      // Auto-flotación vertical en reposo
-      phoneGroup.position.y = Math.sin(time * 0.0015) * 0.16;
-    } else {
-      phoneGroup.position.y += (0 - phoneGroup.position.y) * LERP_FACTOR;
-    }
-
-    currentRotation.y += (targetRotation.y - currentRotation.y) * LERP_FACTOR;
-    currentRotation.x += (targetRotation.x - currentRotation.x) * LERP_FACTOR;
-
-    phoneGroup.rotation.y = currentRotation.y;
-    phoneGroup.rotation.x = currentRotation.x;
-
-    // Renderizado de Escena
-    renderer.render(scene, camera);
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      filterButtons.forEach(b => b.classList.remove('active'));
+      const allBtn = document.getElementById('filter-btn-all');
+      if (allBtn) allBtn.classList.add('active');
+      
+      renderCatalog('todos');
+      if (catalogSearchInput) catalogSearchInput.focus();
+    });
+    return;
   }
 
-  // Ejecutar inicialización al cargar Three.js
-  init();
-})();
+  productosFiltrados.forEach((prod, index) => {
+    const card = document.createElement('div');
+    card.className = 'product-card glass-card';
+    card.id = `prod-${prod.id}`;
+    card.style.cursor = 'pointer';
+
+    const badgeHTML = prod.badge 
+      ? `<div class="product-badge">${prod.badge}</div>` 
+      : '';
+
+    let discountHTML = '';
+    if (prod.originalPrice && prod.price && prod.originalPrice > prod.price) {
+      const pct = Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100);
+      discountHTML = `<div class="product-discount-tag">-${pct}% OFF</div>`;
+    }
+
+    const isConsultar = !prod.price || prod.price === 0;
+
+    let transferPriceHTML = '';
+    if (!isConsultar) {
+      const transferPrice = Math.round(prod.price * 0.9);
+      transferPriceHTML = `<div class="product-transfer-price">$${transferPrice.toLocaleString('es-AR')} con 10% OFF en efectivo o transferencia</div>`;
+    }
+
+    const priceHTML = isConsultar
+      ? `<span class="current-price">Consultar</span>`
+      : `<span class="current-price">${formatPrice(prod.price)}</span>${prod.originalPrice ? ` <span class="old-price">${formatPrice(prod.originalPrice)}</span>` : ''}`;
+
+    card.innerHTML = `
+      ${badgeHTML}
+      <div class="product-image-container">
+        <img src="${optimizeCloudinaryUrl(prod.image, 300)}" alt="${prod.name}" loading="lazy">
+      </div>
+      <div class="product-details">
+        <h3 class="product-name">${prod.name}</h3>
+        ${discountHTML}
+        <div class="product-price-row">
+          ${priceHTML}
+        </div>
+        ${transferPriceHTML}
+        <button class="add-to-cart-btn" data-id="${prod.id}">
+          COMPRAR
+        </button>
+      </div>
+    `;
+
+    card.addEventListener('click', (e) => {
+      if (!e.target.closest('.add-to-cart-btn')) {
+        openProductDetail(prod.id);
+      }
+    });
+
+    productsGrid.appendChild(card);
+  });
+
+  // Agregar eventos a botones comprar
+  const addButtons = productsGrid.querySelectorAll('.add-to-cart-btn');
+  addButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = btn.getAttribute('data-id');
+      addToCart(id);
+      
+      btn.style.transform = 'scale(0.85)';
+      setTimeout(() => {
+        btn.style.transform = '';
+      }, 150);
+    });
+  });
+
+  // Animación suave con Intersection Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: '0px 0px -30px 0px'
+  });
+
+  productsGrid.querySelectorAll('.product-card').forEach(card => {
+    observer.observe(card);
+  });
+}
 
 
 ================================================================================
+ARCHIVO: firebase-config.js
+================================================================================
 
- ARCHIVO: galaxy.js
+// Configuración de Firebase para UNIVERCE CELU
+const firebaseConfig = {
+    apiKey: "AIzaSyC7LQ_56rZ97pQLCpU3tWlO6Hq8WNvaZNQ",
+    authDomain: "univercelu.firebaseapp.com",
+    projectId: "univercelu",
+    storageBucket: "univercelu.firebasestorage.app",
+    messagingSenderId: "304176642195",
+    appId: "1:304176642195:web:10467faf885ce766923566"
+};
 
+window.firebaseConfig = firebaseConfig;
+
+
+================================================================================
+ARCHIVO: firebase-service.js
+================================================================================
+
+// Firebase & Cloudinary Service for UNIVERCE CELU
+// Sincronización robusta en tiempo real con soporte de persistencia local (Sandbox)
+
+let db = null;
+let isFirebaseActive = false;
+
+// Inicializar Firebase si las credenciales son válidas
+try {
+    const config = window.firebaseConfig;
+    if (config && config.apiKey && config.apiKey !== "[PEGAR VALOR REAL]" && config.apiKey !== "") {
+        firebase.initializeApp(config);
+        db = firebase.firestore();
+        isFirebaseActive = true;
+        console.log("🔥 [Firebase] Conexión establecida con éxito en la nube de Universe Celu.");
+    } else {
+        console.warn("⚠️ [Firebase] Corriendo en modo Local / Sandbox (LocalStorage). Configura las credenciales reales en firebase-config.js para conectar la base de datos en la nube.");
+    }
+} catch (error) {
+    console.error("❌ [Firebase] Error al inicializar Firebase:", error);
+}
+
+const FirebaseService = {
+    // --- Diagnóstico de Conexión ---
+    isCloudActive() {
+        return isFirebaseActive;
+    },
+
+    // --- AUTENTICACIÓN ---
+    async login(email, password) {
+        const auth = firebase.auth();
+        return await auth.signInWithEmailAndPassword(email, password);
+    },
+
+    async changePassword(newPassword) {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            return await user.updatePassword(newPassword);
+        } else {
+            throw new Error("No hay un usuario autenticado activo.");
+        }
+    },
+
+    async logout() {
+        const auth = firebase.auth();
+        return await auth.signOut();
+    },
+
+    onAuth(callback) {
+        const auth = firebase.auth();
+        auth.onAuthStateChanged((user) => {
+            callback(user);
+        });
+    },
+
+    // --- Autosiembra (Seeding) ---
+    // Si la base de datos está vacía, se inicializa automáticamente con los valores por defecto
+    async autoSeedDatabase(initialProducts, initialConfig) {
+        if (!isFirebaseActive) return;
+        try {
+            const productSnapshot = await db.collection("products").limit(1).get();
+            if (productSnapshot.empty) {
+                console.log("🌱 [Firebase] Base de datos vacía. Iniciando autosiembra para Universe Celu...");
+
+                // Sembrar Productos
+                for (const p of initialProducts) {
+                    await db.collection("products").doc(p.id).set(p);
+                }
+
+                // Sembrar Configuración
+                await db.collection("settings").doc("main").set(initialConfig);
+
+                console.log("🌱 [Firebase] Autosiembra completada con éxito.");
+            }
+
+            // No se siembran credenciales en la base de datos por ser inseguro.
+            // Los usuarios de administración se manejan directamente desde Firebase Auth Console.
+        } catch (error) {
+            console.error("❌ [Firebase] Error durante el proceso de autosiembra:", error);
+        }
+    },
+
+    // --- Restablecer y Sembrar Base de Datos Forzado ---
+    async forceResetAndSeedDatabase(initialProducts, initialConfig) {
+        if (!isFirebaseActive) {
+            // Local fallback logic
+            localStorage.setItem("univercelu_products_v3", JSON.stringify(initialProducts));
+            localStorage.setItem("univercelu_config", JSON.stringify(initialConfig));
+            return;
+        }
+        try {
+            console.log("⚠️ [Firebase] Iniciando limpieza total de productos...");
+            const snapshot = await db.collection("products").get();
+            for (const doc of snapshot.docs) {
+                await db.collection("products").doc(doc.id).delete();
+            }
+
+            console.log("🌱 [Firebase] Escribiendo catálogo oficial limpio...");
+            for (const p of initialProducts) {
+                await db.collection("products").doc(p.id).set(p);
+            }
+
+            console.log("⚙️ [Firebase] Escribiendo configuraciones comerciales por defecto...");
+            await db.collection("settings").doc("main").set(initialConfig);
+
+            console.log("✨ [Firebase] Base de datos restablecida con éxito.");
+        } catch (error) {
+            console.error("❌ [Firebase] Error en restablecimiento forzado:", error);
+            throw error;
+        }
+    },
+
+    // --- PRODUCTOS ---
+    async getProducts() {
+        if (!isFirebaseActive) {
+            // Modo local: Leer de localStorage
+            const local = localStorage.getItem("univercelu_products_v3");
+            return local ? JSON.parse(local) : null;
+        }
+        try {
+            console.log("[Firebase] Obteniendo productos de Firestore...");
+            const snapshot = await db.collection("products").get();
+            return snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+        } catch (error) {
+            console.error("[Firebase] Error al obtener productos:", error);
+            throw error;
+        }
+    },
+
+    async saveProduct(product) {
+        if (!isFirebaseActive) {
+            // Guardar localmente
+            let localProducts = await this.getProducts() || [];
+            const index = localProducts.findIndex(p => p.id === product.id);
+            if (index > -1) {
+                localProducts[index] = product;
+            } else {
+                localProducts.push(product);
+            }
+            localStorage.setItem("univercelu_products_v3", JSON.stringify(localProducts));
+            return;
+        }
+        try {
+            const id = product.id;
+            console.log("[Firebase] Guardando producto:", id);
+            await db.collection("products").doc(id).set(product);
+        } catch (error) {
+            console.error("[Firebase] Error al guardar producto:", error);
+            throw error;
+        }
+    },
+
+    async deleteProduct(id) {
+        if (!isFirebaseActive) {
+            // Eliminar localmente
+            let localProducts = await this.getProducts() || [];
+            localProducts = localProducts.filter(p => p.id !== id);
+            localStorage.setItem("univercelu_products_v3", JSON.stringify(localProducts));
+            return;
+        }
+        try {
+            console.log("[Firebase] Eliminando producto:", id);
+            await db.collection("products").doc(id).delete();
+        } catch (error) {
+            console.error("[Firebase] Error al eliminar producto:", error);
+            throw error;
+        }
+    },
+
+    // --- CONFIGURACIÓN GENERAL ---
+    async getConfig() {
+        if (!isFirebaseActive) {
+            const local = localStorage.getItem("univercelu_config");
+            return local ? JSON.parse(local) : null;
+        }
+        try {
+            console.log("[Firebase] Obteniendo configuraciones de Firestore...");
+            const doc = await db.collection("settings").doc("main").get();
+            return doc.exists ? doc.data() : null;
+        } catch (error) {
+            console.error("[Firebase] Error al obtener configuración:", error);
+            throw error;
+        }
+    },
+
+    async saveConfig(configData) {
+        if (!isFirebaseActive) {
+            localStorage.setItem("univercelu_config", JSON.stringify(configData));
+            return;
+        }
+        try {
+            console.log("[Firebase] Guardando configuración general...");
+            await db.collection("settings").doc("main").set(configData);
+        } catch (error) {
+            console.error("[Firebase] Error al guardar configuración:", error);
+            throw error;
+        }
+    },
+
+    // --- SUBIDA DE IMÁGENES Y VIDEOS A CLOUDINARY ---
+    async uploadImage(file) {
+        console.log("[Cloudinary] Iniciando subida a Cloudinary...");
+
+        // Reutilizamos el bucket y preset para garantizar compatibilidad directa
+        const cloudName = "dgb5o9y0v";
+        const uploadPreset = "ugda3w5p";
+        
+        // Detección automática de tipo de archivo para redirección a Cloudinary
+        const isVideo = file.type && file.type.startsWith("video/");
+        const resourceType = isVideo ? "video" : "image";
+        const url = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`;
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", uploadPreset);
+
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                body: formData
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error?.message || "Error al subir el archivo");
+            }
+
+            const data = await response.json();
+            console.log("[Cloudinary] Archivo subido exitosamente:", data.secure_url);
+            return data.secure_url;
+        } catch (error) {
+            console.error("[Cloudinary] Error crítico al subir archivo:", error);
+            throw error;
+        }
+    }
+};
+
+// Exportar para uso global
+window.FirebaseService = FirebaseService;
+
+// Auto-siembra reactiva: si la base de datos está vacía, carga los datos iniciales
+document.addEventListener("DOMContentLoaded", () => {
+    // Ejecución inicial en la carga del DOM
+    FirebaseService.autoSeedDatabase(
+        window.initialProducts,
+        window.initialConfig
+    );
+
+    // Ejecución reactiva en cuanto se detecte la restauración de la sesión del administrador
+    if (typeof firebase !== 'undefined' && isFirebaseActive) {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log("🔑 [Firebase Auth] Administrador detectado. Verificando autosiembra...");
+                // TEMPORAL: Forzar resembrado una vez para corregir las imágenes desalineadas
+                if (!localStorage.getItem("univercelu_db_fixed_v4")) {
+                    console.log("🔄 [Reseed DB] Aplicando corrección de imágenes desalineadas en Firestore...");
+                    FirebaseService.forceResetAndSeedDatabase(
+                        window.initialProducts,
+                        window.initialConfig
+                    ).then(() => {
+                        localStorage.setItem("univercelu_db_fixed_v4", "true");
+                        console.log("✨ [Reseed DB] Base de datos corregida con éxito.");
+                    }).catch(err => {
+                        console.error("❌ [Reseed DB] Error al corregir base de datos:", err);
+                    });
+                } else {
+                    FirebaseService.autoSeedDatabase(
+                        window.initialProducts,
+                        window.initialConfig
+                    );
+                }
+            }
+        });
+    }
+});
+
+
+================================================================================
+ARCHIVO: ui-controller.js
+================================================================================
+
+/* ==========================================================================
+   UNIVERCELU - CONTROLADOR DE INTERFAZ (ui-controller.js)
+   ========================================================================== */
+
+/**
+ * Abre la ventana deslizante del carrito de compras
+ */
+function openCart() {
+  const cartModal = document.getElementById('shopping-cart-modal');
+  const cartOverlay = document.getElementById('shopping-cart-overlay');
+  
+  if (cartModal) cartModal.classList.add('open');
+  if (cartOverlay) cartOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Cierra la ventana deslizante del carrito de compras
+ */
+function closeCart() {
+  const cartModal = document.getElementById('shopping-cart-modal');
+  const cartOverlay = document.getElementById('shopping-cart-overlay');
+  
+  if (cartModal) cartModal.classList.remove('open');
+  if (cartOverlay) cartOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/**
+ * Cierra la ventana de detalle de un producto específico
+ */
+function closeProductDetail() {
+  const productDetailOverlay = document.getElementById('product-detail-overlay');
+  const productDetailModal = document.getElementById('product-detail-modal');
+  
+  if (productDetailOverlay) productDetailOverlay.classList.remove('open');
+  if (productDetailModal) productDetailModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/**
+ * Abre el modal detallado estilo Mercado Libre de un producto específico,
+ * inyectando carruseles multimedia y especificaciones de forma dinámica.
+ */
+function openProductDetail(productId) {
+  const prod = PRODUCTOS.find(p => p.id === productId);
+  if (!prod) return;
+
+  const productDetailContent = document.getElementById('product-detail-content');
+  const productDetailOverlay = document.getElementById('product-detail-overlay');
+  const productDetailModal = document.getElementById('product-detail-modal');
+
+  if (!productDetailContent) return;
+
+  const mockData = getProductMockData(productId);
+  let selectedQty = 1;
+
+  // Precios y descuentos
+  const discountPercent = prod.originalPrice 
+    ? Math.round(((prod.originalPrice - prod.price) / prod.originalPrice) * 100)
+    : 0;
+
+  const originalPriceHTML = prod.originalPrice 
+    ? `<span class="detail-original-price">$${prod.originalPrice.toLocaleString('es-AR')}</span>` 
+    : '';
+
+  const discountPercentHTML = discountPercent > 0 
+    ? `<span class="detail-discount-percent">${discountPercent}% OFF</span>` 
+    : '';
+
+  const imagesList = [prod.image, prod.image2, prod.image3].filter(img => img && img.trim() !== "");
+
+  // Generar HTML de galería
+  let galleryHTML = '';
+  if (imagesList.length > 1) {
+    let imagesHTML = '';
+    let dotsHTML = '';
+    
+    imagesList.forEach((url, idx) => {
+      if (isVideoUrl(url)) {
+        imagesHTML += `<video src="${url}" class="detail-main-img ${idx === 0 ? 'active' : ''}" id="detail-img-${idx}" data-index="${idx}" style="${idx === 0 ? '' : 'display: none;'}" autoplay loop muted playsinline controls></video>`;
+      } else {
+        imagesHTML += `<img src="${optimizeCloudinaryUrl(url, 500)}" alt="${prod.name} - ${idx + 1}" class="detail-main-img ${idx === 0 ? 'active' : ''}" id="detail-img-${idx}" data-index="${idx}" style="${idx === 0 ? '' : 'display: none;'}">`;
+      }
+      dotsHTML += `<span class="indicator-dot ${idx === 0 ? 'active' : ''}" data-index="${idx}"></span>`;
+    });
+
+    galleryHTML = `
+      <div class="detail-gallery-carousel">
+        <button class="carousel-nav-btn prev" id="detail-gallery-prev" aria-label="Foto anterior">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div class="carousel-images-wrapper">
+          ${imagesHTML}
+        </div>
+        <button class="carousel-nav-btn next" id="detail-gallery-next" aria-label="Siguiente foto">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <div class="carousel-indicators">
+          ${dotsHTML}
+        </div>
+        <div class="detail-guarantee-note" style="margin-top: 15px; width: 100%;">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Garantía oficial y soporte directo en local</span>
+        </div>
+      </div>
+    `;
+  } else {
+    const singleMedia = isVideoUrl(prod.image)
+      ? `<video src="${prod.image}" class="detail-main-img" id="detail-main-image" autoplay loop muted playsinline controls style="width: 100%; border-radius: 12px; object-fit: cover;"></video>`
+      : `<img src="${optimizeCloudinaryUrl(prod.image || 'assets/placeholder.png', 500)}" alt="${prod.name}" class="detail-main-img" id="detail-main-image">`;
+
+    galleryHTML = `
+      <div class="detail-gallery">
+        ${singleMedia}
+        <div class="detail-guarantee-note">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Garantía oficial y soporte directo en local</span>
+        </div>
+      </div>
+    `;
+  }
+
+  // Renderizado dinámico del panel de detalles
+  productDetailContent.innerHTML = `
+    <div class="detail-grid">
+      ${galleryHTML}
+      <div class="detail-info-panel">
+        ${prod.badge ? `<span class="detail-badge-tag">${prod.badge}</span>` : ''}
+        <h2 class="detail-title">${prod.name}</h2>
+        
+        <div class="detail-price-section">
+          ${originalPriceHTML}
+          <div class="detail-price-row">
+            <span class="detail-current-price">${(!prod.price || prod.price === 0) ? 'Consultar' : `$${prod.price.toLocaleString('es-AR')}`}</span>
+            ${discountPercentHTML}
+          </div>
+        </div>
+
+        <div class="detail-benefits-box">
+          <div class="benefit-item">
+            <i class="fa-solid fa-credit-card"></i>
+            <span>💳 3 y 6 cuotas fijas · <strong>10% OFF</strong> en Efectivo/Transferencia</span>
+          </div>
+          <div class="benefit-item">
+            <i class="fa-solid fa-truck-fast"></i>
+            <span>📍 Retiro gratis en tienda (Maipú 510) · Envío rápido</span>
+          </div>
+        </div>
+
+        <div class="detail-quantity-and-stock">
+          <div class="detail-quantity-control-wrapper">
+            <span class="detail-qty-label">Cantidad:</span>
+            <div class="detail-quantity-control">
+              <button class="qty-control-btn qty-minus" aria-label="Disminuir cantidad">-</button>
+              <span class="qty-control-value" id="detail-qty-value">1</span>
+              <button class="qty-control-btn qty-plus" aria-label="Aumentar cantidad">+</button>
+            </div>
+          </div>
+          <span class="detail-stock-available">(Stock disponible: ${mockData.stock} unidades)</span>
+        </div>
+
+        <div class="detail-actions-buttons">
+          <button class="btn-detail buy-now" id="detail-buy-now-btn">
+            <i class="fa-solid fa-bolt"></i> Comprar ahora
+          </button>
+          <button class="btn-detail add-to-cart" id="detail-add-to-cart-btn">
+            <i class="fa-solid fa-basket-shopping"></i> Agregar al carrito
+          </button>
+        </div>
+
+        <div class="detail-description-box">
+          <h3>Descripción</h3>
+          <p>${prod.description}</p>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Carrusel
+  if (imagesList.length > 1) {
+    const imagesElements = productDetailContent.querySelectorAll('.carousel-images-wrapper img, .carousel-images-wrapper video');
+    const prevBtn = productDetailContent.querySelector('#detail-gallery-prev');
+    const nextBtn = productDetailContent.querySelector('#detail-gallery-next');
+    const dots = productDetailContent.querySelectorAll('.indicator-dot');
+
+    let activeIndex = 0;
+
+    function showImage(index) {
+      activeIndex = index;
+      imagesElements.forEach((img, idx) => {
+        if (idx === index) {
+          img.style.display = 'block';
+          img.classList.add('active');
+          dots[idx].classList.add('active');
+          if (img.tagName === 'VIDEO') {
+            img.currentTime = 0;
+            img.play().catch(e => console.log('Autoplay prevent:', e));
+          }
+        } else {
+          img.style.display = 'none';
+          img.classList.remove('active');
+          dots[idx].classList.remove('active');
+          if (img.tagName === 'VIDEO') {
+            img.pause();
+          }
+        }
+      });
+    }
+
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      let nextIndex = (activeIndex - 1 + imagesList.length) % imagesList.length;
+      showImage(nextIndex);
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      let nextIndex = (activeIndex + 1) % imagesList.length;
+      showImage(nextIndex);
+    });
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showImage(idx);
+      });
+    });
+  }
+
+  // Controles de cantidad
+  const btnMinus = productDetailContent.querySelector('.qty-minus');
+  const btnPlus = productDetailContent.querySelector('.qty-plus');
+  const qtyValue = productDetailContent.querySelector('#detail-qty-value');
+
+  btnMinus.addEventListener('click', () => {
+    if (selectedQty > 1) {
+      selectedQty--;
+      qtyValue.textContent = selectedQty;
+    }
+  });
+
+  btnPlus.addEventListener('click', () => {
+    if (selectedQty < mockData.stock) {
+      selectedQty++;
+      qtyValue.textContent = selectedQty;
+    }
+  });
+
+  // Comprar ahora (checkout express)
+  const btnBuyNow = productDetailContent.querySelector('#detail-buy-now-btn');
+  const checkoutWspBtn = document.getElementById('checkout-whatsapp-btn');
+  btnBuyNow.addEventListener('click', () => {
+    addToCart(prod.id, selectedQty);
+    closeProductDetail();
+    setTimeout(() => {
+      if (checkoutWspBtn) checkoutWspBtn.click();
+    }, 300);
+  });
+
+  // Agregar al carrito
+  const btnAddToCart = productDetailContent.querySelector('#detail-add-to-cart-btn');
+  btnAddToCart.addEventListener('click', () => {
+    addToCart(prod.id, selectedQty);
+    closeProductDetail();
+    openCart();
+  });
+
+  // Mostrar modal
+  if (productDetailOverlay) productDetailOverlay.classList.add('open');
+  if (productDetailModal) {
+    productDetailModal.classList.add('open');
+    productDetailModal.scrollTop = 0;
+  }
+  document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Actualiza el indicador de estado abierto/cerrado según el huso de Argentina (UTC-3)
+ * Horario: Lunes a Sábado, 9:30 a 20:00.
+ */
+function updateStoreStatus() {
+  const badge = document.getElementById('store-status-badge');
+  if (!badge) return;
+
+  const now = new Date();
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const argTime = new Date(utc + (-3 * 3600000));
+
+  const day = argTime.getDay();
+  const hour = argTime.getHours();
+  const min = argTime.getMinutes();
+  const currentMinutes = hour * 60 + min;
+  const openMinutes = 9 * 60 + 30; // 9:30
+  const closeMinutes = 20 * 60;     // 20:00
+
+  const isWeekday = day >= 1 && day <= 6;
+  const isInHours = currentMinutes >= openMinutes && currentMinutes < closeMinutes;
+  const isOpen = isWeekday && isInHours;
+
+  if (isOpen) {
+    badge.textContent = '🟢 Abierto ahora';
+    badge.className = 'store-status-badge status-open';
+  } else {
+    badge.textContent = '🔴 Cerrado ahora';
+    badge.className = 'store-status-badge status-closed';
+  }
+
+  setTimeout(updateStoreStatus, 60000);
+}
+
+
+
+
+
+================================================================================
+ARCHIVO: galaxy.js
 ================================================================================
 
 // Galaxy Animated 3D Background for Univercelu
@@ -8155,4 +7242,39 @@ document.addEventListener('DOMContentLoaded', async () => {
   init();
   animate();
 })();
+
+
+================================================================================
+ARCHIVO: firestore.rules
+================================================================================
+
+// INSTRUCCIONES DE DESPLIEGUE:
+// 1. Instalá Firebase CLI: npm install -g firebase-tools
+// 2. Iniciá sesión: firebase login
+// 3. Iniciá el proyecto: firebase init firestore
+// 4. Ejecutá: firebase deploy --only firestore:rules
+// Sin este despliegue las reglas no tienen efecto en producción.
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Productos: lectura pública, escritura solo admin autenticado
+    match /products/{docId} {
+      allow read: if true;
+      allow write, delete: if request.auth != null;
+    }
+
+    // Settings (Ajustes): lectura pública, escritura solo admin autenticado
+    match /settings/{docId} {
+      allow read: if true;
+      allow write, delete: if request.auth != null;
+    }
+
+    // Todo lo demás: denegado
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
 
