@@ -19,6 +19,7 @@
   const stars = [];
   const particles = [];
   const nebulae = [];
+  let animationId = null;
 
   const FOV = 160; // Field of view projection factor
 
@@ -229,9 +230,17 @@
       p.draw(frame);
     }
 
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
   }
 
   init();
   animate();
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(animationId);
+    } else {
+      animate();
+    }
+  });
 })();
