@@ -190,22 +190,18 @@
       
       <div class="hero-visual">
         <div class="hero-glow-back"></div>
-        <!-- Contenedor de la experiencia 3D en tiempo real -->
-        <div id="phone-3d-container" style="display: none; width: 100%; max-width: 450px; aspect-ratio: 1 / 1; position: relative; cursor: grab; opacity: 0; transition: opacity 0.5s ease; z-index: 5;"></div>
-        
-        <!-- Fallback en 2D estático con efecto hover -->
-        <div id="hero-fallback-wrapper" class="hero-image-wrapper repair-hover-effect">
+        <div class="hero-image-wrapper repair-hover-effect">
           <!-- Imágenes perfectamente alineadas para evitar superposición de fondos cuadrados -->
           <img src="assets/hero-assembled.png" alt="Smartphone con accesorios y protector de pantalla aplicados, que representa la calidad y precisión de Univercelu" class="hero-img-assembled" id="hero-cover-image">
           <img src="assets/hero-exploded.jpg" alt="Despiece tridimensional de un teléfono móvil mostrando componentes internos como batería y placa para reparación técnica" class="hero-img-exploded">
-        </div>
-        
-        <!-- Etiquetas 3D que flotan al exterior de la tarjeta -->
-        <span class="layer-label label-screen">Módulo Pantalla</span>
-        <span class="layer-label label-board">Placa & Batería</span>
-        <span class="layer-label label-back">Chasis & Cámaras</span>
+          
+          <!-- Etiquetas 3D que flotan al exterior de la tarjeta -->
+          <span class="layer-label label-screen">Módulo Pantalla</span>
+          <span class="layer-label label-board">Placa & Batería</span>
+          <span class="layer-label label-back">Chasis & Cámaras</span>
 
-        <div class="hover-hint"><i class="fa-solid fa-screwdriver-wrench"></i> <span class="hint-text">Hover para desarmar</span></div>
+          <div class="hover-hint"><i class="fa-solid fa-screwdriver-wrench"></i> <span class="hint-text">Hover para desarmar</span></div>
+        </div>
       </div>
     </div>
   </section>
@@ -552,8 +548,5 @@
   <canvas id="galaxy-bg" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none;"></canvas>
   <script src="galaxy.js"></script>
 
-  <!-- Librería Three.js (Procedural 3D) y Script de Experiencia Interactiva -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="phone-3d.js"></script>
 </body>
 </html>

@@ -253,10 +253,24 @@ document.addEventListener("DOMContentLoaded", () => {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 console.log("🔑 [Firebase Auth] Administrador detectado. Verificando autosiembra...");
-                FirebaseService.autoSeedDatabase(
-                    window.initialProducts,
-                    window.initialConfig
-                );
+                // TEMPORAL: Forzar resembrado una vez para corregir las imágenes desalineadas
+                if (!localStorage.getItem("univercelu_db_fixed_v4")) {
+                    console.log("🔄 [Reseed DB] Aplicando corrección de imágenes desalineadas en Firestore...");
+                    FirebaseService.forceResetAndSeedDatabase(
+                        window.initialProducts,
+                        window.initialConfig
+                    ).then(() => {
+                        localStorage.setItem("univercelu_db_fixed_v4", "true");
+                        console.log("✨ [Reseed DB] Base de datos corregida con éxito.");
+                    }).catch(err => {
+                        console.error("❌ [Reseed DB] Error al corregir base de datos:", err);
+                    });
+                } else {
+                    FirebaseService.autoSeedDatabase(
+                        window.initialProducts,
+                        window.initialConfig
+                    );
+                }
             }
         });
     }
