@@ -111,15 +111,7 @@ ARCHIVO: index.html
     ]
   }
   </script>
-  <!-- Google Analytics -->
-  <!-- TODO: Reemplazar G-XXXXXXXXXX por el ID real de Google Analytics del cliente -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-  </script>
+
 </head>
 <body>
 
