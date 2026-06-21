@@ -1,7 +1,7 @@
 // Datos semilla iniciales para UNIVERCE CELU
 const initialProducts = [
   {
-    "id": "cabezal-iphone-20w-175",
+    "id": "cabezal-iphone-20w-373",
     "name": "Cabezal iPhone 20W",
     "category": "cargadores",
     "price": 19500,
@@ -13,7 +13,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "cargador-r-pido-samsung-25w-946",
+    "id": "cargador-r-pido-samsung-25w-934",
     "name": "Cargador Rápido Samsung 25W",
     "category": "cargadores",
     "price": 15500,
@@ -25,7 +25,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "cable-iphone-lightning-710",
+    "id": "cable-iphone-lightning-631",
     "name": "Cable iPhone Lightning",
     "category": "cables",
     "price": 7000,
@@ -37,7 +37,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "auriculares-inal-mbricos-tws-574",
+    "id": "auriculares-inal-mbricos-tws-991",
     "name": "Auriculares Inalámbricos TWS",
     "category": "audio",
     "price": 18500,
@@ -49,7 +49,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "cargador-samsung-25w-c-a-c-885",
+    "id": "cargador-samsung-25w-c-a-c-789",
     "name": "Cargador Samsung 25W C a C",
     "category": "cargadores",
     "price": 16500,
@@ -61,7 +61,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "cabezal-samsung-45w-962",
+    "id": "cabezal-samsung-45w-632",
     "name": "Cabezal Samsung 45W",
     "category": "cargadores",
     "price": 24000,
@@ -73,7 +73,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "auriculares-con-cable-796",
+    "id": "auriculares-con-cable-706",
     "name": "Auriculares con Cable",
     "category": "audio",
     "price": 4500,
@@ -85,7 +85,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "kit-cargador-samsung-45w-c-a-c-440",
+    "id": "kit-cargador-samsung-45w-c-a-c-876",
     "name": "Kit Cargador Samsung 45W C a C",
     "category": "cargadores",
     "price": 26000,
@@ -97,7 +97,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "cable-c-a-c-155",
+    "id": "cable-c-a-c-406",
     "name": "Cable C a C",
     "category": "cables",
     "price": 7800,
@@ -109,7 +109,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "cargador-motorola-completo-231",
+    "id": "cargador-motorola-completo-949",
     "name": "Cargador Motorola Completo",
     "category": "cargadores",
     "price": 14800,
@@ -121,7 +121,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "cargador-r-pido-universal-35w-duo-419",
+    "id": "cargador-r-pido-universal-35w-duo-340",
     "name": "Cargador Rápido Universal 35W Duo",
     "category": "cargadores",
     "price": 9800,
@@ -133,7 +133,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "cable-tipo-c-motorola-original-439",
+    "id": "cable-tipo-c-motorola-original-141",
     "name": "Cable Tipo C Motorola Original",
     "category": "cables",
     "price": 5800,
@@ -145,7 +145,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-transparente-800",
+    "id": "funda-transparente-312",
     "name": "Funda Transparente",
     "category": "fundas",
     "price": 4000,
@@ -157,7 +157,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-con-soporte-587",
+    "id": "funda-silicon-con-soporte-913",
     "name": "Funda Silicon con Soporte",
     "category": "fundas",
     "price": 6800,
@@ -169,7 +169,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "vidrio-9d-865",
+    "id": "vidrio-9d-905",
     "name": "Vidrio 9D",
     "category": "vidrios",
     "price": 3500,
@@ -181,7 +181,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "luz-led-de-emergencia-recargable-470",
+    "id": "luz-led-de-emergencia-recargable-984",
     "name": "Luz LED de Emergencia Recargable",
     "category": "otros",
     "price": 7800,
@@ -193,7 +193,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "luz-selfie-clip-led-220",
+    "id": "luz-selfie-clip-led-871",
     "name": "Luz Selfie Clip LED",
     "category": "otros",
     "price": 4500,
@@ -205,7 +205,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "soporte-tr-pode-celular-quadripod-338",
+    "id": "soporte-tr-pode-celular-quadripod-419",
     "name": "Soporte Trípode Celular Quadripod",
     "category": "otros",
     "price": 12000,
@@ -217,7 +217,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "aro-de-luz-led-con-soporte-275",
+    "id": "aro-de-luz-led-con-soporte-886",
     "name": "Aro de Luz LED con Soporte",
     "category": "otros",
     "price": 9800,
@@ -229,7 +229,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "aro-de-luz-selfie-ring-ljj-33-475",
+    "id": "aro-de-luz-selfie-ring-ljj-33-414",
     "name": "Aro de Luz Selfie Ring LJJ-33",
     "category": "otros",
     "price": 4800,
@@ -241,7 +241,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "memoria-micro-sd-kingston-128gb-553",
+    "id": "memoria-micro-sd-kingston-128gb-665",
     "name": "Memoria Micro SD Kingston 128GB",
     "category": "otros",
     "price": 9800,
@@ -253,7 +253,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "memoria-micro-sd-kingston-64gb-349",
+    "id": "memoria-micro-sd-kingston-64gb-495",
     "name": "Memoria Micro SD Kingston 64GB",
     "category": "otros",
     "price": 6500,
@@ -265,7 +265,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "pendrive-kingston-datatraveler-64gb-205",
+    "id": "pendrive-kingston-datatraveler-64gb-406",
     "name": "Pendrive Kingston DataTraveler 64GB",
     "category": "otros",
     "price": 5800,
@@ -277,7 +277,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "auriculares-bluetooth-a6s-mipods-960",
+    "id": "auriculares-bluetooth-a6s-mipods-354",
     "name": "Auriculares Bluetooth A6S MiPods",
     "category": "audio",
     "price": 12500,
@@ -289,7 +289,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "joystick-ps4-sony-dualshock-4-681",
+    "id": "joystick-ps4-sony-dualshock-4-156",
     "name": "Joystick PS4 Sony DualShock 4",
     "category": "otros",
     "price": 28000,
@@ -301,7 +301,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "auriculares-deportivos-bluetooth-814",
+    "id": "auriculares-deportivos-bluetooth-417",
     "name": "Auriculares Deportivos Bluetooth",
     "category": "audio",
     "price": 9500,
@@ -313,7 +313,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "adaptador-hub-usb-c-5-en-1-800",
+    "id": "adaptador-hub-usb-c-5-en-1-872",
     "name": "Adaptador Hub USB-C 5 en 1",
     "category": "otros",
     "price": 12500,
@@ -325,7 +325,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "soporte-magn-tico-para-rejilla-auto-971",
+    "id": "soporte-magn-tico-para-rejilla-auto-580",
     "name": "Soporte Magnético para Rejilla Auto",
     "category": "otros",
     "price": 4500,
@@ -337,7 +337,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "cargador-puxida-25w-347",
+    "id": "cargador-puxida-25w-413",
     "name": "Cargador Puxida 25W",
     "category": "cargadores",
     "price": 9500,
@@ -349,7 +349,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "soporte-ventosa-parabrisas-auto-207",
+    "id": "soporte-ventosa-parabrisas-auto-794",
     "name": "Soporte Ventosa Parabrisas Auto",
     "category": "otros",
     "price": 5500,
@@ -361,7 +361,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "soporte-de-mesa-universal-celular-260",
+    "id": "soporte-de-mesa-universal-celular-960",
     "name": "Soporte de Mesa Universal Celular",
     "category": "otros",
     "price": 3800,
@@ -373,7 +373,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-deportiva-brazalete-neoprene-197",
+    "id": "funda-deportiva-brazalete-neoprene-797",
     "name": "Funda Deportiva Brazalete Neoprene",
     "category": "fundas",
     "price": 4800,
@@ -385,7 +385,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-impermeable-sumergible-356",
+    "id": "funda-impermeable-sumergible-863",
     "name": "Funda Impermeable Sumergible",
     "category": "fundas",
     "price": 3500,
@@ -397,7 +397,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-case-con-anillo-ip11-672",
+    "id": "funda-silicon-case-con-anillo-ip11-648",
     "name": "Funda Silicon Case con Anillo IP11",
     "category": "fundas",
     "price": 6800,
@@ -409,7 +409,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-case-con-anillo-ip12-360",
+    "id": "funda-silicon-case-con-anillo-ip12-648",
     "name": "Funda Silicon Case con Anillo IP12",
     "category": "fundas",
     "price": 6800,
@@ -421,7 +421,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-case-con-anillo-ip13-185",
+    "id": "funda-silicon-case-con-anillo-ip13-953",
     "name": "Funda Silicon Case con Anillo IP13",
     "category": "fundas",
     "price": 6800,
@@ -433,7 +433,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "cable-auxiliar-jack-3-5mm-trenzado-304",
+    "id": "cable-auxiliar-jack-3-5mm-trenzado-383",
     "name": "Cable Auxiliar Jack 3.5mm Trenzado",
     "category": "cables",
     "price": 3500,
@@ -445,7 +445,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "cable-usb-tipo-c-oferta-901",
+    "id": "cable-usb-tipo-c-oferta-128",
     "name": "Cable USB tipo C Oferta",
     "category": "cables",
     "price": 3500,
@@ -457,7 +457,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "cable-usb-tipo-c-motorola-813",
+    "id": "cable-usb-tipo-c-motorola-277",
     "name": "Cable USB tipo C Motorola",
     "category": "cables",
     "price": 5800,
@@ -469,7 +469,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "cargador-carga-r-pida-motorola-20w-132",
+    "id": "cargador-carga-r-pida-motorola-20w-883",
     "name": "Cargador Carga Rápida Motorola 20W",
     "category": "cargadores",
     "price": 12500,
@@ -481,7 +481,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "cargador-dual-r-pido-universal-333",
+    "id": "cargador-dual-r-pido-universal-617",
     "name": "Cargador Dual Rápido Universal",
     "category": "cargadores",
     "price": 9800,
@@ -493,7 +493,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "parlante-341",
+    "id": "parlante-388",
     "name": "Parlante",
     "category": "audio",
     "price": 22000,
@@ -505,7 +505,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "vidrio-protector-para-c-mara-iphone-781",
+    "id": "vidrio-protector-para-c-mara-iphone-729",
     "name": "Vidrio Protector para Cámara iPhone",
     "category": "vidrios",
     "price": 2800,
@@ -517,7 +517,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "vidrio-protector-c-mara-samsung-235",
+    "id": "vidrio-protector-c-mara-samsung-180",
     "name": "Vidrio Protector Cámara Samsung",
     "category": "vidrios",
     "price": 2800,
@@ -529,7 +529,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "aro-de-luz-led-para-celular-recargable-508",
+    "id": "aro-de-luz-led-para-celular-recargable-278",
     "name": "Aro de Luz LED para Celular Recargable",
     "category": "otros",
     "price": 4000,
@@ -541,7 +541,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "tr-pode-extensible-celular-bluetooth-194",
+    "id": "tr-pode-extensible-celular-bluetooth-970",
     "name": "Trípode Extensible Celular Bluetooth",
     "category": "otros",
     "price": 12000,
@@ -553,7 +553,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "soporte-anillo-ring-holder-celular-331",
+    "id": "soporte-anillo-ring-holder-celular-349",
     "name": "Soporte Anillo Ring Holder Celular",
     "category": "otros",
     "price": 2200,
@@ -565,7 +565,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "luz-led-para-bicicleta-recargable-981",
+    "id": "luz-led-para-bicicleta-recargable-759",
     "name": "Luz LED para Bicicleta Recargable",
     "category": "otros",
     "price": 5800,
@@ -577,7 +577,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "cargador-samsung-completo-197",
+    "id": "cargador-samsung-completo-819",
     "name": "Cargador Samsung Completo",
     "category": "cargadores",
     "price": 15500,
@@ -589,7 +589,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "auriculares-in-ear-con-cable-tipo-c-487",
+    "id": "auriculares-in-ear-con-cable-tipo-c-559",
     "name": "Auriculares In-Ear con Cable Tipo C",
     "category": "audio",
     "price": 5500,
@@ -601,7 +601,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-com-n-963",
+    "id": "funda-silicon-com-n-522",
     "name": "Funda Silicon Común",
     "category": "fundas",
     "price": 4800,
@@ -613,7 +613,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-case-para-samsung-a54-675",
+    "id": "funda-silicon-case-para-samsung-a54-278",
     "name": "Funda Silicon Case para Samsung A54",
     "category": "fundas",
     "price": 5000,
@@ -625,7 +625,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-case-para-samsung-a34-189",
+    "id": "funda-silicon-case-para-samsung-a34-665",
     "name": "Funda Silicon Case para Samsung A34",
     "category": "fundas",
     "price": 5000,
@@ -637,7 +637,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-tpu-transparente-iphone-15-149",
+    "id": "funda-tpu-transparente-iphone-15-575",
     "name": "Funda TPU Transparente iPhone 15",
     "category": "fundas",
     "price": 4500,
@@ -649,7 +649,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-tpu-transparente-iphone-15-pro-943",
+    "id": "funda-tpu-transparente-iphone-15-pro-117",
     "name": "Funda TPU Transparente iPhone 15 Pro",
     "category": "fundas",
     "price": 4500,
@@ -661,7 +661,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-tpu-transparente-ip15-pro-max-851",
+    "id": "funda-tpu-transparente-ip15-pro-max-917",
     "name": "Funda TPU Transparente IP15 Pro Max",
     "category": "fundas",
     "price": 4500,
@@ -673,7 +673,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "malla-de-silicona-smartwatch-20mm-451",
+    "id": "malla-de-silicona-smartwatch-20mm-248",
     "name": "Malla de Silicona Smartwatch 20mm",
     "category": "otros",
     "price": 4000,
@@ -685,7 +685,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "malla-de-silicona-smartwatch-22mm-563",
+    "id": "malla-de-silicona-smartwatch-22mm-992",
     "name": "Malla de Silicona Smartwatch 22mm",
     "category": "otros",
     "price": 4000,
@@ -697,7 +697,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "silicon-case-988",
+    "id": "silicon-case-675",
     "name": "Silicon Case",
     "category": "fundas",
     "price": 5500,
@@ -709,7 +709,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "vidrio-templado-11d-premium-711",
+    "id": "vidrio-templado-11d-premium-515",
     "name": "Vidrio Templado 11D Premium",
     "category": "vidrios",
     "price": 3800,
@@ -721,7 +721,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "vidrio-anti-esp-a-284",
+    "id": "vidrio-anti-esp-a-533",
     "name": "Vidrio Anti Espía",
     "category": "vidrios",
     "price": 4800,
@@ -733,7 +733,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "servicio-t-cnico-todas-las-marcas-753",
+    "id": "servicio-t-cnico-todas-las-marcas-669",
     "name": "Servicio Técnico Todas las Marcas",
     "category": "servicio",
     "price": 0,
@@ -745,7 +745,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "teclado-mec-nico-gamer-netmak-ability-343",
+    "id": "teclado-mec-nico-gamer-netmak-ability-838",
     "name": "Teclado Mecánico Gamer Netmak Ability",
     "category": "teclados",
     "price": 22000,
@@ -757,7 +757,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "teclado-mec-nico-gamer-netmak-ability-black-886",
+    "id": "teclado-mec-nico-gamer-netmak-ability-black-603",
     "name": "Teclado Mecánico Gamer Netmak Ability Black",
     "category": "teclados",
     "price": 22000,
@@ -769,7 +769,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "mouse-gamer-retroiluminado-rgb-netmak-653",
+    "id": "mouse-gamer-retroiluminado-rgb-netmak-288",
     "name": "Mouse Gamer Retroiluminado RGB Netmak",
     "category": "teclados",
     "price": 8500,
@@ -781,7 +781,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "combo-gamer-teclado-y-mouse-rgb-netmak-243",
+    "id": "combo-gamer-teclado-y-mouse-rgb-netmak-467",
     "name": "Combo Gamer Teclado y Mouse RGB Netmak",
     "category": "teclados",
     "price": 28000,
@@ -793,7 +793,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "mouse-pad-gamer-speed-xl-netmak-206",
+    "id": "mouse-pad-gamer-speed-xl-netmak-365",
     "name": "Mouse Pad Gamer Speed XL Netmak",
     "category": "otros",
     "price": 6500,
@@ -805,7 +805,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "video-demo-teclado-gamer-ability-918",
+    "id": "video-demo-teclado-gamer-ability-596",
     "name": "Video Demo Teclado Gamer Ability",
     "category": "otros",
     "price": 6000,
@@ -817,7 +817,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "video-review-teclado-gamer-ability-530",
+    "id": "video-review-teclado-gamer-ability-446",
     "name": "Video Review Teclado Gamer Ability",
     "category": "otros",
     "price": 6000,
@@ -829,7 +829,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "video-test-de-switches-teclado-ability-412",
+    "id": "video-test-de-switches-teclado-ability-564",
     "name": "Video Test de Switches Teclado Ability",
     "category": "otros",
     "price": 6000,
@@ -841,7 +841,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "video-iluminaci-n-rgb-teclado-ability-560",
+    "id": "video-iluminaci-n-rgb-teclado-ability-222",
     "name": "Video Iluminación RGB Teclado Ability",
     "category": "otros",
     "price": 6000,
@@ -853,7 +853,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "video-demo-mouse-gamer-rgb-995",
+    "id": "video-demo-mouse-gamer-rgb-852",
     "name": "Video Demo Mouse Gamer RGB",
     "category": "otros",
     "price": 6000,
@@ -865,7 +865,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "smartwatch-sport-watch-series-8-negro-636",
+    "id": "smartwatch-sport-watch-series-8-negro-227",
     "name": "Smartwatch Sport Watch Series 8 Negro",
     "category": "otros",
     "price": 18500,
@@ -877,7 +877,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "smartwatch-sport-watch-series-8-gris-628",
+    "id": "smartwatch-sport-watch-series-8-gris-255",
     "name": "Smartwatch Sport Watch Series 8 Gris",
     "category": "otros",
     "price": 18500,
@@ -889,7 +889,7 @@ const initialProducts = [
     "featured": true
   },
   {
-    "id": "malla-deportiva-silicona-smartwatch-44mm-870",
+    "id": "malla-deportiva-silicona-smartwatch-44mm-364",
     "name": "Malla Deportiva Silicona Smartwatch 44mm",
     "category": "otros",
     "price": 4500,
@@ -901,7 +901,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-case-para-iphone-7-8-plus-557",
+    "id": "funda-silicon-case-para-iphone-7-8-plus-918",
     "name": "Funda Silicon Case para iPhone 7/8 Plus",
     "category": "fundas",
     "price": 5000,
@@ -913,7 +913,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-case-para-iphone-11-pro-200",
+    "id": "funda-silicon-case-para-iphone-11-pro-501",
     "name": "Funda Silicon Case para iPhone 11 Pro",
     "category": "fundas",
     "price": 5000,
@@ -925,7 +925,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-case-para-iphone-12-pro-262",
+    "id": "funda-silicon-case-para-iphone-12-pro-468",
     "name": "Funda Silicon Case para iPhone 12 Pro",
     "category": "fundas",
     "price": 5000,
@@ -937,7 +937,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-case-para-iphone-13-pro-max-366",
+    "id": "funda-silicon-case-para-iphone-13-pro-max-115",
     "name": "Funda Silicon Case para iPhone 13 Pro Max",
     "category": "fundas",
     "price": 5000,
@@ -949,7 +949,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "malla-deportiva-smartwatch-blanca-155",
+    "id": "malla-deportiva-smartwatch-blanca-570",
     "name": "Malla Deportiva Smartwatch Blanca",
     "category": "otros",
     "price": 4500,
@@ -961,7 +961,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "malla-deportiva-smartwatch-roja-661",
+    "id": "malla-deportiva-smartwatch-roja-955",
     "name": "Malla Deportiva Smartwatch Roja",
     "category": "otros",
     "price": 4500,
@@ -973,7 +973,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "malla-deportiva-smartwatch-azul-554",
+    "id": "malla-deportiva-smartwatch-azul-117",
     "name": "Malla Deportiva Smartwatch Azul",
     "category": "otros",
     "price": 4500,
@@ -985,7 +985,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-case-para-iphone-14-pro-333",
+    "id": "funda-silicon-case-para-iphone-14-pro-793",
     "name": "Funda Silicon Case para iPhone 14 Pro",
     "category": "fundas",
     "price": 5000,
@@ -997,7 +997,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-silicon-case-para-iphone-14-pro-max-872",
+    "id": "funda-silicon-case-para-iphone-14-pro-max-814",
     "name": "Funda Silicon Case para iPhone 14 Pro Max",
     "category": "fundas",
     "price": 5000,
@@ -1009,7 +1009,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-tpu-transparente-samsung-s22-605",
+    "id": "funda-tpu-transparente-samsung-s22-727",
     "name": "Funda TPU Transparente Samsung S22",
     "category": "fundas",
     "price": 4000,
@@ -1021,7 +1021,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-tpu-transparente-motorola-edge-40-694",
+    "id": "funda-tpu-transparente-motorola-edge-40-621",
     "name": "Funda TPU Transparente Motorola Edge 40",
     "category": "fundas",
     "price": 4000,
@@ -1033,7 +1033,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "malla-met-lica-milanese-smartwatch-negra-569",
+    "id": "malla-met-lica-milanese-smartwatch-negra-847",
     "name": "Malla Metálica Milanese Smartwatch Negra",
     "category": "otros",
     "price": 7500,
@@ -1045,7 +1045,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "malla-met-lica-milanese-smartwatch-plateada-282",
+    "id": "malla-met-lica-milanese-smartwatch-plateada-445",
     "name": "Malla Metálica Milanese Smartwatch Plateada",
     "category": "otros",
     "price": 7500,
@@ -1057,7 +1057,7 @@ const initialProducts = [
     "featured": false
   },
   {
-    "id": "funda-de-silicona-para-airpods-pro-630",
+    "id": "funda-de-silicona-para-airpods-pro-945",
     "name": "Funda de Silicona para AirPods Pro",
     "category": "otros",
     "price": 3800,
